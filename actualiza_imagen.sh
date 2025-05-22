@@ -5,11 +5,11 @@ fecha=$(date +%Y%m%d) # extrae fecha del día en formato 20241129
 fecha_formateada=$(echo "$fecha" | awk '{print substr($0, 7, 2) "-" substr($0, 5, 2) "-" substr($0, 1, 4)}')
 sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
 
-                        cd /home/pi/EXPERIMENTAL_V106                                              
+                        cd /home/pi/EXPERIMENTAL_PANEL                                              
                         git pull --force                      
                         sudo rm -R /home/pi/A108
                         mkdir /home/pi/A108                                                
-                        cp -R /home/pi/EXPERIMENTAL_V106/* /home/pi/A108
+                        cp -R /home/pi/EXPERIMENTAL_PANEL/* /home/pi/A108
                         sleep 6                                             
                         sudo chmod 777 -R /home/pi/A108
                         
