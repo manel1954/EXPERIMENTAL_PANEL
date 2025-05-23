@@ -33,9 +33,9 @@ root.title("Escaneo Bluetooth")
 root.geometry("400x400")
 root.configure(bg="white")
 
-tk.Label(root, text="<<< ESCANEANDO DISPOSITIVOS BLUETOOTH >>>", fg="green", bg="white", font=("Arial", 12, "bold")).pack(pady=10)
+#tk.Label(root, text="<<< ESCANEANDO DISPOSITIVOS BLUETOOTH >>>", fg="green", bg="white", font=("Arial", 12, "bold")).pack(pady=10)
 
-tk.Button(root, text="Escanear", command=escanear_bluetooth, bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
+tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth, bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
 
 resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="white", fg="black", font=("Arial", 10)).pack()
