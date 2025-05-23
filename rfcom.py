@@ -186,7 +186,7 @@ def ejecutar_script_completo():
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
-# --- Interfaz gráfica ---
+# --- Interfaz gr  áfica ---
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
