@@ -46,9 +46,8 @@ def escribir_vinculados(vinculados):
 
 def esta_bind(puerto):
     try:
-        salida = subprocess.check_output(["rfcomm"], text=True)
-        patron = re.compile(rf"^{puerto}:\s+.+connected", re.MULTILINE)
-        return bool(patron.search(salida))
+        salida = subprocess.check_output(["rfcomm", "-a"], text=True)
+        return any(puerto in linea and "connected" in linea for linea in salida.splitlines())
     except subprocess.CalledProcessError:
         return False
 
@@ -56,7 +55,7 @@ def ejecutar_bind(puerto, mac):
     try:
         subprocess.check_call(["sudo", "rfcomm", "bind", f"/dev/{puerto}", mac])
         messagebox.showinfo("Bind", f"{puerto} vinculado a {mac}")
-        root.after(500, refrescar_lista)
+        refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Bind", f"No se pudo vincular {puerto}:\n{e}")
 
@@ -64,7 +63,7 @@ def ejecutar_unbind(puerto):
     try:
         subprocess.check_call(["sudo", "rfcomm", "unbind", f"/dev/{puerto}"])
         messagebox.showinfo("Unbind", f"{puerto} desvinculado correctamente")
-        root.after(500, refrescar_lista)
+        refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Unbind", f"No se pudo desvincular {puerto}:\n{e}")
 
@@ -114,13 +113,9 @@ def refrescar_lista():
         btn_unbind.pack(side="left", padx=2)
 
         btn_borrar = tk.Button(frame_botones, text="Borrar",
-                               command=lambda p=puerto: borrar_y_refrescar(p),
+                               command=lambda p=puerto: borrar_vinculado(p),
                                bg="#6c757d", fg="white")
         btn_borrar.pack(side="left", padx=2)
-
-def borrar_y_refrescar(puerto):
-    borrar_vinculado(puerto)
-    refrescar_lista()
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
@@ -150,7 +145,7 @@ def escanear_bluetooth():
             boton = tk.Button(
                 frame_escaneo,
                 text=texto_btn,
-                bg="#28a745" if estado_btn == "normal" else "#6c757d",
+                bg="#28a745" if estado_btn=="normal" else "#6c757d",
                 fg="white",
                 activebackground="#218838",
                 activeforeground="white",
@@ -186,7 +181,7 @@ def ejecutar_script_completo():
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
-# --- Interfaz gr  áfica ---
+# --- Interfaz gráfica ---
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
@@ -216,4 +211,5 @@ frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 refrescar_lista()
+
 root.mainloop()
