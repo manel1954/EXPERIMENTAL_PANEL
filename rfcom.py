@@ -70,7 +70,7 @@ def escanear_bluetooth():
 root = tk.Tk()
 root.title("Escaneo Bluetooth")
 root.geometry("420x450")
-root.configure(bg="black")
+root.configure(bg="#4405C2")
 
 tk.Button(
     root, text="Escanear Bluetooth", command=escanear_bluetooth,
