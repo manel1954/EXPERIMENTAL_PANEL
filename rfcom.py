@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from tkinter import messagebox
 import subprocess
 import os
+import re
 
 BLUETOOTH_SCRIPT = "/home/pi/.local/bluetooth.sh"
 
@@ -12,19 +13,21 @@ def scan_devices():
         result = subprocess.check_output(["sudo", "hcitool", "scan"], stderr=subprocess.STDOUT).decode()
         devices = []
 
-        for line in result.splitlines()[1:]:  # Omitir la primera línea ("Scanning ...")
-            parts = line.strip().split("\t")
-            if len(parts) >= 2:
-                mac, name = parts[0], parts[1]
-                devices.append((name, mac))
+        lines = result.splitlines()
+        for line in lines[1:]:  # Ignorar "Scanning ..."
+            line = line.strip()
+            match = re.match(r"([0-9A-F:]{17})\s+(.+)", line)
+            if match:
+                mac, name = match.groups()
+                devices.append((name.strip(), mac.strip()))
 
         if not devices:
-            output_text.insert(tk.END, "No se encontraron dispositivos Bluetooth.")
+            output_text.insert(tk.END, "No se encontraron dispositivos Bluetooth.\n")
             return
 
-        output_text.insert(tk.END, result)
+        for name, mac in devices:
+            output_text.insert(tk.END, f"{mac} - {name}\n")
 
-        # Mostrar ventana para elegir MAC
         select_mac(devices)
 
     except subprocess.CalledProcessError as e:
@@ -41,8 +44,8 @@ def select_mac(devices):
 
     list_window = tk.Toplevel(root)
     list_window.title("Selecciona un dispositivo Bluetooth")
-    listbox = tk.Listbox(list_window, font=("Courier", 11), width=60)
-    listbox.pack(padx=10, pady=10)
+    listbox = tk.Listbox(list_window, font=("Courier", 11), width=60, height=10)
+    listbox.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
     for name, mac in devices:
         listbox.insert(tk.END, f"{name:30} {mac}")
@@ -73,7 +76,7 @@ def bind_mac(mac):
     except Exception as e:
         messagebox.showerror("Error", f"Fallo al enlazar la MAC:\n{e}")
 
-# Ventana principal
+# Interfaz principal
 root = tk.Tk()
 root.title("Enlazar Dispositivo Bluetooth")
 root.geometry("700x400")
