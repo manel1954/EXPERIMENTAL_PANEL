@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo python3 virtual_nextion_1.py
+sudo python3 rfcom.py
