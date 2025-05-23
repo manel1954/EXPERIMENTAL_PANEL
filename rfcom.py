@@ -17,7 +17,6 @@ def leer_vinculados():
     for linea in lineas:
         linea = linea.strip()
         if linea.startswith("sudo rfcomm bind"):
-            # Ejemplo: sudo rfcomm bind /dev/rfcomm0 AA:BB:CC:DD:EE:FF
             partes = linea.split()
             if len(partes) >= 5:
                 puerto = partes[3].replace("/dev/", "")
@@ -25,11 +24,37 @@ def leer_vinculados():
                 vinculados.append((puerto, mac))
     return vinculados
 
+def escribir_vinculados(vinculados):
+    """Reescribe el archivo bluetooth.sh respetando la primera línea #!/bin/bash"""
+    lineas = []
+    if os.path.exists(RUTA_FICHERO):
+        with open(RUTA_FICHERO, "r") as f:
+            todas = f.readlines()
+        if todas:
+            # Primera línea es #!/bin/bash (o similar)
+            lineas.append(todas[0].rstrip('\n') + '\n')
+    else:
+        # Si no existe, crea la línea bin bash por defecto
+        lineas.append("#!/bin/bash\n")
+
+    # Ahora las vinculaciones, ordenadas según el número de rfcomm
+    # ordena por el número después de rfcomm
+    def key_rfcomm(item):
+        puerto = item[0]
+        m = re.match(r"rfcomm(\d+)", puerto)
+        return int(m.group(1)) if m else 9999
+    vinculados_ordenados = sorted(vinculados, key=key_rfcomm)
+
+    for puerto, mac in vinculados_ordenados:
+        lineas.append(f"sudo rfcomm bind /dev/{puerto} {mac}\n")
+
+    with open(RUTA_FICHERO, "w") as f:
+        f.writelines(lineas)
+
 def esta_bind(puerto):
-    """Detectar si el rfcomm está vinculado en el sistema (comando rfcomm show)"""
+    """Detectar si el rfcomm está vinculado en el sistema"""
     try:
         salida = subprocess.check_output(["rfcomm", "show"], text=True)
-        # Busca líneas que contengan el puerto, ejemplo: rfcomm0: ...
         patron = re.compile(rf"^{puerto}:", re.MULTILINE)
         if patron.search(salida):
             return True
@@ -50,6 +75,15 @@ def ejecutar_unbind(puerto):
         messagebox.showinfo("Unbind", f"{puerto} desvinculado correctamente")
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Unbind", f"No se pudo desvincular {puerto}:\n{e}")
+
+def borrar_vinculado(puerto):
+    vinculados = leer_vinculados()
+    nuevos = [v for v in vinculados if v[0] != puerto]
+    if len(nuevos) == len(vinculados):
+        messagebox.showwarning("Borrar", f"No se encontró {puerto} en la lista")
+        return
+    escribir_vinculados(nuevos)
+    messagebox.showinfo("Borrar", f"{puerto} eliminado de la lista")
 
 def refrescar_lista():
     for widget in frame_resultados.winfo_children():
@@ -72,19 +106,26 @@ def refrescar_lista():
         label.pack(side="left", padx=5)
 
         if estado == "Inactivo":
-            btn = tk.Button(frame_disp, text="Bind",
-                            command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), refrescar_lista()),
-                            bg="#28a745", fg="white")
+            btn_bind = tk.Button(frame_disp, text="Bind",
+                                command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), refrescar_lista()),
+                                bg="#28a745", fg="white")
+            btn_bind.pack(side="right", padx=5)
         else:
-            btn = tk.Button(frame_disp, text="Unbind",
-                            command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
-                            bg="#dc3545", fg="white")
-        btn.pack(side="right", padx=5)
+            btn_unbind = tk.Button(frame_disp, text="Unbind",
+                                  command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
+                                  bg="#dc3545", fg="white")
+            btn_unbind.pack(side="right", padx=5)
+
+        btn_borrar = tk.Button(frame_disp, text="Borrar",
+                               command=lambda p=puerto: (borrar_vinculado(p), refrescar_lista()),
+                               bg="#6c757d", fg="white")
+        btn_borrar.pack(side="right", padx=5)
 
 def ejecutar_script_completo():
     try:
         subprocess.check_call(["sudo", "sh", RUTA_FICHERO])
         messagebox.showinfo("Ejecutar script", "Script ejecutado correctamente.")
+        refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
@@ -92,7 +133,7 @@ def ejecutar_script_completo():
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
-root.geometry("500x400")
+root.geometry("550x450")
 root.configure(bg="#121212")
 
 tk.Button(root, text="Refrescar lista", command=refrescar_lista,
@@ -108,7 +149,6 @@ tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
           bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
 
-# Inicializa la lista al iniciar
 refrescar_lista()
 
 root.mainloop()
