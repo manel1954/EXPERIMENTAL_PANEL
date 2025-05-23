@@ -10,7 +10,7 @@
 						echo "\33[1;33m" #amarillo
 			            echo "Pega la MAC aquí y pulsa Enter"	          		            
 			            read mac
-                        sudo sed -i "2c sudo rfcomm bind /dev/rfcomm0 $mac" /home/orangepi/.local/bluetooth.sh
+                        sudo sed -i "2c sudo rfcomm bind /dev/rfcomm0 $mac" /home/pi/.local/bluetooth.sh
                                                 clear
 						echo "\33[1;32m" #color verde
 						echo "  ********************************************************************"
