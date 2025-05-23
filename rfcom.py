@@ -45,17 +45,14 @@ def escribir_vinculados(vinculados):
         f.writelines(lineas)
 
 def esta_bind(puerto):
-    try:
-        salida = subprocess.check_output(["rfcomm", "-a"], text=True)
-        return any(puerto in linea and "connected" in linea for linea in salida.splitlines())
-    except subprocess.CalledProcessError:
-        return False
+    # NUEVA VERSIÓN: revisa si existe /dev/rfcommN
+    return os.path.exists(f"/dev/{puerto}")
 
 def ejecutar_bind(puerto, mac):
     try:
         subprocess.check_call(["sudo", "rfcomm", "bind", f"/dev/{puerto}", mac])
         messagebox.showinfo("Bind", f"{puerto} vinculado a {mac}")
-        root.after(1000, refrescar_lista)
+        refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Bind", f"No se pudo vincular {puerto}:\n{e}")
 
@@ -146,7 +143,7 @@ def escanear_bluetooth():
             boton = tk.Button(
                 frame_escaneo,
                 text=texto_btn,
-                bg="#28a745" if estado_btn == "normal" else "#6c757d",
+                bg="#28a745" if estado_btn=="normal" else "#6c757d",
                 fg="white",
                 activebackground="#218838",
                 activeforeground="white",
