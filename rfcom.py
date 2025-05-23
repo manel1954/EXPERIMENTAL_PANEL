@@ -5,11 +5,9 @@ import re
 import os
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
-linea_actual = 1  # contador de líneas a escribir
 
-def escribir_comando_en_fichero(mac):
-    global linea_actual
-    comando = f"sudo rfcomm bind /dev/rfcomm{linea_actual} {mac}\n"
+def escribir_comando_en_fichero(mac, linea):
+    comando = f"sudo rfcomm bind /dev/rfcomm{linea} {mac}\n"
 
     os.makedirs(os.path.dirname(RUTA_FICHERO), exist_ok=True)
 
@@ -21,25 +19,21 @@ def escribir_comando_en_fichero(mac):
             lineas = []
 
         # Asegurar que hay suficientes líneas
-        while len(lineas) <= linea_actual:
+        while len(lineas) <= linea:
             lineas.append("\n")
 
         # Escribir en la línea correspondiente
-        lineas[linea_actual] = comando
+        lineas[linea] = comando
 
         with open(RUTA_FICHERO, "w") as f:
             f.writelines(lineas)
 
-        messagebox.showinfo("Hecho", f"Comando guardado en línea {linea_actual+1}:\n{comando.strip()}")
+        messagebox.showinfo("Hecho", f"Comando guardado en línea {linea+1}:\n{comando.strip()}")
 
-        linea_actual += 1  # avanzar a la siguiente línea
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo escribir en el archivo:\n{str(e)}")
 
 def escanear_bluetooth():
-    global linea_actual
-    linea_actual = 0  # Reiniciar línea al escanear de nuevo (opcional)
-
     resultado_text.set("Escaneando dispositivos Bluetooth...")
     try:
         resultado = subprocess.check_output(['hcitool', 'scan'], text=True)
@@ -52,12 +46,12 @@ def escanear_bluetooth():
             resultado_text.set("No se encontraron dispositivos.")
         else:
             resultado_text.set(f"{len(dispositivos)} dispositivo(s) encontrado(s):")
-            for mac, nombre in dispositivos:
+            for i, (mac, nombre) in enumerate(dispositivos):
                 boton = tk.Button(
                     frame_resultados,
                     text=f"{nombre} ({mac})",
                     bg="#28a745", fg="white",
-                    command=lambda m=mac: escribir_comando_en_fichero(m)
+                    command=lambda m=mac, n=i: escribir_comando_en_fichero(m, n)
                 )
                 boton.pack(fill="x", padx=10, pady=2)
     except subprocess.CalledProcessError as e:
