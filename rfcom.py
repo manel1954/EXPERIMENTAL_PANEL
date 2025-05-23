@@ -5,7 +5,7 @@ import re
 import os
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
-
+linea="2"
 def escribir_comando_en_fichero(mac, linea):
     comando = f"sudo rfcomm bind /dev/rfcomm{linea} {mac}\n"
 
