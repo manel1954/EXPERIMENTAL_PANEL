@@ -55,7 +55,7 @@ def ejecutar_bind(puerto, mac):
     try:
         subprocess.check_call(["sudo", "rfcomm", "bind", f"/dev/{puerto}", mac])
         messagebox.showinfo("Bind", f"{puerto} vinculado a {mac}")
-        refrescar_lista()
+        root.after(1000, refrescar_lista)
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Bind", f"No se pudo vincular {puerto}:\n{e}")
 
@@ -91,6 +91,7 @@ def refrescar_lista():
         activo = esta_bind(puerto)
         estado = "Activo" if activo else "Inactivo"
         color_estado = "green" if activo else "red"
+
         frame_disp = tk.Frame(frame_resultados, bg="#333", pady=2)
         frame_disp.pack(fill="x", padx=5, pady=2)
 
@@ -103,13 +104,13 @@ def refrescar_lista():
 
         if not activo:
             btn_bind = tk.Button(frame_botones, text="Bind",
-                                command=lambda p=puerto, m=mac: ejecutar_bind(p, m),
-                                bg="#28a745", fg="white")
+                                 command=lambda p=puerto, m=mac: ejecutar_bind(p, m),
+                                 bg="#28a745", fg="white")
             btn_bind.pack(side="left", padx=2)
 
         btn_unbind = tk.Button(frame_botones, text="Unbind",
-                              command=lambda p=puerto: ejecutar_unbind(p),
-                              bg="#dc3545", fg="white")
+                               command=lambda p=puerto: ejecutar_unbind(p),
+                               bg="#dc3545", fg="white")
         btn_unbind.pack(side="left", padx=2)
 
         btn_borrar = tk.Button(frame_botones, text="Borrar",
@@ -145,7 +146,7 @@ def escanear_bluetooth():
             boton = tk.Button(
                 frame_escaneo,
                 text=texto_btn,
-                bg="#28a745" if estado_btn=="normal" else "#6c757d",
+                bg="#28a745" if estado_btn == "normal" else "#6c757d",
                 fg="white",
                 activebackground="#218838",
                 activeforeground="white",
