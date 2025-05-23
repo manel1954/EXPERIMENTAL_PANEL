@@ -22,7 +22,7 @@ def leer_vinculaciones():
     return vinculaciones
 
 def escribir_vinculaciones(vinculaciones):
-    vinculaciones.sort()  # opcional: ordena por rfcomm
+    vinculaciones.sort()
     with open(RUTA_FICHERO, "w") as f:
         f.write("#!/bin/bash\n")
         for rfcomm, mac in vinculaciones:
@@ -46,11 +46,27 @@ def eliminar_vinculacion(rfcomm):
     escribir_vinculaciones(vinculaciones)
     actualizar_lista()
 
-def hacer_unbind(rfcomm):
+def hacer_bind_individual(rfcomm, mac):
+    activos = obtener_rfcomm_activos()
+    if rfcomm in activos:
+        messagebox.showinfo("Info", f"rfcomm{rfcomm} ya está vinculado.")
+        return
     try:
-        subprocess.run(["sudo", "rfcomm", "release", f"/dev/rfcomm{rfcomm}"])
+        subprocess.run(["sudo", "rfcomm", "bind", f"/dev/rfcomm{rfcomm}", mac], check=True)
+        messagebox.showinfo("Bind", f"rfcomm{rfcomm} vinculado correctamente.")
+    except subprocess.CalledProcessError as e:
+        messagebox.showerror("Error", f"No se pudo vincular rfcomm{rfcomm}:\n{e}")
+    actualizar_lista()
+
+def hacer_unbind(rfcomm):
+    activos = obtener_rfcomm_activos()
+    if rfcomm not in activos:
+        messagebox.showinfo("Info", f"rfcomm{rfcomm} no está vinculado.")
+        return
+    try:
+        subprocess.run(["sudo", "rfcomm", "release", f"/dev/rfcomm{rfcomm}"], check=True)
         messagebox.showinfo("Unbind", f"rfcomm{rfcomm} liberado.")
-    except Exception as e:
+    except subprocess.CalledProcessError as e:
         messagebox.showerror("Error", f"No se pudo liberar rfcomm{rfcomm}:\n{e}")
     actualizar_lista()
 
@@ -60,13 +76,19 @@ def actualizar_lista():
     vinculaciones = leer_vinculaciones()
     activos = obtener_rfcomm_activos()
     for rfcomm, mac in vinculaciones:
-        estado = " (activo)" if rfcomm in activos else ""
+        estado = " (activo)" if rfcomm in activos else " (inactivo)"
         frame = tk.Frame(frame_lista, bg="black")
         frame.pack(fill="x", padx=5, pady=2)
         lbl = tk.Label(frame, text=f"rfcomm{rfcomm} → {mac}{estado}", fg="white", bg="black")
         lbl.pack(side="left", padx=5)
-        if rfcomm in activos:
+
+        # Botón bind (solo si está inactivo)
+        if rfcomm not in activos:
+            tk.Button(frame, text="Bind", command=lambda r=rfcomm, m=mac: hacer_bind_individual(r, m)).pack(side="right", padx=5)
+        else:
+            # Botón unbind (solo si está activo)
             tk.Button(frame, text="Unbind", command=lambda r=rfcomm: hacer_unbind(r)).pack(side="right", padx=5)
+
         tk.Button(frame, text="Eliminar", command=lambda r=rfcomm: eliminar_vinculacion(r)).pack(side="right")
 
 def ejecutar_script():
@@ -82,7 +104,7 @@ def escanear_bluetooth():
     try:
         resultado = subprocess.check_output(['hcitool', 'scan'], text=True)
         dispositivos = re.findall(r'((?:[0-9A-F]{2}:){5}[0-9A-F]{2})\s+(.+)', resultado, re.IGNORECASE)
-        
+
         for widget in frame_resultados.winfo_children():
             widget.destroy()
 
@@ -133,7 +155,7 @@ tk.Label(root, text="Dispositivos vinculados:", fg="white", bg="black", font=("A
 frame_lista = tk.Frame(root, bg="black")
 frame_lista.pack(fill="both", expand=True, padx=10)
 
-tk.Button(root, text="Ejecutar", command=ejecutar_script, bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
+tk.Button(root, text="Ejecutar script completo", command=ejecutar_script, bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
 
 actualizar_lista()
 root.mainloop()
