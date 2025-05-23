@@ -7,12 +7,10 @@ import os
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
 
 def leer_vinculados():
-    """Leer el fichero bluetooth.sh y devolver lista de tuples (rfcommN, mac)"""
     if not os.path.exists(RUTA_FICHERO):
         return []
     with open(RUTA_FICHERO, "r") as f:
         lineas = f.readlines()
-
     vinculados = []
     for linea in lineas:
         linea = linea.strip()
@@ -25,20 +23,15 @@ def leer_vinculados():
     return vinculados
 
 def escribir_vinculados(vinculados):
-    """Reescribe el archivo bluetooth.sh respetando la primera línea #!/bin/bash"""
     lineas = []
     if os.path.exists(RUTA_FICHERO):
         with open(RUTA_FICHERO, "r") as f:
             todas = f.readlines()
         if todas:
-            # Primera línea es #!/bin/bash (o similar)
             lineas.append(todas[0].rstrip('\n') + '\n')
     else:
-        # Si no existe, crea la línea bin bash por defecto
         lineas.append("#!/bin/bash\n")
 
-    # Ahora las vinculaciones, ordenadas según el número de rfcomm
-    # ordena por el número después de rfcomm
     def key_rfcomm(item):
         puerto = item[0]
         m = re.match(r"rfcomm(\d+)", puerto)
@@ -52,15 +45,12 @@ def escribir_vinculados(vinculados):
         f.writelines(lineas)
 
 def esta_bind(puerto):
-    """Detectar si el rfcomm está vinculado en el sistema"""
     try:
         salida = subprocess.check_output(["rfcomm", "show"], text=True)
         patron = re.compile(rf"^{puerto}:", re.MULTILINE)
-        if patron.search(salida):
-            return True
+        return bool(patron.search(salida))
     except subprocess.CalledProcessError:
-        pass
-    return False
+        return False
 
 def ejecutar_bind(puerto, mac):
     try:
@@ -84,6 +74,7 @@ def borrar_vinculado(puerto):
         return
     escribir_vinculados(nuevos)
     messagebox.showinfo("Borrar", f"{puerto} eliminado de la lista")
+    refrescar_lista()
 
 def refrescar_lista():
     for widget in frame_resultados.winfo_children():
@@ -117,9 +108,69 @@ def refrescar_lista():
             btn_unbind.pack(side="right", padx=5)
 
         btn_borrar = tk.Button(frame_disp, text="Borrar",
-                               command=lambda p=puerto: (borrar_vinculado(p), refrescar_lista()),
+                               command=lambda p=puerto: borrar_y_refrescar(p),
                                bg="#6c757d", fg="white")
         btn_borrar.pack(side="right", padx=5)
+
+def borrar_y_refrescar(puerto):
+    borrar_vinculado(puerto)
+    refrescar_lista()
+
+def escanear_bluetooth():
+    resultado_text.set("Escaneando dispositivos Bluetooth...")
+    try:
+        resultado = subprocess.check_output(['hcitool', 'scan'], text=True)
+        dispositivos = re.findall(r'((?:[0-9A-F]{2}:){5}[0-9A-F]{2})\s+(.+)', resultado, re.IGNORECASE)
+
+        for widget in frame_escaneo.winfo_children():
+            widget.destroy()
+
+        if not dispositivos:
+            resultado_text.set("No se encontraron dispositivos.")
+            return
+
+        resultado_text.set(f"{len(dispositivos)} dispositivo(s) encontrado(s):")
+        vinculados = leer_vinculados()
+        macs_existentes = {mac for _, mac in vinculados}
+
+        for mac, nombre in dispositivos:
+            if mac in macs_existentes:
+                texto_btn = f"{nombre} ({mac}) - Ya vinculado"
+                estado_btn = "disabled"
+            else:
+                texto_btn = f"{nombre} ({mac})"
+                estado_btn = "normal"
+
+            boton = tk.Button(
+                frame_escaneo,
+                text=texto_btn,
+                bg="#28a745" if estado_btn=="normal" else "#6c757d",
+                fg="white",
+                activebackground="#218838",
+                activeforeground="white",
+                state=estado_btn,
+                command=lambda m=mac: agregar_dispositivo(m)
+            )
+            boton.pack(fill="x", padx=10, pady=2)
+    except subprocess.CalledProcessError as e:
+        resultado_text.set("Error al escanear Bluetooth.")
+        messagebox.showerror("Error", f"No se pudo escanear: {e}")
+    except Exception as ex:
+        resultado_text.set("Error inesperado.")
+        messagebox.showerror("Error", str(ex))
+
+def agregar_dispositivo(mac):
+    vinculados = leer_vinculados()
+    puertos_usados = {int(re.match(r"rfcomm(\d+)", p).group(1)) for p, _ in vinculados}
+    nuevo_puerto_num = 0
+    while nuevo_puerto_num in puertos_usados:
+        nuevo_puerto_num += 1
+    nuevo_puerto = f"rfcomm{nuevo_puerto_num}"
+    vinculados.append((nuevo_puerto, mac))
+    escribir_vinculados(vinculados)
+    messagebox.showinfo("Agregar", f"Dispositivo {mac} agregado como {nuevo_puerto}")
+    refrescar_lista()
+    escanear_bluetooth()
 
 def ejecutar_script_completo():
     try:
@@ -133,21 +184,34 @@ def ejecutar_script_completo():
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
-root.geometry("550x450")
+root.geometry("600x650")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Refrescar lista", command=refrescar_lista,
-          bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
+# Botón para refrescar lista vinculados
+tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
+          bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
+# Frame lista vinculados
 frame_resultados = tk.Frame(root, bg="#222222")
-frame_resultados.pack(fill="both", expand=True, padx=10, pady=10)
+frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
 
 resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
 
+# Botón para ejecutar script completo
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-          bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
+          bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+
+# Sección de escaneo de nuevos dispositivos
+tk.Label(root, text="Escanear dispositivos Bluetooth cercanos", bg="#121212", fg="white",
+         font=("Arial", 12, "bold")).pack(pady=10)
+
+tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
+          bg="#28a745", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+
+frame_escaneo = tk.Frame(root, bg="#222222")
+frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 refrescar_lista()
 
