@@ -5,37 +5,41 @@ import re
 import os
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
+linea_actual = 0  # contador de líneas a escribir
 
 def escribir_comando_en_fichero(mac):
-    comando = f"sudo rfcomm bind /dev/rfcomm0 {mac}\n"
+    global linea_actual
+    comando = f"sudo rfcomm bind /dev/rfcomm{linea_actual} {mac}\n"
 
-    # Crear el directorio si no existe
     os.makedirs(os.path.dirname(RUTA_FICHERO), exist_ok=True)
 
     try:
-        # Leer las líneas actuales (si existen)
         if os.path.exists(RUTA_FICHERO):
             with open(RUTA_FICHERO, "r") as f:
                 lineas = f.readlines()
         else:
             lineas = []
 
-        # Asegurar al menos 2 líneas
-        while len(lineas) < 2:
+        # Asegurar que hay suficientes líneas
+        while len(lineas) <= linea_actual:
             lineas.append("\n")
 
-        # Modificar la segunda línea
-        lineas[1] = comando
+        # Escribir en la línea correspondiente
+        lineas[linea_actual] = comando
 
-        # Escribir las líneas al archivo
         with open(RUTA_FICHERO, "w") as f:
             f.writelines(lineas)
 
-        messagebox.showinfo("Hecho", f"Comando guardado:\n{comando.strip()}")
+        messagebox.showinfo("Hecho", f"Comando guardado en línea {linea_actual+1}:\n{comando.strip()}")
+
+        linea_actual += 1  # avanzar a la siguiente línea
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo escribir en el archivo:\n{str(e)}")
 
 def escanear_bluetooth():
+    global linea_actual
+    linea_actual = 0  # Reiniciar línea al escanear de nuevo (opcional)
+
     resultado_text.set("Escaneando dispositivos Bluetooth...")
     try:
         resultado = subprocess.check_output(['hcitool', 'scan'], text=True)
