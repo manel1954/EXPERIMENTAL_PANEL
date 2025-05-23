@@ -11,8 +11,8 @@ def leer_dispositivos_guardados():
     dispositivos = []
     if os.path.exists(RUTA_FICHERO):
         with open(RUTA_FICHERO, "r") as f:
-            lineas = f.readlines()[1:]  # Saltar línea del #!/bin/bash
-            for i, linea in enumerate(lineas):
+            lineas = f.readlines()[1:]  # Saltar línea #!/bin/bash
+            for linea in lineas:
                 match = re.match(r"sudo rfcomm bind /dev/rfcomm(\d+) ([0-9A-F:]{17})", linea.strip())
                 if match:
                     num, mac = match.groups()
@@ -84,11 +84,12 @@ def escanear_bluetooth():
         mac_guardadas = [m for _, m in dispositivos_guardados]
         activos = dispositivos_activos()
 
-        # Mostrar dispositivos guardados
+        # Sección Dispositivos vinculados
+        label_vinculados = tk.Label(frame_resultados, text="Dispositivos Vinculados:",
+                                    bg="#19181C", fg="white", font=("Arial", 10, "bold"))
+        label_vinculados.pack(anchor="w", padx=5, pady=(0, 5))
+
         if dispositivos_guardados:
-            label_vinculados = tk.Label(frame_resultados, text="Dispositivos Vinculados:",
-                                        bg="#19181C", fg="white", font=("Arial", 10, "bold"))
-            label_vinculados.pack(anchor="w", padx=5, pady=(0, 5))
             for num, mac in dispositivos_guardados:
                 estado = "Activo" if num in activos else "Inactivo"
                 frame = tk.Frame(frame_resultados, bg="#555")
@@ -112,17 +113,21 @@ def escanear_bluetooth():
                                     command=lambda n=num: eliminar_dispositivo(n))
                 btn_del.pack(side="right", padx=5)
         else:
-            label_vinculados = tk.Label(frame_resultados, text="No hay dispositivos vinculados.",
-                                        bg="#19181C", fg="white")
-            label_vinculados.pack(anchor="w", padx=5, pady=5)
+            label_no_vinculados = tk.Label(frame_resultados, text="No hay dispositivos vinculados.",
+                                          bg="#19181C", fg="white")
+            label_no_vinculados.pack(anchor="w", padx=5, pady=5)
 
-        # Mostrar dispositivos encontrados no vinculados
+        # Separador visual
+        separator = tk.Frame(frame_resultados, height=2, bd=1, relief="sunken", bg="#888")
+        separator.pack(fill="x", padx=5, pady=10)
+
+        # Sección Dispositivos escaneados no vinculados
+        label_encontrados = tk.Label(frame_resultados, text="Dispositivos Escaneados (no vinculados):",
+                                    bg="#19181C", fg="white", font=("Arial", 10, "bold"))
+        label_encontrados.pack(anchor="w", padx=5, pady=(0, 5))
+
         dispositivos_no_vinculados = [(mac, nombre) for mac, nombre in dispositivos_encontrados if mac not in mac_guardadas]
-
         if dispositivos_no_vinculados:
-            label_encontrados = tk.Label(frame_resultados, text="Dispositivos encontrados (no vinculados):",
-                                        bg="#19181C", fg="white", font=("Arial", 10, "bold"))
-            label_encontrados.pack(anchor="w", padx=5, pady=(10, 5))
             for mac, nombre in dispositivos_no_vinculados:
                 frame = tk.Frame(frame_resultados, bg="#444")
                 frame.pack(fill="x", pady=2, padx=5)
@@ -132,6 +137,10 @@ def escanear_bluetooth():
                 btn_add = tk.Button(frame, text="Añadir", bg="#28a745", fg="white",
                                     command=lambda m=mac: agregar_nuevo(m))
                 btn_add.pack(side="right", padx=5)
+        else:
+            label_no_nuevos = tk.Label(frame_resultados, text="No se encontraron dispositivos nuevos.",
+                                      bg="#19181C", fg="white")
+            label_no_nuevos.pack(anchor="w", padx=5, pady=5)
 
         resultado_text.set(f"{len(dispositivos_encontrados)} dispositivo(s) encontrado(s).")
 
@@ -143,34 +152,29 @@ def escanear_bluetooth():
         messagebox.showerror("Error", str(ex))
 
 def actualizar_lista_guardados():
-    # Simplemente llamamos escanear_bluetooth para refrescar todo
     escanear_bluetooth()
 
-# Interfaz gráfica
 root = tk.Tk()
 root.title("Gestor Bluetooth")
 root.geometry("420x480+1287+479")
 root.configure(bg="#19181C")
 
-tk.Button(
-    root, text="Escanear Bluetooth", command=escanear_bluetooth,
-    bg="#007bff", fg="white", activebackground="#0056b3", activeforeground="white",
-    font=("Arial", 10, "bold")
-).pack(pady=10)
+btn_escanear = tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
+                         bg="#007bff", fg="white", activebackground="#0056b3", activeforeground="white",
+                         font=("Arial", 10, "bold"))
+btn_escanear.pack(pady=10)
 
 resultado_text = tk.StringVar()
-tk.Label(
-    root, textvariable=resultado_text,
-    bg="#19181C", fg="white", font=("Arial", 10)
-).pack()
+label_resultado = tk.Label(root, textvariable=resultado_text,
+                          bg="#19181C", fg="white", font=("Arial", 10))
+label_resultado.pack()
 
 frame_resultados = tk.Frame(root, bg="#333")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=10)
 
-tk.Button(
-    root, text="Ejecutar Script", command=ejecutar_script,
-    bg="#28a745", fg="white", font=("Arial", 10, "bold")
-).pack(pady=10)
+btn_ejecutar = tk.Button(root, text="Ejecutar Script", command=ejecutar_script,
+                         bg="#28a745", fg="white", font=("Arial", 10, "bold"))
+btn_ejecutar.pack(pady=10)
 
 actualizar_lista_guardados()
 root.mainloop()
