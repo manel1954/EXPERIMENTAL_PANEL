@@ -1,106 +1,139 @@
-import os
-import re
 import tkinter as tk
 from tkinter import messagebox
 import subprocess
+import re
+import os
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
 
-def cargar_vinculaciones():
+def leer_vinculaciones():
     vinculaciones = []
     if os.path.exists(RUTA_FICHERO):
         with open(RUTA_FICHERO, "r") as f:
-            lineas = f.readlines()[1:]  # ignorar #!/bin/bash
-        for linea in lineas:
-            match = re.match(r'sudo rfcomm bind /dev/rfcomm(\d+) ([0-9A-F:]{17})', linea.strip(), re.IGNORECASE)
-            if match:
-                rfcomm_n = int(match.group(1))
-                mac = match.group(2)
-                vinculaciones.append((rfcomm_n, mac))
-    return sorted(vinculaciones)
+            lineas = f.readlines()
+            for i, linea in enumerate(lineas):
+                if i == 0 or not linea.strip():
+                    continue
+                match = re.match(r"sudo rfcomm bind /dev/rfcomm(\d+) ([0-9A-F:]{17})", linea.strip())
+                if match:
+                    rfcomm = int(match.group(1))
+                    mac = match.group(2)
+                    vinculaciones.append((rfcomm, mac))
+    return vinculaciones
 
-def guardar_vinculaciones(vinculaciones):
-    vinculaciones_ordenadas = sorted(vinculaciones, key=lambda x: x[0])
+def escribir_vinculaciones(vinculaciones):
+    vinculaciones.sort()  # opcional: ordena por rfcomm
     with open(RUTA_FICHERO, "w") as f:
         f.write("#!/bin/bash\n")
-        for rfcomm_n, mac in vinculaciones_ordenadas:
-            f.write(f"sudo rfcomm bind /dev/rfcomm{rfcomm_n} {mac}\n")
+        for rfcomm, mac in vinculaciones:
+            f.write(f"sudo rfcomm bind /dev/rfcomm{rfcomm} {mac}\n")
 
-def obtener_siguiente_rfcomm(vinculaciones):
-    ocupados = {rfcomm for rfcomm, _ in vinculaciones}
-    n = 0
-    while n in ocupados:
-        n += 1
-    return n
+def obtener_rfcomm_activos():
+    activos = set()
+    try:
+        output = subprocess.check_output(["rfcomm"], text=True)
+        for line in output.strip().split("\n"):
+            match = re.match(r"/dev/rfcomm(\d+):", line)
+            if match:
+                activos.add(int(match.group(1)))
+    except subprocess.CalledProcessError:
+        pass
+    return activos
 
-def eliminar_vinculacion(mac_objetivo):
-    vinculaciones = cargar_vinculaciones()
-    nuevas = [(rfcomm, mac) for rfcomm, mac in vinculaciones if mac != mac_objetivo]
-    guardar_vinculaciones(nuevas)
-    listar_vinculados()
+def eliminar_vinculacion(rfcomm):
+    vinculaciones = leer_vinculaciones()
+    vinculaciones = [(r, m) for r, m in vinculaciones if r != rfcomm]
+    escribir_vinculaciones(vinculaciones)
+    actualizar_lista()
 
-def agregar_vinculacion(mac_nueva):
-    vinculaciones = cargar_vinculaciones()
-    if mac_nueva in [mac for _, mac in vinculaciones]:
-        messagebox.showinfo("Info", f"{mac_nueva} ya está vinculada.")
-        return
-    nuevo_rfcomm = obtener_siguiente_rfcomm(vinculaciones)
-    vinculaciones.append((nuevo_rfcomm, mac_nueva))
-    guardar_vinculaciones(vinculaciones)
-    listar_vinculados()
-    messagebox.showinfo("Añadido", f"Vinculado: rfcomm{nuevo_rfcomm} → {mac_nueva}")
+def hacer_unbind(rfcomm):
+    try:
+        subprocess.run(["sudo", "rfcomm", "release", f"/dev/rfcomm{rfcomm}"])
+        messagebox.showinfo("Unbind", f"rfcomm{rfcomm} liberado.")
+    except Exception as e:
+        messagebox.showerror("Error", f"No se pudo liberar rfcomm{rfcomm}:\n{e}")
+    actualizar_lista()
 
-def listar_vinculados():
-    for widget in frame_vinculados.winfo_children():
+def actualizar_lista():
+    for widget in frame_lista.winfo_children():
         widget.destroy()
-    vinculaciones = cargar_vinculaciones()
-    for rfcomm_n, mac in vinculaciones:
-        fila = tk.Frame(frame_vinculados, bg="black")
-        fila.pack(fill="x", pady=2)
-        tk.Label(fila, text=f"/dev/rfcomm{rfcomm_n}: {mac}", fg="white", bg="black").pack(side="left", padx=5)
-        tk.Button(fila, text="Eliminar", command=lambda m=mac: eliminar_vinculacion(m), bg="red", fg="white").pack(side="right", padx=5)
+    vinculaciones = leer_vinculaciones()
+    activos = obtener_rfcomm_activos()
+    for rfcomm, mac in vinculaciones:
+        estado = " (activo)" if rfcomm in activos else ""
+        frame = tk.Frame(frame_lista, bg="black")
+        frame.pack(fill="x", padx=5, pady=2)
+        lbl = tk.Label(frame, text=f"rfcomm{rfcomm} → {mac}{estado}", fg="white", bg="black")
+        lbl.pack(side="left", padx=5)
+        if rfcomm in activos:
+            tk.Button(frame, text="Unbind", command=lambda r=rfcomm: hacer_unbind(r)).pack(side="right", padx=5)
+        tk.Button(frame, text="Eliminar", command=lambda r=rfcomm: eliminar_vinculacion(r)).pack(side="right")
+
+def ejecutar_script():
+    try:
+        subprocess.run(["sudo", "sh", RUTA_FICHERO], check=True)
+        messagebox.showinfo("Ejecutado", "Script ejecutado correctamente.")
+        actualizar_lista()
+    except subprocess.CalledProcessError as e:
+        messagebox.showerror("Error", f"No se pudo ejecutar el script:\n{e}")
 
 def escanear_bluetooth():
-    resultado_text.set("Escaneando...")
+    resultado_text.set("Escaneando dispositivos Bluetooth...")
     try:
         resultado = subprocess.check_output(['hcitool', 'scan'], text=True)
         dispositivos = re.findall(r'((?:[0-9A-F]{2}:){5}[0-9A-F]{2})\s+(.+)', resultado, re.IGNORECASE)
+        
         for widget in frame_resultados.winfo_children():
             widget.destroy()
+
         if not dispositivos:
             resultado_text.set("No se encontraron dispositivos.")
         else:
             resultado_text.set(f"{len(dispositivos)} dispositivo(s) encontrado(s):")
+            vinculaciones = leer_vinculaciones()
+            usados = set(rfcomm for rfcomm, _ in vinculaciones)
+            disponibles = [i for i in range(256) if i not in usados]
+
             for mac, nombre in dispositivos:
-                boton = tk.Button(
-                    frame_resultados,
-                    text=f"{nombre} ({mac})",
-                    bg="#28a745", fg="white",
-                    command=lambda m=mac: agregar_vinculacion(m)
-                )
-                boton.pack(fill="x", padx=5, pady=2)
+                if any(mac == v[1] for v in vinculaciones):
+                    continue  # ya vinculado
+                if not disponibles:
+                    continue
+                nuevo_rfcomm = disponibles.pop(0)
+                def vincular(m=mac, r=nuevo_rfcomm):
+                    vinculaciones = leer_vinculaciones()
+                    vinculaciones.append((r, m))
+                    escribir_vinculaciones(vinculaciones)
+                    actualizar_lista()
+                boton = tk.Button(frame_resultados, text=f"{nombre} ({mac})", bg="#28a745", fg="white", command=vincular)
+                boton.pack(fill="x", padx=10, pady=2)
+    except subprocess.CalledProcessError:
+        resultado_text.set("Error al escanear Bluetooth.")
+        messagebox.showerror("Error", "No se pudo escanear.")
     except Exception as ex:
-        resultado_text.set("Error al escanear.")
+        resultado_text.set("Error inesperado.")
         messagebox.showerror("Error", str(ex))
 
 # Interfaz
 root = tk.Tk()
-root.title("Gestión Bluetooth")
+root.title("Gestor Bluetooth")
 root.geometry("500x600")
 root.configure(bg="black")
 
 tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth, bg="#007bff", fg="white").pack(pady=10)
 
 resultado_text = tk.StringVar()
-tk.Label(root, textvariable=resultado_text, bg="black", fg="white").pack()
+tk.Label(root, textvariable=resultado_text, fg="white", bg="black").pack()
 
-tk.Label(root, text="Dispositivos encontrados", bg="black", fg="white").pack()
 frame_resultados = tk.Frame(root, bg="black")
-frame_resultados.pack(fill="both", expand=False, padx=10)
+frame_resultados.pack(fill="x", padx=10)
 
-tk.Label(root, text="Dispositivos vinculados", bg="black", fg="white").pack(pady=(10, 0))
-frame_vinculados = tk.Frame(root, bg="black")
-frame_vinculados.pack(fill="both", expand=True, padx=10)
+tk.Label(root, text="Dispositivos vinculados:", fg="white", bg="black", font=("Arial", 10, "bold")).pack(pady=(20,5))
 
-listar_vinculados()
+frame_lista = tk.Frame(root, bg="black")
+frame_lista.pack(fill="both", expand=True, padx=10)
+
+tk.Button(root, text="Ejecutar", command=ejecutar_script, bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
+
+actualizar_lista()
 root.mainloop()
