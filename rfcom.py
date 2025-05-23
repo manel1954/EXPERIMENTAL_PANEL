@@ -70,7 +70,7 @@ def borrar_vinculado(puerto):
     vinculados = leer_vinculados()
     nuevos = [v for v in vinculados if v[0] != puerto]
     if len(nuevos) == len(vinculados):
-        messagebox.showwarning("Borrar", f"No se encontró {puerto} en la lista")
+        messagebox.showwarning("Borrar", f"No se encontr\u00f3 {puerto} en la lista")
         return
     escribir_vinculados(nuevos)
     messagebox.showinfo("Borrar", f"{puerto} eliminado de la lista")
@@ -96,21 +96,24 @@ def refrescar_lista():
                          fg=color_estado, bg="#333", font=("Arial", 10))
         label.pack(side="left", padx=5)
 
+        frame_botones = tk.Frame(frame_disp, bg="#333")
+        frame_botones.pack(side="right", padx=5)
+
         if estado == "Inactivo":
-            btn_bind = tk.Button(frame_disp, text="Bind",
+            btn_bind = tk.Button(frame_botones, text="Bind",
                                 command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), refrescar_lista()),
                                 bg="#28a745", fg="white")
-            btn_bind.pack(side="right", padx=5)
-        else:
-            btn_unbind = tk.Button(frame_disp, text="Unbind",
-                                  command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
-                                  bg="#dc3545", fg="white")
-            btn_unbind.pack(side="right", padx=5)
+            btn_bind.pack(side="left", padx=2)
 
-        btn_borrar = tk.Button(frame_disp, text="Borrar",
+        btn_unbind = tk.Button(frame_botones, text="Unbind",
+                              command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
+                              bg="#dc3545", fg="white")
+        btn_unbind.pack(side="left", padx=2)
+
+        btn_borrar = tk.Button(frame_botones, text="Borrar",
                                command=lambda p=puerto: borrar_y_refrescar(p),
                                bg="#6c757d", fg="white")
-        btn_borrar.pack(side="right", padx=5)
+        btn_borrar.pack(side="left", padx=2)
 
 def borrar_y_refrescar(puerto):
     borrar_vinculado(puerto)
@@ -180,14 +183,14 @@ def ejecutar_script_completo():
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
-# --- Interfaz gráfica ---
+# --- Interfaz gr\u00e1fica ---
 
 root = tk.Tk()
-root.title("Gestión Bluetooth rfcomm")
-root.geometry("420x450+835+585")
+root.title("Gesti\u00f3n Bluetooth rfcomm")
+root.geometry("420x450+1287+479")
 root.configure(bg="#121212")
 
-# Botón para refrescar lista vinculados
+# Bot\u00f3n para refrescar lista vinculados
 tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
           bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
@@ -199,11 +202,11 @@ resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
 
-# Botón para ejecutar script completo
+# Bot\u00f3n para ejecutar script completo
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
           bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
-# Sección de escaneo de nuevos dispositivos
+# Secci\u00f3n de escaneo de nuevos dispositivos
 tk.Label(root, text="Escanear dispositivos Bluetooth cercanos", bg="#121212", fg="white",
          font=("Arial", 12, "bold")).pack(pady=10)
 
