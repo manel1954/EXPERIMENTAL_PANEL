@@ -19,12 +19,12 @@
 						echo "  ********************************************************************"
 						echo "  *                   MAC ENLAZADA CORRECTAMENTE                     *"
 						echo "  ********************************************************************"
-						echo ""
-						echo "\33[1;31m" #color rojo
-						echo "  ********************************************************************"
-						echo "  * DEBERÁ REINICIAR SU SISTEMA PARA ANCLARLA AL PUERTO /dev/rfcomm0 *"
-						echo "  ********************************************************************"
-						echo "\33[1;37m" #color
+						#echo ""
+						#echo "\33[1;31m" #color rojo
+						#echo "  ********************************************************************"
+						#echo "  * DEBERÁ REINICIAR SU SISTEMA PARA ANCLARLA AL PUERTO /dev/rfcomm0 *"
+						#echo "  ********************************************************************"
+						#echo "\33[1;37m" #color
                         
 						#read -p '  Quieres reiniciar ? S/N ' reiniciar
                         #case $reiniciar in
