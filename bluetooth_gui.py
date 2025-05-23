@@ -1,94 +1,46 @@
 import tkinter as tk
 from tkinter import messagebox
 import subprocess
-import os
 import re
 
-BLUETOOTH_SCRIPT = "/home/pi/.local/bluetooth.sh"
-
-def scan_devices():
-    output_text.delete(1.0, tk.END)
-    output_text.insert(tk.END, "<<<< ESCANEANDO DISPOSITIVOS BLUETOOTH >>>>\n\n")
+def escanear_bluetooth():
+    resultado_text.set("Escaneando dispositivos Bluetooth...")
     try:
-        result = subprocess.check_output(["sudo", "hcitool", "scan"], stderr=subprocess.STDOUT).decode()
-        print("Resultado crudo de hcitool scan:\n", result)  # Debug opcional
-        devices = []
+        resultado = subprocess.check_output(['hcitool', 'scan'], text=True)
+        dispositivos = re.findall(r'((?:[0-9A-F]{2}:){5}[0-9A-F]{2})\s+(.+)', resultado, re.IGNORECASE)
+        
+        # Limpiar botones anteriores
+        for widget in frame_resultados.winfo_children():
+            widget.destroy()
 
-        lines = result.splitlines()
-        for line in lines[1:]:  # Ignorar "Scanning ..."
-            line = line.strip()
-            match = re.match(r"([0-9A-F:]{17})\s+(.+)", line)
-            if match:
-                mac, name = match.groups()
-                devices.append((name.strip(), mac.strip()))
-
-        if not devices:
-            output_text.insert(tk.END, "No se encontraron dispositivos Bluetooth.\n")
-            return
-
-        for name, mac in devices:
-            output_text.insert(tk.END, f"{mac} - {name}\n")
-
-        select_mac(devices)
-
-    except subprocess.CalledProcessError as e:
-        output_text.insert(tk.END, "Error al escanear dispositivos:\n" + e.output.decode())
-
-def select_mac(devices):
-    def on_select(event):
-        selection = listbox.curselection()
-        if selection:
-            idx = selection[0]
-            name, mac = devices[idx]
-            list_window.destroy()
-            bind_mac(mac)
-
-    list_window = tk.Toplevel(root)
-    list_window.title("Selecciona un dispositivo Bluetooth")
-    listbox = tk.Listbox(list_window, font=("Courier", 11), width=60, height=10)
-    listbox.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
-
-    for name, mac in devices:
-        listbox.insert(tk.END, f"{name:30} {mac}")
-
-    listbox.bind("<Double-Button-1>", on_select)
-
-def bind_mac(mac):
-    try:
-        output_text.insert(tk.END, f"\nLiberando rfcomm0...\n")
-        subprocess.call(["sudo", "rfcomm", "unbind", "/dev/rfcomm0"])  # No importa si falla
-
-        # Actualizar el archivo bluetooth.sh
-        if os.path.exists(BLUETOOTH_SCRIPT):
-            with open(BLUETOOTH_SCRIPT, 'r') as file:
-                lines = file.readlines()
-            if len(lines) < 2:
-                lines += ["\n"] * (2 - len(lines))
-            lines[1] = f"sudo rfcomm bind /dev/rfcomm0 {mac}\n"
+        if not dispositivos:
+            resultado_text.set("No se encontraron dispositivos.")
         else:
-            lines = ["#!/bin/bash\n", f"sudo rfcomm bind /dev/rfcomm0 {mac}\n"]
+            resultado_text.set(f"{len(dispositivos)} dispositivo(s) encontrado(s):")
+            for mac, nombre in dispositivos:
+                boton = tk.Button(frame_resultados, text=f"{nombre} ({mac})", bg="#28a745", fg="white", relief="raised")
+                boton.pack(fill="x", padx=10, pady=2)
+    except subprocess.CalledProcessError as e:
+        resultado_text.set("Error al escanear Bluetooth.")
+        messagebox.showerror("Error", f"No se pudo escanear: {e}")
+    except Exception as ex:
+        resultado_text.set("Error inesperado.")
+        messagebox.showerror("Error", str(ex))
 
-        with open(BLUETOOTH_SCRIPT, 'w') as file:
-            file.writelines(lines)
-
-        subprocess.check_call(["sudo", "rfcomm", "bind", "/dev/rfcomm0", mac])
-
-        output_text.insert(tk.END, "\n  ********************************************************************\n")
-        output_text.insert(tk.END, "  *                   MAC ENLAZADA CORRECTAMENTE                     *\n")
-        output_text.insert(tk.END, "  ********************************************************************\n")
-
-    except Exception as e:
-        messagebox.showerror("Error", f"Fallo al enlazar la MAC:\n{e}")
-
-# Interfaz principal
+# Interfaz gráfica
 root = tk.Tk()
-root.title("Enlazar Dispositivo Bluetooth")
-root.geometry("700x400")
+root.title("Escaneo Bluetooth")
+root.geometry("400x400")
+root.configure(bg="white")
 
-output_text = tk.Text(root, wrap=tk.WORD, font=("Courier", 10), bg="black", fg="lightgreen")
-output_text.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+tk.Label(root, text="<<< ESCANEANDO DISPOSITIVOS BLUETOOTH >>>", fg="green", bg="white", font=("Arial", 12, "bold")).pack(pady=10)
 
-scan_button = tk.Button(root, text="Escanear Bluetooth", command=scan_devices, bg="cyan")
-scan_button.pack(pady=5)
+tk.Button(root, text="Escanear", command=escanear_bluetooth, bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=10)
+
+resultado_text = tk.StringVar()
+tk.Label(root, textvariable=resultado_text, bg="white", fg="black", font=("Arial", 10)).pack()
+
+frame_resultados = tk.Frame(root, bg="white")
+frame_resultados.pack(fill="both", expand=True, padx=10, pady=10)
 
 root.mainloop()
