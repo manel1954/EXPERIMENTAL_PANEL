@@ -32,7 +32,7 @@ def escribir_comando_en_fichero(mac):
 
         messagebox.showinfo("Hecho", f"Comando guardado en línea {linea_actual+1}:\n{comando.strip()}")
 
-        linea_actual += 1  # avanzar a la siguiente línea
+        linea_actual += 2  # avanzar a la siguiente línea
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo escribir en el archivo:\n{str(e)}")
 
