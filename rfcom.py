@@ -70,7 +70,7 @@ def borrar_vinculado(puerto):
     vinculados = leer_vinculados()
     nuevos = [v for v in vinculados if v[0] != puerto]
     if len(nuevos) == len(vinculados):
-        messagebox.showwarning("Borrar", f"No se encontr\u00f3 {puerto} en la lista")
+        messagebox.showwarning("Borrar", f"No se encontró {puerto} en la lista")
         return
     escribir_vinculados(nuevos)
     messagebox.showinfo("Borrar", f"{puerto} eliminado de la lista")
@@ -92,9 +92,14 @@ def refrescar_lista():
         frame_disp = tk.Frame(frame_resultados, bg="#333", pady=2)
         frame_disp.pack(fill="x", padx=5, pady=2)
 
-        label = tk.Label(frame_disp, text=f"{puerto} - {mac} [{estado}]",
-                         fg=color_estado, bg="#333", font=("Arial", 10))
-        label.pack(side="left", padx=5)
+        # Texto blanco + estado en color
+        label_texto = tk.Label(frame_disp, text=f"{puerto} - {mac} ",
+                               fg="white", bg="#333", font=("Arial", 10))
+        label_texto.pack(side="left", padx=5)
+
+        label_estado = tk.Label(frame_disp, text=f"[{estado}]",
+                                fg=color_estado, bg="#333", font=("Arial", 10, "bold"))
+        label_estado.pack(side="left")
 
         frame_botones = tk.Frame(frame_disp, bg="#333")
         frame_botones.pack(side="right", padx=5)
@@ -147,7 +152,7 @@ def escanear_bluetooth():
             boton = tk.Button(
                 frame_escaneo,
                 text=texto_btn,
-                bg="#28a745" if estado_btn=="normal" else "#6c757d",
+                bg="#28a745" if estado_btn == "normal" else "#6c757d",
                 fg="white",
                 activebackground="#218838",
                 activeforeground="white",
@@ -183,14 +188,14 @@ def ejecutar_script_completo():
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
-# --- Interfaz gr\u00e1fica ---
+# --- Interfaz gráfica ---
 
 root = tk.Tk()
-root.title("Gesti\u00f3n Bluetooth rfcomm")
+root.title("Gestión Bluetooth rfcomm")
 root.geometry("420x450+835+585")
 root.configure(bg="#121212")
 
-# Bot\u00f3n para refrescar lista vinculados
+# Botón para refrescar lista vinculados
 tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
           bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
@@ -202,11 +207,11 @@ resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
 
-# Bot\u00f3n para ejecutar script completo
+# Botón para ejecutar script completo
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
           bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
-# Secci\u00f3n de escaneo de nuevos dispositivos
+# Sección de escaneo de nuevos dispositivos
 tk.Label(root, text="Escanear dispositivos Bluetooth cercanos", bg="#121212", fg="white",
          font=("Arial", 12, "bold")).pack(pady=10)
 
@@ -217,5 +222,4 @@ frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 refrescar_lista()
-
 root.mainloop()
