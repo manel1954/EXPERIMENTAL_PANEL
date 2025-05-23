@@ -187,7 +187,7 @@ def ejecutar_script_completo():
 
 root = tk.Tk()
 root.title("Gesti\u00f3n Bluetooth rfcomm")
-root.geometry("420x450+1287+479")
+root.geometry("420x450+835+585")
 root.configure(bg="#121212")
 
 # Bot\u00f3n para refrescar lista vinculados
