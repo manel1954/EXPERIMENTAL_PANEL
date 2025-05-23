@@ -46,8 +46,8 @@ def escribir_vinculados(vinculados):
 
 def esta_bind(puerto):
     try:
-        salida = subprocess.check_output(["rfcomm", "show"], text=True)
-        patron = re.compile(rf"^{puerto}:", re.MULTILINE)
+        salida = subprocess.check_output(["rfcomm"], text=True)
+        patron = re.compile(rf"^{puerto}:\s+.+connected", re.MULTILINE)
         return bool(patron.search(salida))
     except subprocess.CalledProcessError:
         return False
@@ -56,6 +56,7 @@ def ejecutar_bind(puerto, mac):
     try:
         subprocess.check_call(["sudo", "rfcomm", "bind", f"/dev/{puerto}", mac])
         messagebox.showinfo("Bind", f"{puerto} vinculado a {mac}")
+        root.after(500, refrescar_lista)
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Bind", f"No se pudo vincular {puerto}:\n{e}")
 
@@ -63,6 +64,7 @@ def ejecutar_unbind(puerto):
     try:
         subprocess.check_call(["sudo", "rfcomm", "unbind", f"/dev/{puerto}"])
         messagebox.showinfo("Unbind", f"{puerto} desvinculado correctamente")
+        root.after(500, refrescar_lista)
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Unbind", f"No se pudo desvincular {puerto}:\n{e}")
 
@@ -87,32 +89,27 @@ def refrescar_lista():
 
     resultado_text.set(f"{len(vinculados)} dispositivo(s) en la lista:")
     for puerto, mac in vinculados:
-        estado = "Activo" if esta_bind(puerto) else "Inactivo"
-        color_estado = "green" if estado == "Activo" else "red"
+        activo = esta_bind(puerto)
+        estado = "Activo" if activo else "Inactivo"
+        color_estado = "green" if activo else "red"
         frame_disp = tk.Frame(frame_resultados, bg="#333", pady=2)
         frame_disp.pack(fill="x", padx=5, pady=2)
 
-        # Texto blanco + estado en color
-        label_texto = tk.Label(frame_disp, text=f"{puerto} - {mac} ",
-                               fg="white", bg="#333", font=("Arial", 10))
-        label_texto.pack(side="left", padx=5)
-
-        label_estado = tk.Label(frame_disp, text=f"[{estado}]",
-                                fg=color_estado, bg="#333", font=("Arial", 10, "bold"))
-        label_estado.pack(side="left")
+        label = tk.Label(frame_disp, text=f"{puerto} - {mac} [{estado}]",
+                         fg=color_estado, bg="#333", font=("Arial", 10))
+        label.pack(side="left", padx=5)
 
         frame_botones = tk.Frame(frame_disp, bg="#333")
         frame_botones.pack(side="right", padx=5)
 
-        if estado == "Inactivo":
+        if not activo:
             btn_bind = tk.Button(frame_botones, text="Bind",
-    command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), root.after(1000, refrescar_lista)),
-    bg="#28a745", fg="white")
-
+                                command=lambda p=puerto, m=mac: ejecutar_bind(p, m),
+                                bg="#28a745", fg="white")
             btn_bind.pack(side="left", padx=2)
 
         btn_unbind = tk.Button(frame_botones, text="Unbind",
-                              command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
+                              command=lambda p=puerto: ejecutar_unbind(p),
                               bg="#dc3545", fg="white")
         btn_unbind.pack(side="left", padx=2)
 
@@ -196,11 +193,9 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("420x450+835+585")
 root.configure(bg="#121212")
 
-# Botón para refrescar lista vinculados
 tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
           bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
-# Frame lista vinculados
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
 
@@ -208,11 +203,9 @@ resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
 
-# Botón para ejecutar script completo
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
           bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
-# Sección de escaneo de nuevos dispositivos
 tk.Label(root, text="Escanear dispositivos Bluetooth cercanos", bg="#121212", fg="white",
          font=("Arial", 12, "bold")).pack(pady=10)
 
