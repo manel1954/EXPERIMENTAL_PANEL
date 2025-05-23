@@ -11,6 +11,7 @@ def scan_devices():
     output_text.insert(tk.END, "<<<< ESCANEANDO DISPOSITIVOS BLUETOOTH >>>>\n\n")
     try:
         result = subprocess.check_output(["sudo", "hcitool", "scan"], stderr=subprocess.STDOUT).decode()
+        print("Resultado crudo de hcitool scan:\n", result)  # Debug opcional
         devices = []
 
         lines = result.splitlines()
@@ -54,6 +55,10 @@ def select_mac(devices):
 
 def bind_mac(mac):
     try:
+        output_text.insert(tk.END, f"\nLiberando rfcomm0...\n")
+        subprocess.call(["sudo", "rfcomm", "unbind", "/dev/rfcomm0"])  # No importa si falla
+
+        # Actualizar el archivo bluetooth.sh
         if os.path.exists(BLUETOOTH_SCRIPT):
             with open(BLUETOOTH_SCRIPT, 'r') as file:
                 lines = file.readlines()
@@ -68,8 +73,7 @@ def bind_mac(mac):
 
         subprocess.check_call(["sudo", "rfcomm", "bind", "/dev/rfcomm0", mac])
 
-        output_text.delete(1.0, tk.END)
-        output_text.insert(tk.END, "  ********************************************************************\n")
+        output_text.insert(tk.END, "\n  ********************************************************************\n")
         output_text.insert(tk.END, "  *                   MAC ENLAZADA CORRECTAMENTE                     *\n")
         output_text.insert(tk.END, "  ********************************************************************\n")
 
