@@ -106,8 +106,9 @@ def refrescar_lista():
 
         if estado == "Inactivo":
             btn_bind = tk.Button(frame_botones, text="Bind",
-                                command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), refrescar_lista()),
-                                bg="#28a745", fg="white")
+    command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), root.after(500, refrescar_lista)),
+    bg="#28a745", fg="white")
+
             btn_bind.pack(side="left", padx=2)
 
         btn_unbind = tk.Button(frame_botones, text="Unbind",
