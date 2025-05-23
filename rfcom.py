@@ -70,7 +70,7 @@ def escanear_bluetooth():
 root = tk.Tk()
 root.title("Escaneo Bluetooth")
 root.geometry("420x450")
-root.configure(bg="#4405C2")
+root.configure(bg="#19181C")
 
 tk.Button(
     root, text="Escanear Bluetooth", command=escanear_bluetooth,
@@ -84,7 +84,7 @@ tk.Label(
     bg="black", fg="white", font=("Arial", 10)
 ).pack()
 
-frame_resultados = tk.Frame(root, bg="black")
+frame_resultados = tk.Frame(root, bg="#696363")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=10)
 
 root.mainloop()
