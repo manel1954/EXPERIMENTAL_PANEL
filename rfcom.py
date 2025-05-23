@@ -5,7 +5,7 @@ import re
 import os
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
-linea_actual = 1  # contador de líneas a escribir
+linea_actual = 2  # contador de líneas a escribir
 
 def escribir_comando_en_fichero(mac):
     global linea_actual
