@@ -167,7 +167,8 @@ def escanear_bluetooth():
                 activebackground="#218838",
                 activeforeground="white",
                 state=estado_btn,
-                command=lambda m=mac: agregar_dispositivo(m)
+                command=lambda m=mac: agregar_dispositivo(m),
+                bd=0, highlightthickness=0
             )
             boton.pack(fill="x", padx=10, pady=2)
     except subprocess.CalledProcessError as e:
@@ -203,8 +204,11 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
-          bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+# Botón refrescar lista sin borde y alineado a la izquierda
+btn_refrescar = tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
+                          bg="#007bff", fg="white", font=("Arial", 10, "bold"),
+                          bd=0, highlightthickness=0)
+btn_refrescar.pack(side="left", anchor="w", padx=10, pady=5)
 
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
@@ -214,13 +218,15 @@ tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
 
 tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
-          bg="#28a745", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+          bg="#28a745", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
 frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-          bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+          bg="#17a2b8", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
 refrescar_lista()
 
