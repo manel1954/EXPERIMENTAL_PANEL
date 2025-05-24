@@ -196,8 +196,7 @@ resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
 
-tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-          bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+
 
 tk.Label(root, text="Escanear dispositivos Bluetooth cercanos", bg="#121212", fg="white",
          font=("Arial", 12, "bold")).pack(pady=10)
