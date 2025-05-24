@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import messagebox
 import subprocess
 import re
 import os
@@ -51,7 +51,7 @@ def ejecutar_bind(puerto, mac, boton_bind):
     try:
         subprocess.check_call(["sudo", "rfcomm", "bind", f"/dev/{puerto}", mac])
         messagebox.showinfo("Bind", f"{puerto} vinculado a {mac}")
-        boton_bind.config(state="disabled")
+        boton_bind.config(state="disabled", bg="#888888")
         refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Bind", f"No se pudo vincular {puerto}:\n{e}")
@@ -102,25 +102,31 @@ def refrescar_lista():
         frame_botones = tk.Frame(frame_disp, bg="#333")
         frame_botones.pack(side="right", padx=5)
 
-        btn_bind = ttk.Button(frame_botones, text="Bind", style="Bind.TButton")
-        btn_unbind = ttk.Button(frame_botones, text="Unbind", style="Unbind.TButton")
-        btn_borrar = ttk.Button(frame_botones, text="Borrar", style="Borrar.TButton",
-                                 command=lambda p=puerto: borrar_y_refrescar(p))
+        btn_bind = tk.Button(frame_botones, text="Bind",
+                             bg="#28a745", fg="white", font=("Arial", 8),
+                             bd=0, highlightthickness=0, relief="flat")
+        btn_unbind = tk.Button(frame_botones, text="Unbind",
+                               bg="#dc3545", fg="white", font=("Arial", 8),
+                               bd=0, highlightthickness=0, relief="flat")
+        btn_borrar = tk.Button(frame_botones, text="Borrar",
+                               bg="#ffc107", fg="black", font=("Arial", 8),
+                               bd=0, highlightthickness=0, relief="flat",
+                               command=lambda p=puerto: borrar_y_refrescar(p))
 
         if estado == "Inactivo":
             btn_bind.config(state="normal",
-                            command=lambda p=puerto, m=mac, b=btn_bind: (
-                                b.config(state="disabled"),
-                                btn_unbind.config(state="normal"),
+                            command=lambda p=puerto, m=mac, b=btn_bind, ub=btn_unbind: (
+                                b.config(state="disabled", bg="#888888"),
+                                ub.config(state="normal", bg="#dc3545"),
                                 ejecutar_bind(p, m, b)
                             ))
-            btn_unbind.config(state="disabled")
+            btn_unbind.config(state="disabled", bg="#888888")
         else:
-            btn_bind.config(state="disabled")
+            btn_bind.config(state="disabled", bg="#888888")
             btn_unbind.config(state="normal",
-                              command=lambda p=puerto, b=btn_bind: (
-                                  btn_unbind.config(state="disabled"),
-                                  b.config(state="normal"),
+                              command=lambda p=puerto, b=btn_bind, ub=btn_unbind: (
+                                  ub.config(state="disabled", bg="#888888"),
+                                  b.config(state="normal", bg="#28a745"),
                                   ejecutar_unbind(p)
                               ))
 
@@ -196,17 +202,6 @@ root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
 root.geometry("450x485+1287+550")
 root.configure(bg="#121212")
-
-style = ttk.Style()
-style.theme_use('default')
-
-style.configure("Bind.TButton", background="#28a745", foreground="white", font=("Arial", 8), relief="flat", padding=6, borderwidth=0)
-style.configure("Unbind.TButton", background="#dc3545", foreground="white", font=("Arial", 8), relief="flat", padding=6, borderwidth=0)
-style.configure("Borrar.TButton", background="#ffc107", foreground="black", font=("Arial", 8), relief="flat", padding=6, borderwidth=0)
-
-style.map("Bind.TButton", background=[('active', '#218838')])
-style.map("Unbind.TButton", background=[('active', '#c82333')])
-style.map("Borrar.TButton", background=[('active', '#e0a800')])
 
 tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
           bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
