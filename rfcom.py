@@ -115,11 +115,11 @@ def refrescar_lista():
         
         
         # Botones adaptables al ancho
-        btn_bind = tk.Button(frame_botones, text="B", width=3,
+        btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
                              bg="#28a745", fg="white")
-        btn_unbind = tk.Button(frame_botones, text="UB", width=3,
+        btn_unbind = tk.Button(frame_botones, text="Unbind", width=btn_width,
                                bg="#dc3545", fg="white")
-        btn_borrar = tk.Button(frame_botones, text="X", width=3,
+        btn_borrar = tk.Button(frame_botones, text="Borrar", width=btn_width,
                                bg="#ffc107", fg="black",
                                command=lambda p=puerto: borrar_y_refrescar(p))
 
