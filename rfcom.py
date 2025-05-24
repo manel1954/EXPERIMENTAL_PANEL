@@ -102,15 +102,14 @@ def refrescar_lista():
         frame_botones = tk.Frame(frame_disp, bg="#333")
         frame_botones.pack(side="right", padx=5)
 
-        btn_bind = tk.Button(frame_botones, text="Bind",
-                             bg="#28a745", fg="white", font=("Arial", 8),
-                             bd=0, highlightthickness=0, relief="flat")
-        btn_unbind = tk.Button(frame_botones, text="Unbind",
-                               bg="#dc3545", fg="white", font=("Arial", 8),
-                               bd=0, highlightthickness=0, relief="flat")
-        btn_borrar = tk.Button(frame_botones, text="Borrar",
-                               bg="#ffc107", fg="black", font=("Arial", 8),
-                               bd=0, highlightthickness=0, relief="flat",
+        btn_width = 6  # ancho en caracteres para que todos tengan igual tamaño
+
+        btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
+                             bg="#28a745", fg="white", bd=0, relief="flat")
+        btn_unbind = tk.Button(frame_botones, text="Unbind", width=btn_width,
+                               bg="#dc3545", fg="white", bd=0, relief="flat")
+        btn_borrar = tk.Button(frame_botones, text="Borrar", width=btn_width,
+                               bg="#ffc107", fg="black", bd=0, relief="flat",
                                command=lambda p=puerto: borrar_y_refrescar(p))
 
         if estado == "Inactivo":
@@ -167,7 +166,8 @@ def escanear_bluetooth():
                 activebackground="#218838",
                 activeforeground="white",
                 state=estado_btn,
-                command=lambda m=mac: agregar_dispositivo(m)
+                command=lambda m=mac: agregar_dispositivo(m),
+                bd=0, relief="flat", font=("Arial", 9)
             )
             boton.pack(fill="x", padx=10, pady=2)
     except subprocess.CalledProcessError as e:
@@ -200,11 +200,30 @@ def ejecutar_script_completo():
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
-root.geometry("452x485+1448+69")
+root.geometry("450x485+1287+550")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
-          bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+# Frame para los botones superiores en horizontal
+frame_botones_superiores = tk.Frame(root, bg="#121212")
+frame_botones_superiores.pack(pady=5)
+
+btn_refrescar = tk.Button(frame_botones_superiores, text="Refrescar lista vinculados",
+                          command=refrescar_lista,
+                          bg="#007bff", fg="white", font=("Arial", 9, "bold"),
+                          bd=0, relief="flat", width=22)
+btn_refrescar.pack(side="left", padx=5)
+
+btn_ejecutar = tk.Button(frame_botones_superiores, text="Ejecutar script completo",
+                         command=ejecutar_script_completo,
+                         bg="#17a2b8", fg="white", font=("Arial", 9, "bold"),
+                         bd=0, relief="flat", width=22)
+btn_ejecutar.pack(side="left", padx=5)
+
+btn_escanear = tk.Button(frame_botones_superiores, text="Escanear Bluetooth",
+                         command=escanear_bluetooth,
+                         bg="#28a745", fg="white", font=("Arial", 9, "bold"),
+                         bd=0, relief="flat", width=22)
+btn_escanear.pack(side="left", padx=5)
 
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
@@ -212,15 +231,6 @@ frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
 resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
          font=("Arial", 10)).pack()
-
-tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-          bg="#17a2b8", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
-
-tk.Label(root, text="Escanear dispositivos Bluetooth cercanos", bg="#121212", fg="white",
-         font=("Arial", 12, "bold")).pack(pady=10)
-
-tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
-          bg="#28a745", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
 frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
