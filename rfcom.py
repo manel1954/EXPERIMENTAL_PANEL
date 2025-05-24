@@ -223,7 +223,7 @@ tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
 
 frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=0)
-∫
+
 
 btn_script = tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
                        bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
