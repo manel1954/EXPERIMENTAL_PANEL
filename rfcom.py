@@ -203,8 +203,12 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
-          bg="#007bff", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
+btn_refrescar = tk.Button(root, text="Refrescar lista vinculados",
+                          command=refrescar_lista,
+                          bg="#007bff", fg="white",
+                          font=("Arial", 9, "bold"),
+                          bd=0, relief="flat")
+btn_refrescar.place(x=10, y=5)
 
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
