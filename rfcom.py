@@ -225,7 +225,7 @@ frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 btn_script = tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-                       bg="#17a2b8", fg="white", font=("Arial", 10, "bold"),
+                       bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
                        bd=0, highlightthickness=0, relief="flat")
 #btn_script.pack(pady=5, anchor="w", padx=10)
 btn_script.pack(fill="x", expand=True, padx=10)
