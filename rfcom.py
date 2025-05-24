@@ -74,6 +74,17 @@ def borrar_vinculado(puerto):
     messagebox.showinfo("Borrar", f"{puerto} eliminado de la lista")
     refrescar_lista()
 
+
+
+
+
+
+
+
+
+
+
+
 def refrescar_lista():
     for widget in frame_resultados.winfo_children():
         widget.destroy()
@@ -85,35 +96,52 @@ def refrescar_lista():
 
     resultado_text.set(f"{len(vinculados)} dispositivo(s) en la lista:")
     for puerto, mac in vinculados:
-        activo = esta_bind(puerto)
-        estado = "Activo" if activo else "Inactivo"
-        color_estado = "green" if activo else "red"
+        estado = "Activo" if esta_bind(puerto) else "Inactivo"
+        color_estado = "green" if estado == "Activo" else "red"
 
         frame_disp = tk.Frame(frame_resultados, bg="#333", pady=2)
         frame_disp.pack(fill="x", padx=5, pady=2)
 
+        # Frame izquierdo (label)
         label = tk.Label(frame_disp, text=f"{puerto} - {mac} [{estado}]",
-                         fg=color_estado, bg="#333", font=("Arial", 10))
-        label.pack(side="left", padx=5)
+                         fg=color_estado, bg="#333", font=("Arial", 10), anchor="w")
+        label.pack(side="left", fill="x", expand=True, padx=5)
 
-        frame_botones = tk.Frame(frame_disp, bg="#333")
+        # Frame derecho (botones)
+        frame_botones = tk.Frame(frame_disp, bg="#333", width=150)
         frame_botones.pack(side="right", padx=5)
 
-        if not activo:
+        # Tamaño uniforme
+        btn_width = 8
+
+        if estado == "Inactivo":
             btn_bind = tk.Button(frame_botones, text="Bind",
-                                 command=lambda p=puerto, m=mac: ejecutar_bind(p, m),
-                                 bg="#28a745", fg="white")
+                                width=btn_width,
+                                command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), refrescar_lista()),
+                                bg="#28a745", fg="white")
             btn_bind.pack(side="left", padx=2)
 
         btn_unbind = tk.Button(frame_botones, text="Unbind",
-                               command=lambda p=puerto: ejecutar_unbind(p),
-                               bg="#dc3545", fg="white")
+                              width=btn_width,
+                              command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
+                              bg="#dc3545", fg="white")
         btn_unbind.pack(side="left", padx=2)
 
         btn_borrar = tk.Button(frame_botones, text="Borrar",
-                               command=lambda p=puerto: borrar_vinculado(p),
+                               width=btn_width,
+                               command=lambda p=puerto: borrar_y_refrescar(p),
                                bg="#6c757d", fg="white")
         btn_borrar.pack(side="left", padx=2)
+
+
+
+
+
+
+
+
+
+
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
