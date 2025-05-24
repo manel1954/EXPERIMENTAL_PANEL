@@ -118,6 +118,17 @@ def refrescar_lista():
                                bg="#dc3545", fg="white")
         btn_unbind.pack(side="left", padx=2)
 
+        if estado == "Inactivo":
+            btn_bind.config(command=lambda p=puerto, m=mac, b=btn_bind: ejecutar_bind(p, m, b))
+        else:
+            btn_bind.config(state="disabled", bg="#888888")
+
+        btn_unbind = tk.Button(frame_botones, text="Unbind",
+                               width=btn_width,
+                               command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
+                               bg="#dc3545", fg="white")
+        btn_unbind.pack(side="left", padx=2)
+
         btn_borrar = tk.Button(frame_botones, text="Borrar",
                                width=btn_width,
                                command=lambda p=puerto: borrar_y_refrescar(p),
