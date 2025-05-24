@@ -104,36 +104,31 @@ def refrescar_lista():
 
         btn_width = 8
 
-        btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
+                btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
                              bg="#28a745", fg="white")
+        btn_unbind = tk.Button(frame_botones, text="Unbind", width=btn_width,
+                               bg="#dc3545", fg="white")
+
+        # Estado inicial según si el dispositivo está activo
+        if estado == "Inactivo":
+            btn_bind.config(state="normal",
+                            command=lambda p=puerto, m=mac, b=btn_bind, ub=btn_unbind: (
+                                b.config(state="disabled", bg="#888888"),
+                                ub.config(state="normal", bg="#dc3545"),
+                                ejecutar_bind(p, m, b)
+                            ))
+            btn_unbind.config(state="disabled", bg="#888888")
+        else:
+            btn_bind.config(state="disabled", bg="#888888")
+            btn_unbind.config(state="normal",
+                              command=lambda p=puerto, b=btn_bind, ub=btn_unbind: (
+                                  ub.config(state="disabled", bg="#888888"),
+                                  b.config(state="normal", bg="#28a745"),
+                                  ejecutar_unbind(p)
+                              ))
+
         btn_bind.pack(side="left", padx=2)
-        if estado == "Inactivo":
-            btn_bind.config(command=lambda p=puerto, m=mac, b=btn_bind: ejecutar_bind(p, m, b))
-        else:
-            btn_bind.config(state="disabled", bg="#888888")
-
-        btn_unbind = tk.Button(frame_botones, text="Unbind",
-                               width=btn_width,
-                               command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
-                               bg="#dc3545", fg="white")
         btn_unbind.pack(side="left", padx=2)
-
-        if estado == "Inactivo":
-            btn_bind.config(command=lambda p=puerto, m=mac, b=btn_bind: ejecutar_bind(p, m, b))
-        else:
-            btn_bind.config(state="disabled", bg="#888888")
-
-        btn_unbind = tk.Button(frame_botones, text="Unbind",
-                               width=btn_width,
-                               command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
-                               bg="#dc3545", fg="white")
-        btn_unbind.pack(side="left", padx=2)
-
-        btn_borrar = tk.Button(frame_botones, text="Borrar",
-                               width=btn_width,
-                               command=lambda p=puerto: borrar_y_refrescar(p),
-                               bg="#6c757d", fg="white")
-        btn_borrar.pack(side="left", padx=2)
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
