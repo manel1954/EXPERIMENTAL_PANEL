@@ -167,8 +167,8 @@ def escanear_bluetooth():
                 activebackground="#218838",
                 activeforeground="white",
                 state=estado_btn,
-                command=lambda m=mac: agregar_dispositivo(m),
-                bd=0, highlightthickness=0
+                bd=0, highlightthickness=0, relief="flat",
+                command=lambda m=mac: agregar_dispositivo(m)
             )
             boton.pack(fill="x", padx=10, pady=2)
     except subprocess.CalledProcessError as e:
@@ -204,11 +204,11 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-# Botón refrescar lista sin borde y alineado a la izquierda
+# Botón refrescar lista, arriba a la derecha, sin borde
 btn_refrescar = tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
                           bg="#007bff", fg="white", font=("Arial", 10, "bold"),
                           bd=0, highlightthickness=0)
-btn_refrescar.pack(side="left", anchor="w", padx=10, pady=5)
+btn_refrescar.pack(side="top", anchor="e", padx=10, pady=5)
 
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
