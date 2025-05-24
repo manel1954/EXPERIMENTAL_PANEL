@@ -102,28 +102,16 @@ def refrescar_lista():
         frame_botones = tk.Frame(frame_disp, bg="#333")
         frame_botones.pack(side="right", padx=5)
 
-        btn_width = 8
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        # Botones adaptables al ancho
         btn_bind = tk.Button(frame_botones, text="Bind",
-                             bg="#28a745", fg="white", font=("Arial", 8))
+                             bg="#28a745", fg="white", font=("Arial", 8),
+                             bd=0, highlightthickness=0, relief="flat")
         btn_unbind = tk.Button(frame_botones, text="Unbind",
-                               bg="#dc3545", fg="white", font=("Arial", 8))
+                               bg="#dc3545", fg="white", font=("Arial", 8),
+                               bd=0, highlightthickness=0, relief="flat")
         btn_borrar = tk.Button(frame_botones, text="Borrar",
                                bg="#ffc107", fg="black", font=("Arial", 8),
+                               bd=0, highlightthickness=0, relief="flat",
                                command=lambda p=puerto: borrar_y_refrescar(p))
-
-
 
         if estado == "Inactivo":
             btn_bind.config(state="normal",
@@ -142,12 +130,9 @@ def refrescar_lista():
                                   ejecutar_unbind(p)
                               ))
 
-        # Empaquetado con expansión horizontal
-        btn_bind.pack(side="left", expand=True, fill="x", padx=2)
-        btn_unbind.pack(side="left", expand=True, fill="x", padx=2)
-        btn_borrar.pack(side="left", expand=True, fill="x", padx=2)
-
-
+        btn_bind.pack(side="left", padx=2)
+        btn_unbind.pack(side="left", padx=2)
+        btn_borrar.pack(side="left", padx=2)
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
