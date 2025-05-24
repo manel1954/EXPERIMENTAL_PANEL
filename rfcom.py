@@ -45,13 +45,13 @@ def escribir_vinculados(vinculados):
         f.writelines(lineas)
 
 def esta_bind(puerto):
-    # NUEVA VERSIÓN: revisa si existe /dev/rfcommN
     return os.path.exists(f"/dev/{puerto}")
 
-def ejecutar_bind(puerto, mac):
+def ejecutar_bind(puerto, mac, boton_bind):
     try:
         subprocess.check_call(["sudo", "rfcomm", "bind", f"/dev/{puerto}", mac])
         messagebox.showinfo("Bind", f"{puerto} vinculado a {mac}")
+        boton_bind.config(state="disabled", bg="#888888")
         refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error Bind", f"No se pudo vincular {puerto}:\n{e}")
@@ -74,16 +74,9 @@ def borrar_vinculado(puerto):
     messagebox.showinfo("Borrar", f"{puerto} eliminado de la lista")
     refrescar_lista()
 
-
-
-
-
-
-
-
-
-
-
+def borrar_y_refrescar(puerto):
+    borrar_vinculado(puerto)
+    refrescar_lista()
 
 def refrescar_lista():
     for widget in frame_resultados.winfo_children():
@@ -102,29 +95,27 @@ def refrescar_lista():
         frame_disp = tk.Frame(frame_resultados, bg="#333", pady=2)
         frame_disp.pack(fill="x", padx=5, pady=2)
 
-        # Frame izquierdo (label)
         label = tk.Label(frame_disp, text=f"{puerto} - {mac} [{estado}]",
                          fg=color_estado, bg="#333", font=("Arial", 10), anchor="w")
         label.pack(side="left", fill="x", expand=True, padx=5)
 
-        # Frame derecho (botones)
         frame_botones = tk.Frame(frame_disp, bg="#333", width=150)
         frame_botones.pack(side="right", padx=5)
 
-        # Tamaño uniforme
         btn_width = 8
 
+        btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
+                             bg="#28a745", fg="white")
+        btn_bind.pack(side="left", padx=2)
         if estado == "Inactivo":
-            btn_bind = tk.Button(frame_botones, text="Bind",
-                                width=btn_width,
-                                command=lambda p=puerto, m=mac: (ejecutar_bind(p, m), refrescar_lista()),
-                                bg="#28a745", fg="white")
-            btn_bind.pack(side="left", padx=2)
+            btn_bind.config(command=lambda p=puerto, m=mac, b=btn_bind: ejecutar_bind(p, m, b))
+        else:
+            btn_bind.config(state="disabled", bg="#888888")
 
         btn_unbind = tk.Button(frame_botones, text="Unbind",
-                              width=btn_width,
-                              command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
-                              bg="#dc3545", fg="white")
+                               width=btn_width,
+                               command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
+                               bg="#dc3545", fg="white")
         btn_unbind.pack(side="left", padx=2)
 
         btn_borrar = tk.Button(frame_botones, text="Borrar",
@@ -132,16 +123,6 @@ def refrescar_lista():
                                command=lambda p=puerto: borrar_y_refrescar(p),
                                bg="#6c757d", fg="white")
         btn_borrar.pack(side="left", padx=2)
-
-
-
-
-
-
-
-
-
-
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
@@ -206,8 +187,6 @@ def ejecutar_script_completo():
         refrescar_lista()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
-
-# --- Interfaz gráfica ---
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
