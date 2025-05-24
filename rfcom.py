@@ -228,7 +228,7 @@ btn_script = tk.Button(root, text="Ejecutar script completo", command=ejecutar_s
                        bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
                        bd=0, highlightthickness=0, relief="flat")
 #btn_script.pack(pady=5, anchor="w", padx=10)
-btn_script.pack(fill="x", expand=True, padx=10)
+btn_script.pack(fill="x", expand=True, pady=1, padx=10)
 
 
 
