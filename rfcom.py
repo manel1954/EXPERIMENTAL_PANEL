@@ -206,9 +206,9 @@ root.configure(bg="#121212")
 
 # Botón refrescar lista, arriba a la derecha, sin borde
 btn_refrescar = tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
-                          bg="#007bff", fg="white", font=("Arial", 10, "bold"),
-                          bd=0, highlightthickness=0)
-btn_refrescar.pack(side="top", anchor="w", padx=10, pady=5)
+                       bg="#17a2b8", fg="white", font=("Arial", 10, "bold"),
+                       bd=0, highlightthickness=0, relief="flat")
+btn_refrescar.pack(fill="x", expand=True, pady=5, padx=10)
 
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
