@@ -104,18 +104,47 @@ def refrescar_lista():
 
         btn_width = 8
 
-        btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+                btn_bind = tk.Button(frame_botones, text="Bind",
+                             width=btn_width,
                              bg="#28a745", fg="white")
-        btn_bind.pack(side="left", padx=2)
-        if estado == "Inactivo":
-            btn_bind.config(command=lambda p=puerto, m=mac, b=btn_bind: ejecutar_bind(p, m, b))
-        else:
-            btn_bind.config(state="disabled", bg="#888888")
 
         btn_unbind = tk.Button(frame_botones, text="Unbind",
                                width=btn_width,
-                               command=lambda p=puerto: (ejecutar_unbind(p), refrescar_lista()),
                                bg="#dc3545", fg="white")
+
+        if estado == "Inactivo":
+            btn_bind.config(state="normal")
+            btn_unbind.config(state="disabled", bg="#6c757d")
+        else:
+            btn_bind.config(state="disabled", bg="#6c757d")
+            btn_unbind.config(state="normal")
+
+        def on_bind_click(p=puerto, m=mac, btn=btn_bind, other_btn=btn_unbind):
+            btn.config(state="disabled", bg="#6c757d")
+            other_btn.config(state="normal", bg="#dc3545")
+            root.after(100, lambda: ejecutar_bind(p, m))
+
+        def on_unbind_click(p=puerto, btn=btn_unbind, other_btn=btn_bind):
+            btn.config(state="disabled", bg="#6c757d")
+            other_btn.config(state="normal", bg="#28a745")
+            root.after(100, lambda: ejecutar_unbind(p))
+
+        btn_bind.config(command=on_bind_click)
+        btn_unbind.config(command=on_unbind_click)
+
+        btn_bind.pack(side="left", padx=2)
         btn_unbind.pack(side="left", padx=2)
 
         btn_borrar = tk.Button(frame_botones, text="Borrar",
@@ -123,6 +152,15 @@ def refrescar_lista():
                                command=lambda p=puerto: borrar_y_refrescar(p),
                                bg="#6c757d", fg="white")
         btn_borrar.pack(side="left", padx=2)
+
+
+
+
+
+
+
+
+
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
