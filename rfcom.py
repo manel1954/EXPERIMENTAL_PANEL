@@ -116,7 +116,7 @@ def refrescar_lista():
         
         # Botones adaptables al ancho
         btn_bind = tk.Button(frame_botones, text="Bind",
-                             bg="#28a745", fg="white", font=("Arial", 8)),
+                             bg="#28a745", fg="white", font=("Arial", 8))
         btn_unbind = tk.Button(frame_botones, text="Unbind",
                                bg="#dc3545", fg="white", font=("Arial", 8))
         btn_borrar = tk.Button(frame_botones, text="Borrar",
