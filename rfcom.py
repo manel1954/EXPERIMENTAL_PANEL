@@ -203,37 +203,35 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("450x485+1287+550")
 root.configure(bg="#121212")
 
-# Frame para los botones superiores en horizontal
-frame_botones_superiores = tk.Frame(root, bg="#121212")
-frame_botones_superiores.pack(pady=5)
+# Botones en posiciones originales con igual ancho y fuente ajustada, sin borde
 
-btn_refrescar = tk.Button(frame_botones_superiores, text="Refrescar lista vinculados",
+btn_refrescar = tk.Button(root, text="Refrescar lista vinculados",
                           command=refrescar_lista,
                           bg="#007bff", fg="white", font=("Arial", 9, "bold"),
                           bd=0, relief="flat", width=22)
-btn_refrescar.pack(side="left", padx=5)
+btn_refrescar.place(x=10, y=5)
 
-btn_ejecutar = tk.Button(frame_botones_superiores, text="Ejecutar script completo",
+btn_ejecutar = tk.Button(root, text="Ejecutar script completo",
                          command=ejecutar_script_completo,
                          bg="#17a2b8", fg="white", font=("Arial", 9, "bold"),
                          bd=0, relief="flat", width=22)
-btn_ejecutar.pack(side="left", padx=5)
+btn_ejecutar.place(x=165, y=5)
 
-btn_escanear = tk.Button(frame_botones_superiores, text="Escanear Bluetooth",
+btn_escanear = tk.Button(root, text="Escanear Bluetooth",
                          command=escanear_bluetooth,
                          bg="#28a745", fg="white", font=("Arial", 9, "bold"),
                          bd=0, relief="flat", width=22)
-btn_escanear.pack(side="left", padx=5)
+btn_escanear.place(x=320, y=5)
 
 frame_resultados = tk.Frame(root, bg="#222222")
-frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
+frame_resultados.place(x=10, y=40, width=430, height=190)
 
 resultado_text = tk.StringVar()
 tk.Label(root, textvariable=resultado_text, bg="#121212", fg="white",
-         font=("Arial", 10)).pack()
+         font=("Arial", 10)).place(x=10, y=235)
 
 frame_escaneo = tk.Frame(root, bg="#222222")
-frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
+frame_escaneo.place(x=10, y=260, width=430, height=210)
 
 refrescar_lista()
 
