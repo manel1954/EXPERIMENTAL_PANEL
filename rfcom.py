@@ -99,7 +99,7 @@ def refrescar_lista():
                          fg=color_estado, bg="#333", font=("Arial", 10), anchor="w")
         label.pack(side="left", fill="x", expand=True, padx=5)
 
-        frame_botones = tk.Frame(frame_disp, bg="#333", width=150)
+        frame_botones = tk.Frame(frame_disp, bg="#333")
         frame_botones.pack(side="right", padx=5)
 
         btn_width = 8
@@ -108,6 +108,9 @@ def refrescar_lista():
                              bg="#28a745", fg="white")
         btn_unbind = tk.Button(frame_botones, text="Unbind", width=btn_width,
                                bg="#dc3545", fg="white")
+        btn_borrar = tk.Button(frame_botones, text="Borrar", width=btn_width,
+                               bg="#ffc107", fg="black",
+                               command=lambda p=puerto: borrar_y_refrescar(p))
 
         # Estado inicial según si el dispositivo está activo
         if estado == "Inactivo":
@@ -129,6 +132,8 @@ def refrescar_lista():
 
         btn_bind.pack(side="left", padx=2)
         btn_unbind.pack(side="left", padx=2)
+        btn_borrar.pack(side="left", padx=2)
+
 
 def escanear_bluetooth():
     resultado_text.set("Escaneando dispositivos Bluetooth...")
