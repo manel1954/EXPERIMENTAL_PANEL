@@ -226,7 +226,8 @@ frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
           bg="#17a2b8", fg="white", font=("Arial", 10, "bold"),
-          bd=0, highlightthickness=0).pack(pady=5)
+          bd=0, highlightthickness=0)
+btn_refrescar.pack(anchor="w", padx=10, pady=5)
 
 refrescar_lista()
 
