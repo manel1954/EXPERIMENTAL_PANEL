@@ -104,7 +104,7 @@ def refrescar_lista():
 
         btn_width = 8
 
-                btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
+        btn_bind = tk.Button(frame_botones, text="Bind", width=btn_width,
                              bg="#28a745", fg="white")
         btn_unbind = tk.Button(frame_botones, text="Unbind", width=btn_width,
                                bg="#dc3545", fg="white")
