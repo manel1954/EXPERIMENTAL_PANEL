@@ -1,12 +1,8 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import messagebox
 import subprocess
-import sys
-import os
-import platform
-import glob
-import threading
 import re
+import os
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
 
@@ -228,8 +224,8 @@ INSTRUCCIONES DE USO:
 Programador ESP32 by REM-ESP © 2025"""
 
 
-    label_instrucciones = tk.Label(ventana_ayuda, text=texto, justify="left", bg=BG_COLOR, fg=FG_COLOR, font=FONT, wraplength=460)
-    label_instrucciones.pack(padx=20, pady=20, fill="both", expand=True)
+    # label_instrucciones = tk.Label(ventana_ayuda, text=texto, justify="left", bg=BG_COLOR, fg=FG_COLOR, font=FONT, wraplength=460)
+    # label_instrucciones.pack(padx=20, pady=20, fill="both", expand=True)
 
 
 # Estilo UI
