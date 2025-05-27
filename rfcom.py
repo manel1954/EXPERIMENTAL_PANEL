@@ -209,18 +209,26 @@ def abrir_formulario_importante():
           
           INFORMACION PARA EL USO DE RFCOMM:
 
-  El Bluetooth viene desactivado por defecto para permitir 
-  el uso de un hotspot conectado a los pines GPIO.
+  El Bluetooth interno está desactivado por defecto para permitir 
+  el uso del puerto serial del GPIO puerto (AMA0).
 
-  Si deseas utilizar el Bluetooth, tendrías que activarlo, 
-  y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
+
+  Si deseas activas el Bluetooth interno el GPIO puerto (AMA0) 
+  dejaría de funcionar.
+
+  Puedes utilizar un dispositivo USB Bluetooth y no sería necesario 
+  desactivar el GPIO (AMA0).
+
+
+
 
  INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
 
-  Para ACTIVARLO copia y pega lo siguiente en una consola:
+  Para Activar el BLUETOOTH interno copia y pega lo siguiente en una terminal:
   sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
-
-  Para DESACTIVARLO copia y pega lo siguiente en una consola:
+  
+  
+  Para DESACTIVARLO copia y pega lo siguiente en una terminal:
   sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 
   Nota:
