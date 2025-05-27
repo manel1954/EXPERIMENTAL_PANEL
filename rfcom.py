@@ -236,10 +236,10 @@ BUTTON_BG = "#4caf50"
 BUTTON_BG_BORRAR = "#d9534f"
 FONT = ("Segoe UI", 10)
 
-root = tk.Tk()
-root.title("Programador ESP32 by REM-ESP")
-root.geometry("600x650")
-root.configure(bg=BG_COLOR)
+# root = tk.Tk()
+# root.title("Programador ESP32 by REM-ESP")
+# root.geometry("600x650")
+# root.configure(bg=BG_COLOR)
 
 
 
