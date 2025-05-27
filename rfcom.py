@@ -233,7 +233,7 @@ sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
-root.geometry("452x485+1448+69")
+root.geometry("500x485+1448+69")
 root.configure(bg="#121212")
 
 tk.Button(root, text="Muy importante!! Click aqui para leer las instrucciones", command=abrir_formulario_importante,
