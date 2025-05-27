@@ -202,7 +202,7 @@ def abrir_formulario_importante():
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
     ventana.configure(bg="#0E0A5C")
-    ventana.geometry("452x485+1448+69")
+    ventana.geometry("500x485+1448+69")
 
     texto = """\
     INFORMACION PARA EL USO DE RFCOMM:
@@ -215,7 +215,7 @@ Si deseas utilizar el Bluetooth, tendrías que activarlo,
 
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 
-INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
+INSTRUCCIONES PARA AVTIVAR Y DESACTIBVAR BLUETOOTH:
 
 Abre una consola copia y pega esto para activarlo:
 sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
@@ -225,17 +225,6 @@ sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 """
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 11), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
-
-    def abrir_pdf():
-        try:
-            subprocess.Popen(["xdg-open", "/home/pi/instrucciones_rfcom.pdf"])
-        except Exception as e:
-            messagebox.showerror("Error", f"No se pudo abrir el PDF:\n{e}")
-
-    boton_pdf = tk.Button(ventana, text="Ver PDF", command=abrir_pdf,
-                          bg="orange", fg="black", font=("Arial", 10, "bold"),
-                          bd=0, highlightthickness=0)
-    boton_pdf.pack(pady=(5, 0))
 
     boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
                              bg="#28a745", fg="white", font=("Arial", 10, "bold"),
