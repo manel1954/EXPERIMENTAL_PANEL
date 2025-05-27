@@ -205,7 +205,12 @@ def abrir_formulario_importante():
     ventana.configure(bg="#0E0A5C")
     ventana.geometry("452x485+1448+69")
 
-    texto = "1 hacer algo\n2 hacer algo mas\n3 mas de lo mismo"
+    texto = """\
+INSTRUCCIONES DE USO:
+mas
+otra
+otra mas
+"""
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 10), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
 
