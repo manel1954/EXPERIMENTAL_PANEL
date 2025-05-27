@@ -217,7 +217,7 @@ Si deseas utilizar el Bluetooth, tendrías que activarlo,
 
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 """
-    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 14), justify="left")
+    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 12), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
 
     boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
@@ -230,7 +230,7 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Muy importante!!", command=abrir_formulario_importante,
+tk.Button(root, text="Muy importante!! Click aqui para leer las instrucciones", command=abrir_formulario_importante,
           bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
           bd=0, highlightthickness=0).pack(pady=5)
 
