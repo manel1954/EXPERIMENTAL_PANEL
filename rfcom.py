@@ -202,7 +202,7 @@ def abrir_formulario_importante():
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
     ventana.configure(bg="#0E0A5C")
-    ventana.geometry("452x485+1448+69")
+    ventana.geometry("500x485+1448+69")
 
     texto = """\
     INFORMACION PARA EL USO DE RFCOMM:
@@ -233,7 +233,7 @@ sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
-root.geometry("600x485+1448+69")
+root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
 tk.Button(root, text="Muy importante!! Click aqui para leer las instrucciones", command=abrir_formulario_importante,
