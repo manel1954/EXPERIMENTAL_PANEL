@@ -216,6 +216,14 @@ el uso de un hotspot conectado a los pines GPIO.
 Si deseas utilizar el Bluetooth, tendrías que activarlo, 
 
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
+
+INSTRUCCIONES PARA AVTIVAR Y DESACTIBVAR BLUETOOTH:
+
+Abre una consola copia y pega esto para activarlo:
+sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
+
+Para desactivarlo copia y pega esto:
+sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 """
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 11), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
