@@ -1,8 +1,12 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import subprocess
-import re
+import sys
 import os
+import platform
+import glob
+import threading
+import re
 
 RUTA_FICHERO = "/home/pi/.local/bluetooth.sh"
 
