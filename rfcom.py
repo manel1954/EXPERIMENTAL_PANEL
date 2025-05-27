@@ -202,8 +202,8 @@ def ejecutar_script_completo():
 def abrir_formulario_importante():
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
-    ventana.configure(bg="#121212")
-    ventana.geometry("300x150+1000+300")
+    ventana.configure(bg="#0E0A5C")
+    ventana.geometry("452x485+1448+69")
 
     texto = "1 hacer algo\n2 hacer algo mas\n3 mas de lo mismo"
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 10), justify="left")
