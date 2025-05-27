@@ -202,7 +202,7 @@ def abrir_formulario_importante():
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
     ventana.configure(bg="#0E0A5C")
-    ventana.geometry("500x485+1448+69")
+    ventana.geometry("600x485+1448+69")
 
     texto = """\
     INFORMACION PARA EL USO DE RFCOMM:
@@ -215,12 +215,12 @@ Si deseas utilizar el Bluetooth, tendrías que activarlo,
 
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 
-INSTRUCCIONES PARA AVTIVAR Y DESACTIBVAR BLUETOOTH:
+INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
 
-Abre una consola copia y pega esto para activarlo:
+Abre una consola y escribe esto para activarlo:
 sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
 
-Para desactivarlo copia y pega esto:
+Abre una consola y escribe esto para desactivarlo:
 sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 """
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 11), justify="left")
