@@ -212,21 +212,17 @@ def abrir_formulario_importante():
   El Bluetooth interno está desactivado por defecto para permitir 
   el uso del puerto serial del GPIO puerto (AMA0).
 
-
   Si deseas activas el Bluetooth interno el GPIO puerto (AMA0) 
   dejaría de funcionar.
 
   Puedes utilizar un dispositivo USB Bluetooth y no sería necesario 
   desactivar el GPIO (AMA0).
 
-
-
-
- INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
+ 
+  INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
 
   Para Activar el BLUETOOTH interno copia y pega lo siguiente en una terminal:
   sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
-  
   
   Para DESACTIVARLO copia y pega lo siguiente en una terminal:
   sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
