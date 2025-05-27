@@ -191,7 +191,8 @@ def agregar_dispositivo(mac):
     refrescar_lista()
     escanear_bluetooth()
 
-
+btn_ayuda = tk.Button(root, text="❓ Ayuda", command=mostrar_ayuda, bg="#007acc", fg="white", font=FONT)
+btn_ayuda.pack(pady=(0, 10))
 
 
 def mostrar_ayuda():
