@@ -206,10 +206,13 @@ def abrir_formulario_importante():
     ventana.geometry("452x485+1448+69")
 
     texto = """\
-INSTRUCCIONES DE USO:
-mas
-otra
-otra mas
+    INFORMACION PARA EL USO DE RFCOMM:
+--------------------------------------------
+El Bluetooth viene desactivado por defecto
+para poder uasar un hotspot pinchado en Gpio
+Si quires utilizar el Bluetooth tendrías
+que activarlo y entonces no funcionaría
+el hotspto pinchado en Gpio
 """
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 10), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
