@@ -22,10 +22,6 @@ def leer_vinculados():
                 vinculados.append((puerto, mac))
     return vinculados
 
-
-
-
-
 def escribir_vinculados(vinculados):
     lineas = []
     if os.path.exists(RUTA_FICHERO):
@@ -195,73 +191,6 @@ def agregar_dispositivo(mac):
     refrescar_lista()
     escanear_bluetooth()
 
-
-
-
-def mostrar_ayuda():
-    ventana_ayuda = tk.Toplevel(root)
-    ventana_ayuda.title("Ayuda - Instrucciones de uso")
-    ventana_ayuda.geometry("500x400")
-    ventana_ayuda.configure(bg=BG_COLOR)
-
-    texto = """\
-INSTRUCCIONES DE USO:
-
-1. Selecciona el archivo del firmware (.bin) y su dirección.
-
-2. Si es la primera vez que programas el dispositivo selecciona el firmware, bootloader y particiones, con sus respectivas direcciones.
-
-3. Escoge el puerto serie al que está conectado tu ESP32.
-
-4. Selecciona la velocidad de comunicación (por defecto 921600).
-
-5. Pulsa 'Programar' para cargar el firmware al ESP32.
-
-6. Si deseas borrar la memoria flash antes de programar, pulsa 'Borrar' y ves al punto 2.
-
-7. Salir para finalizar el programa.
-
-Programador ESP32 by REM-ESP © 2025"""
-
-
-    # label_instrucciones = tk.Label(ventana_ayuda, text=texto, justify="left", bg=BG_COLOR, fg=FG_COLOR, font=FONT, wraplength=460)
-    # label_instrucciones.pack(padx=20, pady=20, fill="both", expand=True)
-
-
-# Estilo UI
-BG_COLOR = "#2b2b2b"
-FG_COLOR = "#f0f0f0"
-ENTRY_BG = "#3c3f41"
-BUTTON_BG = "#4caf50"
-BUTTON_BG_BORRAR = "#d9534f"
-FONT = ("Segoe UI", 10)
-
-root = tk.Tk()
-root.title("Programador ESP32 by REM-ESP")
-root.geometry("600x650")
-root.configure(bg=BG_COLOR)
-
-
-
-frame = tk.Frame(root, bg=BG_COLOR)
-frame.pack(padx=20, pady=20, fill="both", expand=False)
-
-# Entrada genérica
-entry_vars = {}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def ejecutar_script_completo():
     try:
         subprocess.check_call(["sudo", "sh", RUTA_FICHERO])
@@ -270,16 +199,24 @@ def ejecutar_script_completo():
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
+def abrir_formulario_importante():
+    ventana = tk.Toplevel(root)
+    ventana.title("descripcion")
+    ventana.configure(bg="#121212")
+    ventana.geometry("300x150+100+100")
+
+    texto = "1 hacer algo\n2 hacer algo mas\n3 mas de lo mismo"
+    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 10), justify="left")
+    label.pack(padx=10, pady=10, anchor="w")
+
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-# Botón refrescar lista, arriba a la derecha, sin borde
-btn_refrescar = tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
-                          bg="#007bff", fg="white", font=("Arial", 10, "bold"),
-                          bd=0, highlightthickness=0).pack(pady=5)
-#btn_refrescar.pack(side="top", anchor="w", padx=10, pady=5) ++++boton al la izquierda "e" boton a la derecha
+tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
+          bg="#007bff", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
 frame_resultados = tk.Frame(root, bg="#222222")
 frame_resultados.pack(fill="both", expand=True, padx=10, pady=5)
@@ -295,19 +232,13 @@ tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
 frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
-btn_script = tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-                       bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
-                       bd=0, highlightthickness=0).pack(pady=5)
+tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
+          bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
-
-# Botón de Ayuda
-btn_ayuda = tk.Button(root, text="Ayuda", command=mostrar_ayuda,
-                      bg="#6c757d", fg="white", font=("Arial", 10, "bold"),
-                      bd=0, highlightthickness=0)
-btn_ayuda.pack(pady=5)
+tk.Button(root, text="Muy importante!!", command=abrir_formulario_importante,
+          bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
 refrescar_lista()
-
 root.mainloop()
-
-
