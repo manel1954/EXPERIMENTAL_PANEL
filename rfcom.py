@@ -217,7 +217,7 @@ Si deseas utilizar el Bluetooth, tendrías que activarlo,
 
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 """
-    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 12), justify="left")
+    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 11), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
 
     boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
