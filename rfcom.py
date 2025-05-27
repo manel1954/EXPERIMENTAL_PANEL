@@ -241,8 +241,7 @@ root.title("Programador ESP32 by REM-ESP")
 root.geometry("600x650")
 root.configure(bg=BG_COLOR)
 
-btn_ayuda = tk.Button(root, text="❓ Ayuda", command=mostrar_ayuda, bg="#007acc", fg="white", font=FONT)
-btn_ayuda.pack(pady=(0, 10))
+
 
 frame = tk.Frame(root, bg=BG_COLOR)
 frame.pack(padx=20, pady=20, fill="both", expand=False)
@@ -301,9 +300,14 @@ btn_script = tk.Button(root, text="Ejecutar script completo", command=ejecutar_s
                        bd=0, highlightthickness=0).pack(pady=5)
 
 
-
-
+# Botón de Ayuda
+btn_ayuda = tk.Button(root, text="Ayuda", command=mostrar_ayuda,
+                      bg="#6c757d", fg="white", font=("Arial", 10, "bold"),
+                      bd=0, highlightthickness=0)
+btn_ayuda.pack(pady=5)
 
 refrescar_lista()
 
 root.mainloop()
+
+
