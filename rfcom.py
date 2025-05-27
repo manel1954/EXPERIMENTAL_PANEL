@@ -22,6 +22,10 @@ def leer_vinculados():
                 vinculados.append((puerto, mac))
     return vinculados
 
+
+
+
+
 def escribir_vinculados(vinculados):
     lineas = []
     if os.path.exists(RUTA_FICHERO):
@@ -237,7 +241,8 @@ root.title("Programador ESP32 by REM-ESP")
 root.geometry("600x650")
 root.configure(bg=BG_COLOR)
 
-
+btn_ayuda = tk.Button(root, text="❓ Ayuda", command=mostrar_ayuda, bg="#007acc", fg="white", font=FONT)
+btn_ayuda.pack(pady=(0, 10))
 
 frame = tk.Frame(root, bg=BG_COLOR)
 frame.pack(padx=20, pady=20, fill="both", expand=False)
@@ -249,8 +254,7 @@ entry_vars = {}
 
 
 
-btn_ayuda = tk.Button(root, text="❓ Ayuda", command=mostrar_ayuda, bg="#007acc", fg="white", font=FONT)
-btn_ayuda.pack(pady=(0, 10))
+
 
 
 
