@@ -207,18 +207,18 @@ def abrir_formulario_importante():
 
     texto = """\
     INFORMACION PARA EL USO DE RFCOMM:
---------------------------------------------
-El Bluetooth viene desactivado por defecto
-para poder uasar un hotspot pinchado en Gpio
-Si quires utilizar el Bluetooth tendrías
-que activarlo y entonces no funcionaría
-el hotspto pinchado en Gpio
+
+El Bluetooth viene desactivado por defecto para permitir 
+el uso de un hotspot conectado a los pines GPIO.
+
+Si deseas utilizar el Bluetooth, tendrías que activarlo, 
+y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 """
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 10), justify="left")
     label.pack(padx=10, pady=(10, 5), anchor="w")
 
     boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
-                             bg="#28a745", fg="white", font=("Arial", 10, "bold"),
+                             bg="#28a745", fg="white", font=("Arial", 14, "bold"),
                              bd=0, highlightthickness=0)
     boton_cerrar.pack(pady=(5, 10))
 
