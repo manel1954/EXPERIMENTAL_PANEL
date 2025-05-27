@@ -222,7 +222,7 @@ def abrir_formulario_importante():
   sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 
   Nota:
-  Para copiar dbes de hace contro+C ya que con el ratón no deja.
+  Para copiar debes de hace Control+C ya que con el ratón no deja.
 """
 
     cuadro_texto = tk.Text(
