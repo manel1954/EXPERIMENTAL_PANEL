@@ -205,6 +205,8 @@ def abrir_formulario_importante():
     ventana.geometry("500x485+1448+69")
 
     texto = """\
+          
+          
           INFORMACION PARA EL USO DE RFCOMM:
 
   El Bluetooth viene desactivado por defecto para permitir 
