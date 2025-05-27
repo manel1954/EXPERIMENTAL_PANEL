@@ -199,47 +199,26 @@ def ejecutar_script_completo():
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
-def abrir_formulario_importante():
-    ventana = tk.Toplevel(root)
-    ventana.title("descripcion")
-    ventana.configure(bg="#0E0A5C")
-    ventana.geometry("452x485+1448+69")
+def abrir_descripcion():
+    ventana_desc = tk.Toplevel(root)
+    ventana_desc.title("Descripción")
+    ventana_desc.geometry("300x180+1000+300")
+    ventana_desc.configure(bg="#222222")
 
-    texto = """\
-    INFORMACION PARA EL USO DE RFCOMM:
+    tk.Label(ventana_desc, text="1. Hacer algo\n2. Hacer algo más\n3. Más de lo mismo",
+             bg="#222222", fg="white", font=("Arial", 11), justify="left").pack(pady=(20, 5))
 
-El Bluetooth viene desactivado por defecto para permitir 
-
-el uso de un hotspot conectado a los pines GPIO.
-
-
-Si deseas utilizar el Bluetooth, tendrías que activarlo, 
-
-y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
-
-INSTRUCCIONES PARA AVTIVAR Y DESACTIBVAR BLUETOOTH:
-
-Abre una consola copia y pega esto para activarlo:
-sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
-
-Para desactivarlo copia y pega esto:
-sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
-"""
-    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 11), justify="left")
-    label.pack(padx=10, pady=(10, 5), anchor="w")
-
-    boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
-                             bg="#28a745", fg="white", font=("Arial", 10, "bold"),
-                             bd=0, highlightthickness=0)
-    boton_cerrar.pack(pady=(5, 10))
+    tk.Button(ventana_desc, text="CERRAR", command=ventana_desc.destroy,
+              bg="#28a745", fg="white", font=("Arial", 10, "bold"),
+              bd=0, highlightthickness=0).pack(pady=(5, 10))
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Muy importante!! Click aqui para leer las instrucciones", command=abrir_formulario_importante,
-          bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
+tk.Button(root, text="Muy importante!!", command=abrir_descripcion,
+          bg="red", fg="white", font=("Arial", 10, "bold"),
           bd=0, highlightthickness=0).pack(pady=5)
 
 tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
