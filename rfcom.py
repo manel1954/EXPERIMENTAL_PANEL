@@ -191,6 +191,73 @@ def agregar_dispositivo(mac):
     refrescar_lista()
     escanear_bluetooth()
 
+
+
+
+def mostrar_ayuda():
+    ventana_ayuda = tk.Toplevel(root)
+    ventana_ayuda.title("Ayuda - Instrucciones de uso")
+    ventana_ayuda.geometry("500x400")
+    ventana_ayuda.configure(bg=BG_COLOR)
+
+    texto = """\
+INSTRUCCIONES DE USO:
+
+1. Selecciona el archivo del firmware (.bin) y su dirección.
+
+2. Si es la primera vez que programas el dispositivo selecciona el firmware, bootloader y particiones, con sus respectivas direcciones.
+
+3. Escoge el puerto serie al que está conectado tu ESP32.
+
+4. Selecciona la velocidad de comunicación (por defecto 921600).
+
+5. Pulsa 'Programar' para cargar el firmware al ESP32.
+
+6. Si deseas borrar la memoria flash antes de programar, pulsa 'Borrar' y ves al punto 2.
+
+7. Salir para finalizar el programa.
+
+Programador ESP32 by REM-ESP © 2025"""
+
+
+    label_instrucciones = tk.Label(ventana_ayuda, text=texto, justify="left", bg=BG_COLOR, fg=FG_COLOR, font=FONT, wraplength=460)
+    label_instrucciones.pack(padx=20, pady=20, fill="both", expand=True)
+
+
+# Estilo UI
+BG_COLOR = "#2b2b2b"
+FG_COLOR = "#f0f0f0"
+ENTRY_BG = "#3c3f41"
+BUTTON_BG = "#4caf50"
+BUTTON_BG_BORRAR = "#d9534f"
+FONT = ("Segoe UI", 10)
+
+root = tk.Tk()
+root.title("Programador ESP32 by REM-ESP")
+root.geometry("600x650")
+root.configure(bg=BG_COLOR)
+
+
+
+frame = tk.Frame(root, bg=BG_COLOR)
+frame.pack(padx=20, pady=20, fill="both", expand=False)
+
+# Entrada genérica
+entry_vars = {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def ejecutar_script_completo():
     try:
         subprocess.check_call(["sudo", "sh", RUTA_FICHERO])
