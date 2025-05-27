@@ -230,12 +230,12 @@ sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
     cuadro_texto.configure(state="disabled")  # Solo lectura
     cuadro_texto.pack(padx=10, pady=(10, 5), fill="both", expand=True)
 
-    boton_pdf = tk.Button(
-        ventana, text="Ver PDF", command=lambda: subprocess.run(["xdg-open", "/home/pi/instrucciones_rfcom.pdf"]),
-        bg="orange", fg="black", font=("Arial", 10, "bold"),
-        bd=0, highlightthickness=0
-    )
-    boton_pdf.pack(pady=(0, 5))
+    # boton_pdf = tk.Button(
+    #     ventana, text="Ver PDF", command=lambda: subprocess.run(["xdg-open", "/home/pi/instrucciones_rfcom.pdf"]),
+    #     bg="orange", fg="black", font=("Arial", 10, "bold"),
+    #     bd=0, highlightthickness=0
+    # )
+    # boton_pdf.pack(pady=(0, 5))
 
     boton_cerrar = tk.Button(
         ventana, text="CERRAR", command=ventana.destroy,
