@@ -32,14 +32,8 @@ def escribir_vinculados(vinculados):
     else:
         lineas.append("#!/bin/bash\n")
 
-    def key_rfcomm(item):
-        puerto = item[0]
-        m = re.match(r"rfcomm(\d+)", puerto)
-        return int(m.group(1)) if m else 9999
-    vinculados_ordenados = sorted(vinculados, key=key_rfcomm)
-
-    for puerto, mac in vinculados_ordenados:
-        lineas.append(f"sudo rfcomm bind /dev/{puerto} {mac}\n")
+    for i, (_, mac) in enumerate(sorted(vinculados, key=lambda x: int(re.findall(r'\d+', x[0])[0]))):
+        lineas.append(f"sudo rfcomm bind /dev/rfcomm{i} {mac}\n")
 
     with open(RUTA_FICHERO, "w") as f:
         f.writelines(lineas)
@@ -180,11 +174,16 @@ def escanear_bluetooth():
 
 def agregar_dispositivo(mac):
     vinculados = leer_vinculados()
-    puertos_usados = {int(re.match(r"rfcomm(\d+)", p).group(1)) for p, _ in vinculados}
-    nuevo_puerto_num = 0
-    while nuevo_puerto_num in puertos_usados:
-        nuevo_puerto_num += 1
-    nuevo_puerto = f"rfcomm{nuevo_puerto_num}"
+    macs = {m for _, m in vinculados}
+    if mac in macs:
+        messagebox.showinfo("Agregar", f"El dispositivo {mac} ya está en la lista.")
+        return
+
+    puertos_usados = sorted([int(re.findall(r'\d+', p)[0]) for p, _ in vinculados])
+    nuevo_num = 0
+    while nuevo_num in puertos_usados:
+        nuevo_num += 1
+    nuevo_puerto = f"rfcomm{nuevo_num}"
     vinculados.append((nuevo_puerto, mac))
     escribir_vinculados(vinculados)
     messagebox.showinfo("Agregar", f"Dispositivo {mac} agregado como {nuevo_puerto}")
@@ -211,7 +210,6 @@ def abrir_formulario_importante():
 El Bluetooth viene desactivado por defecto para permitir 
 
 el uso de un hotspot conectado a los pines GPIO.
-
 
 Si deseas utilizar el Bluetooth, tendrías que activarlo, 
 
@@ -266,3 +264,4 @@ tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_complet
 
 refrescar_lista()
 root.mainloop()
+
