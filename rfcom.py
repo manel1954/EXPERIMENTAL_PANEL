@@ -207,12 +207,21 @@ def abrir_formulario_importante():
 
     texto = "1 hacer algo\n2 hacer algo mas\n3 mas de lo mismo"
     label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 10), justify="left")
-    label.pack(padx=10, pady=10, anchor="w")
+    label.pack(padx=10, pady=(10, 5), anchor="w")
+
+    boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
+                             bg="#28a745", fg="white", font=("Arial", 10, "bold"),
+                             bd=0, highlightthickness=0)
+    boton_cerrar.pack(pady=(5, 10))
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
+
+tk.Button(root, text="Muy importante!!", command=abrir_formulario_importante,
+          bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
 tk.Button(root, text="Refrescar lista vinculados", command=refrescar_lista,
           bg="#007bff", fg="white", font=("Arial", 10, "bold"),
@@ -234,10 +243,6 @@ frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
 tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
           bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
-          bd=0, highlightthickness=0).pack(pady=5)
-
-tk.Button(root, text="Muy importante!!", command=abrir_formulario_importante,
-          bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
           bd=0, highlightthickness=0).pack(pady=5)
 
 refrescar_lista()
