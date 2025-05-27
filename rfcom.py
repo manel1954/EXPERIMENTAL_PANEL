@@ -202,17 +202,15 @@ def abrir_formulario_importante():
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
     ventana.configure(bg="#0E0A5C")
-    ventana.geometry("600x485+1448+69")
+    ventana.geometry("500x485+1448+69")
 
     texto = """\
-    INFORMACION PARA EL USO DE RFCOMM:
+INFORMACION PARA EL USO DE RFCOMM:
 
 El Bluetooth viene desactivado por defecto para permitir 
-
 el uso de un hotspot conectado a los pines GPIO.
 
 Si deseas utilizar el Bluetooth, tendrías que activarlo, 
-
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 
 INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
@@ -223,13 +221,28 @@ sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
 Abre una consola y escribe esto para desactivarlo:
 sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
 """
-    label = tk.Label(ventana, text=texto, bg="#121212", fg="white", font=("Arial", 11), justify="left")
-    label.pack(padx=10, pady=(10, 5), anchor="w")
 
-    boton_cerrar = tk.Button(ventana, text="CERRAR", command=ventana.destroy,
-                             bg="#28a745", fg="white", font=("Arial", 10, "bold"),
-                             bd=0, highlightthickness=0)
-    boton_cerrar.pack(pady=(5, 10))
+    cuadro_texto = tk.Text(
+        ventana, bg="#121212", fg="white", font=("Arial", 11),
+        wrap="word", height=20, width=60, borderwidth=0
+    )
+    cuadro_texto.insert("1.0", texto)
+    cuadro_texto.configure(state="disabled")  # Solo lectura
+    cuadro_texto.pack(padx=10, pady=(10, 5), fill="both", expand=True)
+
+    boton_pdf = tk.Button(
+        ventana, text="Ver PDF", command=lambda: subprocess.run(["xdg-open", "/home/pi/instrucciones_rfcom.pdf"]),
+        bg="orange", fg="black", font=("Arial", 10, "bold"),
+        bd=0, highlightthickness=0
+    )
+    boton_pdf.pack(pady=(0, 5))
+
+    boton_cerrar = tk.Button(
+        ventana, text="CERRAR", command=ventana.destroy,
+        bg="#28a745", fg="white", font=("Arial", 10, "bold"),
+        bd=0, highlightthickness=0
+    )
+    boton_cerrar.pack(pady=(0, 10))
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
