@@ -202,7 +202,7 @@ def abrir_formulario_importante():
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
     ventana.configure(bg="#0E0A5C")
-    ventana.geometry("670x485+1448+69")
+    ventana.geometry("500x585+1448+69")
 
     texto = """\
           
