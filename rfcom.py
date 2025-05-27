@@ -205,7 +205,7 @@ def abrir_formulario_importante():
     ventana.geometry("500x485+1448+69")
 
     texto = """\
-INFORMACION PARA EL USO DE RFCOMM:
+          INFORMACION PARA EL USO DE RFCOMM:
 
 El Bluetooth viene desactivado por defecto para permitir 
 el uso de un hotspot conectado a los pines GPIO.
@@ -213,7 +213,7 @@ el uso de un hotspot conectado a los pines GPIO.
 Si deseas utilizar el Bluetooth, tendrías que activarlo, 
 y en ese caso el hotspot conectado a GPIO dejaría de funcionar.
 
-INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
+    INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
 
 Abre una consola y escribe esto para activarlo:
 sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
