@@ -218,17 +218,6 @@ def abrir_formulario_importante():
   Puedes utilizar un dispositivo USB Bluetooth y no sería necesario 
   desactivar el GPIO (AMA0).
 
- 
-  INSTRUCCIONES PARA ACTIVAR Y DESACTIVAR BLUETOOTH:
-
-  Para Activar el BLUETOOTH interno copia y pega lo siguiente en una terminal:
-  sudo sed -i '57c # dtoverlay=pi3-disable-bt' /boot/config.txt
-  
-  Para DESACTIVARLO copia y pega lo siguiente en una terminal:
-  sudo sed -i '57c dtoverlay=pi3-disable-bt' /boot/config.txt
-
-  Nota:
-  Para copiar debes de hacer Control+C ya que con el ratón no deja.
 """
 
     cuadro_texto = tk.Text(
@@ -337,14 +326,14 @@ frame_bluetooth.pack(pady=5)
 btn_bt_activado = tk.Button(frame_bluetooth, text="DESACTIVADO Click para ACTIVARLO",
                             command=lambda: cambiar_estado_bluetooth(True),
                             font=("Arial", 7, "bold"),
-                            fg="white", bg="green",
+                            fg="white", bg="#dc3545",
                             bd=0, highlightthickness=0)
 btn_bt_activado.pack(side="left", padx=5)
 
 btn_bt_desactivado = tk.Button(frame_bluetooth, text="ACTIVADO Click para DESACTIVARLO ",
                                command=lambda: cambiar_estado_bluetooth(False),
                                font=("Arial", 7, "bold"),
-                               fg="white", bg="#dc3545",
+                               fg="white", bg="green",
                                bd=0, highlightthickness=0)
 btn_bt_desactivado.pack(side="left", padx=5)
 
