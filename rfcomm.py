@@ -317,8 +317,6 @@ def cambiar_estado_bluetooth(activar):
     try:
         subprocess.check_call(comando)
         messagebox.showinfo("Bluetooth", f"Bluetooth {'activado' if activar else 'desactivado'} correctamente.\n\nReinicia la Raspberry para aplicar el cambio.")
-        comando = (
-        ["sudo reboot"])
         actualizar_botones_bluetooth()
 
     except subprocess.CalledProcessError as e:
@@ -331,17 +329,6 @@ def actualizar_botones_bluetooth():
     else:
         btn_bt_activado.config(state="normal", bg="#dc3545")
         btn_bt_desactivado.config(state="disabled", bg="green")
-
-
-
-
-
-
-
-
-
-
-
 
 frame_bluetooth = tk.Frame(root, bg="#121212")
 frame_bluetooth.pack(pady=5)
