@@ -300,14 +300,23 @@ def estado_bluetooth():
         return False
 
 def cambiar_estado_bluetooth(activar):
+    estado_str = "activar" if activar else "desactivar"
+    confirmacion = messagebox.askyesno(
+        "Confirmar cambio",
+        f"¿Deseas realmente {estado_str} el Bluetooth?\n(Requiere reinicio para surtir efecto)"
+    )
+
+    if not confirmacion:
+        return  # Cancelado por el usuario
+
     comando = (
-        ["sudo", "sed", "-i", "57c # dtoverlay=pi3-disable-bt", "/boot/config.txt"]
+        ["sudo", "sed", "-i", "57c #dtoverlay=pi3-disable-bt", "/boot/config.txt"]
         if activar else
         ["sudo", "sed", "-i", "57c dtoverlay=pi3-disable-bt", "/boot/config.txt"]
     )
     try:
         subprocess.check_call(comando)
-        messagebox.showinfo("Bluetooth", f"Bluetooth {'activado' if activar else 'desactivado'} correctamente.")
+        messagebox.showinfo("Bluetooth", f"Bluetooth {'activado' if activar else 'desactivado'} correctamente.\n\nReinicia la Raspberry para aplicar el cambio.")
         actualizar_botones_bluetooth()
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error", f"No se pudo cambiar el estado del Bluetooth:\n{e}")
@@ -320,24 +329,6 @@ def actualizar_botones_bluetooth():
         btn_bt_activado.config(state="normal", bg="#dc3545")
         btn_bt_desactivado.config(state="disabled", bg="green")
 
-frame_bluetooth = tk.Frame(root, bg="#121212")
-frame_bluetooth.pack(pady=5)
-
-btn_bt_activado = tk.Button(frame_bluetooth, text="DESACTIVADO Click para ACTIVARLO",
-                            command=lambda: cambiar_estado_bluetooth(True),
-                            font=("Arial", 7, "bold"),
-                            fg="white", bg="#dc3545",
-                            bd=0, highlightthickness=0)
-btn_bt_activado.pack(side="left", padx=5)
-
-btn_bt_desactivado = tk.Button(frame_bluetooth, text="ACTIVADO Click para DESACTIVARLO ",
-                               command=lambda: cambiar_estado_bluetooth(False),
-                               font=("Arial", 7, "bold"),
-                               fg="white", bg="green",
-                               bd=0, highlightthickness=0)
-btn_bt_desactivado.pack(side="left", padx=5)
-
-actualizar_botones_bluetooth()
 
 
 
