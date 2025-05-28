@@ -199,10 +199,41 @@ def ejecutar_script_completo():
         messagebox.showerror("Error script", f"No se pudo ejecutar el script:\n{e}")
 
 def abrir_formulario_importante():
+    def estado_bluetooth():
+        try:
+            with open("/boot/config.txt", "r") as f:
+                lineas = f.readlines()
+            if len(lineas) >= 57:
+                return lineas[56].strip().startswith("#")  # Activado si línea está comentada
+            return False
+        except:
+            return False
+
+    def cambiar_estado_bluetooth(activar):
+        comando = (
+            ["sudo", "sed", "-i", "57c # dtoverlay=pi3-disable-bt", "/boot/config.txt"]
+            if activar else
+            ["sudo", "sed", "-i", "57c dtoverlay=pi3-disable-bt", "/boot/config.txt"]
+        )
+        try:
+            subprocess.check_call(comando)
+            messagebox.showinfo("Bluetooth", f"Bluetooth {'activado' if activar else 'desactivado'} correctamente.")
+            actualizar_estado_boton()
+        except subprocess.CalledProcessError as e:
+            messagebox.showerror("Error", f"No se pudo cambiar el estado del Bluetooth:\n{e}")
+
+    def actualizar_estado_boton():
+        if estado_bluetooth():
+            boton_estado.config(text="DESACTIVADO (Click para ACTIVARLO)", bg="#dc3545",
+                                command=lambda: cambiar_estado_bluetooth(True))
+        else:
+            boton_estado.config(text="ACTIVADO (Click para DESACTIVARLO)", bg="#28a745",
+                                command=lambda: cambiar_estado_bluetooth(False))
+
     ventana = tk.Toplevel(root)
     ventana.title("descripcion")
     ventana.configure(bg="#0E0A5C")
-    ventana.geometry("500x585+1448+69")
+    ventana.geometry("500x620+1448+69")
 
     texto = """\
           
@@ -212,7 +243,7 @@ def abrir_formulario_importante():
   El Bluetooth interno está desactivado por defecto para permitir 
   el uso del puerto serial del GPIO puerto (AMA0).
 
-  Si deseas activas el Bluetooth interno el GPIO puerto (AMA0) 
+  Si deseas activar el Bluetooth interno, el GPIO puerto (AMA0) 
   dejaría de funcionar.
 
   Puedes utilizar un dispositivo USB Bluetooth y no sería necesario 
@@ -225,22 +256,29 @@ def abrir_formulario_importante():
         wrap="word", height=20, width=60, borderwidth=0
     )
     cuadro_texto.insert("1.0", texto)
-    cuadro_texto.configure(state="disabled")  # Solo lectura
+    cuadro_texto.configure(state="disabled")
     cuadro_texto.pack(padx=10, pady=(10, 5), fill="both", expand=True)
 
-    # boton_pdf = tk.Button(
-    #     ventana, text="Ver PDF", command=lambda: subprocess.run(["xdg-open", "/home/pi/instrucciones_rfcom.pdf"]),
-    #     bg="orange", fg="black", font=("Arial", 10, "bold"),
-    #     bd=0, highlightthickness=0
-    # )
-    # boton_pdf.pack(pady=(0, 5))
+    # Etiqueta de estado
+    tk.Label(ventana, text="ESTADO DEL BLUETOOTH:", bg="#0E0A5C", fg="white",
+             font=("Arial", 10, "bold")).pack(pady=(5, 2))
 
+    # Botón de control
+    boton_estado = tk.Button(
+        ventana, text="", font=("Arial", 10, "bold"),
+        fg="white", bd=0, highlightthickness=0
+    )
+    boton_estado.pack(pady=(0, 10))
+    actualizar_estado_boton()
+
+    # Botón cerrar
     boton_cerrar = tk.Button(
         ventana, text="CERRAR", command=ventana.destroy,
-        bg="#28a745", fg="white", font=("Arial", 10, "bold"),
+        bg="#007bff", fg="white", font=("Arial", 10, "bold"),
         bd=0, highlightthickness=0
     )
     boton_cerrar.pack(pady=(0, 10))
+
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
