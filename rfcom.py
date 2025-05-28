@@ -314,11 +314,11 @@ def cambiar_estado_bluetooth(activar):
 
 def actualizar_botones_bluetooth():
     if estado_bluetooth():
-        btn_bt_activado.config(state="disabled", bg="green")
-        btn_bt_desactivado.config(state="normal", bg="#dc3545")
+        btn_bt_activado.config(state="disabled", bg="#dc3545")
+        btn_bt_desactivado.config(state="normal", bg="green")
     else:
-        btn_bt_activado.config(state="normal", bg="green")
-        btn_bt_desactivado.config(state="disabled", bg="#dc3545")
+        btn_bt_activado.config(state="normal", bg="#dc3545")
+        btn_bt_desactivado.config(state="disabled", bg="green")
 
 frame_bluetooth = tk.Frame(root, bg="#121212")
 frame_bluetooth.pack(pady=5)
