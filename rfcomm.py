@@ -303,7 +303,7 @@ def cambiar_estado_bluetooth(activar):
     estado_str = "activar" if activar else "desactivar"
     confirmacion = messagebox.askyesno(
         "Confirmar cambio",
-        f"¿Deseas realmente {estado_str} el Bluetooth?\n(Requiere reinicio para surtir efecto)"
+        f"¿Deseas realmente {estado_str} el Bluetooth?"
     )
 
     if not confirmacion:
