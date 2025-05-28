@@ -277,7 +277,7 @@ tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_complet
 
 
 
-tk.Button(root, text="ESTADO DEL BLUETOOTH:", command=ejecutar_script_completo,
+tk.Button(root, text="ESTADO DEL BLUETOOTH:",
           bg="#5007ed", fg="white", font=("Arial", 10, "bold"),
           bd=0, highlightthickness=0).pack(pady=5)
 
