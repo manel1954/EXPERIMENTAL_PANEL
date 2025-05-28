@@ -19,10 +19,6 @@ def update_bt_status_label():
     status = get_bluetooth_status()
     status_label.config(text=f"Bluetooth {'ACTIVADO' if status else 'DESACTIVADO'}", bg="green" if status else "red")
 
-def auto_update_bt_status():
-    update_bt_status_label()
-    root.after(5000, auto_update_bt_status)  # Actualiza cada 5 segundos
-
 def toggle_bluetooth(enable):
     try:
         subprocess.run(["rfkill", "unblock" if enable else "block", "bluetooth"], check=True)
@@ -144,7 +140,6 @@ rfcomm_status = tk.Label(root, text="", font=("Courier", 10), justify="left")
 rfcomm_status.pack(pady=10)
 
 update_bt_status_label()
-auto_update_bt_status()  # 🚀 Inicia el refresco automático del estado
 load_bindings()
 update_rfcomm_status()
 
