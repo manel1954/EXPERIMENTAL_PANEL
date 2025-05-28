@@ -336,15 +336,15 @@ frame_bluetooth.pack(pady=5)
 
 btn_bt_activado = tk.Button(frame_bluetooth, text="DESACTIVADO Click para ACTIVARLO",
                             command=lambda: cambiar_estado_bluetooth(True),
-                            font=("Arial", 8, "bold"),
-                            fg="white", bg="#dc3545",
+                            font=("Arial", 7, "bold"),
+                            fg="white", bg="green",
                             bd=0, highlightthickness=0)
 btn_bt_activado.pack(side="left", padx=5)
 
 btn_bt_desactivado = tk.Button(frame_bluetooth, text="ACTIVADO Click para DESACTIVARLO ",
                                command=lambda: cambiar_estado_bluetooth(False),
-                               font=("Arial", 8, "bold"),
-                               fg="white", bg="green",
+                               font=("Arial", 7, "bold"),
+                               fg="white", bg="#dc3545",
                                bd=0, highlightthickness=0)
 btn_bt_desactivado.pack(side="left", padx=5)
 
