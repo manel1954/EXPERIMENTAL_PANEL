@@ -280,9 +280,9 @@ tk.Button(root, text="Escanear Bluetooth", command=escanear_bluetooth,
 frame_escaneo = tk.Frame(root, bg="#222222")
 frame_escaneo.pack(fill="both", expand=True, padx=10, pady=5)
 
-
-
-
+tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
+          bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
+          bd=0, highlightthickness=0).pack(pady=5)
 
 
 
@@ -293,45 +293,49 @@ def estado_bluetooth():
             lineas = f.readlines()
         if len(lineas) >= 57:
             return lineas[56].strip().startswith("#")
-    except Exception as e:
-        print(f"Error leyendo /boot/config.txt: {e}")
-    return False
+        return False
+    except:
+        return False
 
-def activar_bluetooth():
+def cambiar_estado_bluetooth(activar):
+    comando = (
+        ["sudo", "sed", "-i", "57c # dtoverlay=pi3-disable-bt", "/boot/config.txt"]
+        if activar else
+        ["sudo", "sed", "-i", "57c dtoverlay=pi3-disable-bt", "/boot/config.txt"]
+    )
     try:
-        subprocess.check_call(["sudo", "sed", "-i", "57c # dtoverlay=pi3-disable-bt", "/boot/config.txt"])
-        messagebox.showinfo("Bluetooth", "Bluetooth ACTIVADO (GPIO disponible).")
+        subprocess.check_call(comando)
+        messagebox.showinfo("Bluetooth", f"Bluetooth {'activado' if activar else 'desactivado'} correctamente.")
+        actualizar_botones_bluetooth()
     except subprocess.CalledProcessError as e:
-        messagebox.showerror("Error", f"No se pudo activar Bluetooth:\n{e}")
+        messagebox.showerror("Error", f"No se pudo cambiar el estado del Bluetooth:\n{e}")
 
-def desactivar_bluetooth():
-    try:
-        subprocess.check_call(["sudo", "sed", "-i", "57c dtoverlay=pi3-disable-bt", "/boot/config.txt"])
-        messagebox.showinfo("Bluetooth", "Bluetooth DESACTIVADO (GPIO no disponible).")
-    except subprocess.CalledProcessError as e:
-        messagebox.showerror("Error", f"No se pudo desactivar Bluetooth:\n{e}")
+def actualizar_botones_bluetooth():
+    if estado_bluetooth():
+        btn_bt_activado.config(state="disabled", bg="green")
+        btn_bt_desactivado.config(state="normal", bg="#dc3545")
+    else:
+        btn_bt_activado.config(state="normal", bg="green")
+        btn_bt_desactivado.config(state="disabled", bg="#dc3545")
 
-# Botones de estado de Bluetooth
-frame_bt = tk.Frame(root, bg="#121212")
-frame_bt.pack(pady=(5, 2))
+frame_bluetooth = tk.Frame(root, bg="#121212")
+frame_bluetooth.pack(pady=5)
 
-btn_bt_on = tk.Button(frame_bt, text="Bluetooth Activado", command=activar_bluetooth,
-                      bg="#28a745", fg="white", font=("Arial", 10, "bold"),
-                      bd=0, highlightthickness=0, padx=10)
-btn_bt_off = tk.Button(frame_bt, text="Bluetooth Desactivado", command=desactivar_bluetooth,
-                       bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
-                       bd=0, highlightthickness=0, padx=10)
+btn_bt_activado = tk.Button(frame_bluetooth, text="Bluetooth Activado",
+                            command=lambda: cambiar_estado_bluetooth(True),
+                            font=("Arial", 10, "bold"),
+                            fg="white", bg="green",
+                            bd=0, highlightthickness=0)
+btn_bt_activado.pack(side="left", padx=5)
 
-# Mostrar ambos botones pero marcar como activo solo el correspondiente
-if estado_bluetooth():
-    btn_bt_on.config(state="disabled")
-else:
-    btn_bt_off.config(state="disabled")
+btn_bt_desactivado = tk.Button(frame_bluetooth, text="Bluetooth Desactivado",
+                               command=lambda: cambiar_estado_bluetooth(False),
+                               font=("Arial", 10, "bold"),
+                               fg="white", bg="#dc3545",
+                               bd=0, highlightthickness=0)
+btn_bt_desactivado.pack(side="left", padx=5)
 
-btn_bt_on.pack(side="left", padx=10)
-btn_bt_off.pack(side="left", padx=10)
-
-
+actualizar_botones_bluetooth()
 
 
 
@@ -340,11 +344,6 @@ btn_bt_off.pack(side="left", padx=10)
 
 
 
-
-
-tk.Button(root, text="Ejecutar script completo", command=ejecutar_script_completo,
-          bg="#ed8d07", fg="white", font=("Arial", 10, "bold"),
-          bd=0, highlightthickness=0).pack(pady=5)
 
 refrescar_lista()
 root.mainloop()
