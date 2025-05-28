@@ -334,14 +334,14 @@ def actualizar_botones_bluetooth():
 frame_bluetooth = tk.Frame(root, bg="#121212")
 frame_bluetooth.pack(pady=5)
 
-btn_bt_activado = tk.Button(frame_bluetooth, text="Bluetooth Desactivado Click para ACTIVARLO",
+btn_bt_activado = tk.Button(frame_bluetooth, text="DESACTIVADO Click para ACTIVARLO",
                             command=lambda: cambiar_estado_bluetooth(True),
                             font=("Arial", 10, "bold"),
                             fg="white", bg="#dc3545",
                             bd=0, highlightthickness=0)
 btn_bt_activado.pack(side="left", padx=5)
 
-btn_bt_desactivado = tk.Button(frame_bluetooth, text="Bluetooth Activado Click para DESACTIVARLO ",
+btn_bt_desactivado = tk.Button(frame_bluetooth, text="ACTIVADO Click para DESACTIVARLO ",
                                command=lambda: cambiar_estado_bluetooth(False),
                                font=("Arial", 10, "bold"),
                                fg="white", bg="green",
