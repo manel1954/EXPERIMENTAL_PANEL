@@ -307,6 +307,7 @@ def cambiar_estado_bluetooth(activar):
     )
     try:
         subprocess.check_call(comando)
+        messagebox.bg="#dc3545"
         messagebox.showinfo("Bluetooth", f"Bluetooth {'activado' if activar else 'desactivado'} correctamente.")
         actualizar_botones_bluetooth()
     except subprocess.CalledProcessError as e:
