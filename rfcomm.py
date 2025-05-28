@@ -247,7 +247,7 @@ root.title("Gestión Bluetooth rfcomm")
 root.geometry("452x485+1448+69")
 root.configure(bg="#121212")
 
-tk.Button(root, text="Muy importante!! Click aqui para leer las instrucciones", command=abrir_formulario_importante,
+tk.Button(root, text="Click aqui para leer las instrucciones", command=abrir_formulario_importante,
           bg="#dc3545", fg="white", font=("Arial", 10, "bold"),
           bd=0, highlightthickness=0).pack(pady=5)
 
