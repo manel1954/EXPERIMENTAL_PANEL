@@ -212,7 +212,7 @@ def abrir_formulario_importante():
   El Bluetooth interno está desactivado por defecto para permitir 
   el uso del puerto serial del GPIO puerto (AMA0).
 
-  Si deseas activas el Bluetooth interno el GPIO puerto (AMA0) 
+  Si deseas activar el Bluetooth interno, el GPIO puerto (AMA0) 
   dejaría de funcionar.
 
   Puedes utilizar un dispositivo USB Bluetooth y no sería necesario 
