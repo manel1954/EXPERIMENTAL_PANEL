@@ -244,7 +244,7 @@ def abrir_formulario_importante():
 
 root = tk.Tk()
 root.title("Gestión Bluetooth rfcomm")
-root.geometry("612x485+1280+69")
+root.geometry("612x485+1284+69")
 root.configure(bg="#121212")
 
 tk.Button(root, text="Click aqui para leer las instrucciones", command=abrir_formulario_importante,
