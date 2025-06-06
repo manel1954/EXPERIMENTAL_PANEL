@@ -20,7 +20,7 @@ usuario="/home/pi"
 usuario="$usuario"
 SCRIPTS_version="EXPERI"
 actualizacion=$(awk "NR==2" /home/pi/version-fecha-actualizacion)
-version="X106_"
+version="PANEL"
 version=$version$actualizacion
 
 
