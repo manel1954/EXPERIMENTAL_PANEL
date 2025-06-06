@@ -67,7 +67,7 @@ def cargar_datos():
     entry_id.delete(0, tk.END)
     entry_id.insert(0, dmr_id)
 
-# Interfaz
+# Interfaz   
 root = tk.Tk()
 root.title("Editor MMDVM.ini")
 root.geometry("350x200")
