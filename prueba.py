@@ -1,52 +1,78 @@
+import tkinter as tk
+from tkinter import messagebox
 import configparser
 import os
+import shutil
 
-# Ruta del archivo MMDVM.ini
 INI_PATH = '/home/pi/MMDVMHost/MMDVM.ini'
 
-def cargar_config(path):
-    if not os.path.isfile(path):
-        print(f"Error: El archivo {path} no existe.")
+def cargar_config():
+    if not os.path.isfile(INI_PATH):
+        messagebox.showerror("Error", f"No se encontró el archivo:\n{INI_PATH}")
         return None
     config = configparser.ConfigParser(strict=False)
-    config.read(path)
+    config.read(INI_PATH)
     return config
 
-def guardar_config(config, path):
-    with open(path, 'w') as configfile:
+def guardar_config(config):
+    # Hacer backup antes de guardar
+    backup_path = INI_PATH + '.bak'
+    shutil.copy(INI_PATH, backup_path)
+    with open(INI_PATH, 'w') as configfile:
         config.write(configfile)
-    print(f"Archivo guardado exitosamente en {path}")
+    messagebox.showinfo("Guardado", f"Archivo guardado con éxito.\nCopia de seguridad creada:\n{backup_path}")
 
-def mostrar_datos_actuales(config):
-    callsign = config.get('General', 'Callsign', fallback='No definido')
-    dmr_id = config.get('DMR', 'Id', fallback='No definido')
-    print(f"Callsign actual: {callsign}")
-    print(f"DMR ID actual: {dmr_id}")
+def guardar_datos():
+    nuevo_callsign = entry_callsign.get().strip().upper()
+    nuevo_id = entry_id.get().strip()
 
-def editar_valores(config):
-    nuevo_callsign = input("Nuevo Callsign: ").strip().upper()
-    nuevo_id = input("Nuevo DMR ID: ").strip()
+    if not nuevo_callsign or not nuevo_id:
+        messagebox.showwarning("Campos incompletos", "Ambos campos son obligatorios.")
+        return
 
-    if nuevo_callsign:
-        config.set('General', 'Callsign', nuevo_callsign)
-    if nuevo_id:
-        config.set('DMR', 'Id', nuevo_id)
-
-def main():
-    config = cargar_config(INI_PATH)
+    config = cargar_config()
     if config is None:
         return
 
-    print("\n--- VALORES ACTUALES ---")
-    mostrar_datos_actuales(config)
+    config.set('General', 'Callsign', nuevo_callsign)
+    config.set('DMR', 'Id', nuevo_id)
+    guardar_config(config)
 
-    print("\n--- MODIFICAR VALORES ---")
-    editar_valores(config)
+def cargar_datos():
+    config = cargar_config()
+    if config is None:
+        return
 
-    print("\n--- NUEVOS VALORES ---")
-    mostrar_datos_actuales(config)
+    callsign = config.get('General', 'Callsign', fallback='')
+    dmr_id = config.get('DMR', 'Id', fallback='')
 
-    guardar_config(config, INI_PATH)
+    entry_callsign.delete(0, tk.END)
+    entry_callsign.insert(0, callsign)
 
-if __name__ == '__main__':
-    main()
+    entry_id.delete(0, tk.END)
+    entry_id.insert(0, dmr_id)
+
+# Crear interfaz
+root = tk.Tk()
+root.title("Editor MMDVM.ini")
+root.geometry("350x200")
+root.resizable(False, False)
+
+frame = tk.Frame(root, padx=20, pady=20)
+frame.pack()
+
+tk.Label(frame, text="Callsign:").grid(row=0, column=0, sticky='e')
+entry_callsign = tk.Entry(frame, width=25)
+entry_callsign.grid(row=0, column=1)
+
+tk.Label(frame, text="DMR ID:").grid(row=1, column=0, sticky='e')
+entry_id = tk.Entry(frame, width=25)
+entry_id.grid(row=1, column=1)
+
+tk.Button(frame, text="Cargar valores", command=cargar_datos).grid(row=2, column=0, pady=20)
+tk.Button(frame, text="Guardar cambios", command=guardar_datos).grid(row=2, column=1)
+
+# Iniciar con datos cargados
+cargar_datos()
+
+root.mainloop()
