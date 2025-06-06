@@ -1,90 +1,97 @@
 import tkinter as tk
 from tkinter import messagebox
-import configparser
 import os
 import shutil
 
 INI_PATH = '/home/pi/MMDVMHost/MMDVM.ini'
 
-def cargar_config():
-    if not os.path.isfile(INI_PATH):
-        messagebox.showerror("Error", f"No se encontró el archivo:\n{INI_PATH}")
-        return None
-    config = configparser.ConfigParser(strict=False)
-    config.optionxform = str  # Respeta mayúsculas/minúsculas en las claves
-    config.read(INI_PATH)
-    return config
+def cargar_valores():
+    if not os.path.exists(INI_PATH):
+        messagebox.showerror("Error", f"No se encuentra el archivo {INI_PATH}")
+        return "", ""
 
-def guardar_config_si_cambia(nuevo_callsign, nuevo_id):
-    config = cargar_config()
-    if config is None:
+    callsign = ""
+    dmr_id = ""
+    in_general = False
+
+    with open(INI_PATH, 'r') as f:
+        for line in f:
+            stripped = line.strip()
+            if stripped.startswith("["):
+                in_general = stripped.lower() == "[general]"
+            elif in_general:
+                if stripped.lower().startswith("callsign"):
+                    callsign = stripped.split("=", 1)[1].strip()
+                elif stripped.lower().startswith("id"):
+                    dmr_id = stripped.split("=", 1)[1].strip()
+
+    return callsign, dmr_id
+
+def guardar_valores(nuevo_callsign, nuevo_id):
+    if not os.path.exists(INI_PATH):
+        messagebox.showerror("Error", f"No se encuentra el archivo {INI_PATH}")
         return
 
-    cambiado = False
+    backup = INI_PATH + ".bak"
+    shutil.copy(INI_PATH, backup)
 
-    callsign_actual = config.get('General', 'Callsign', fallback='')
-    id_actual = config.get('General', 'Id', fallback='')
+    lines = []
+    in_general = False
 
-    if nuevo_callsign and nuevo_callsign != callsign_actual:
-        config.set('General', 'Callsign', nuevo_callsign)
-        cambiado = True
+    with open(INI_PATH, 'r') as f:
+        for line in f:
+            original_line = line
+            stripped = line.strip()
+            if stripped.startswith("["):
+                in_general = stripped.lower() == "[general]"
+            elif in_general:
+                if stripped.lower().startswith("callsign"):
+                    line = f"Callsign={nuevo_callsign}\n"
+                elif stripped.lower().startswith("id"):
+                    line = f"Id={nuevo_id}\n"
+            lines.append(line)
 
-    if nuevo_id and nuevo_id != id_actual:
-        config.set('General', 'Id', nuevo_id)
-        cambiado = True
+    with open(INI_PATH, 'w') as f:
+        f.writelines(lines)
 
-    if cambiado:
-        backup_path = INI_PATH + '.bak'
-        shutil.copy(INI_PATH, backup_path)
-        with open(INI_PATH, 'w') as configfile:
-            config.write(configfile)
-        messagebox.showinfo("Guardado", "Se aplicaron los cambios.\nCopia de seguridad creada.")
-    else:
-        messagebox.showinfo("Sin cambios", "No se detectaron cambios para guardar.")
+    messagebox.showinfo("Guardado", "Cambios guardados.\nSe creó una copia de seguridad.")
 
-def guardar_datos():
+def on_guardar():
     nuevo_callsign = entry_callsign.get().strip().upper()
     nuevo_id = entry_id.get().strip()
 
-    if not nuevo_callsign and not nuevo_id:
-        messagebox.showwarning("Campos vacíos", "Debes ingresar al menos un valor.")
+    if not nuevo_callsign or not nuevo_id:
+        messagebox.showwarning("Campos vacíos", "Callsign e ID son obligatorios.")
         return
 
-    guardar_config_si_cambia(nuevo_callsign, nuevo_id)
+    guardar_valores(nuevo_callsign, nuevo_id)
 
-def cargar_datos():
-    config = cargar_config()
-    if config is None:
-        return
-
-    callsign = config.get('General', 'Callsign', fallback='')
-    dmr_id = config.get('General', 'Id', fallback='')
-
+def on_cargar():
+    callsign, dmr_id = cargar_valores()
     entry_callsign.delete(0, tk.END)
     entry_callsign.insert(0, callsign)
-
     entry_id.delete(0, tk.END)
     entry_id.insert(0, dmr_id)
 
-# Interfaz
+# Interfaz Tkinter
 root = tk.Tk()
-root.title("Editor MMDVM.ini")
-root.geometry("350x200")
+root.title("Editor MMDVM.ini (Seguro)")
+root.geometry("360x200")
 root.resizable(False, False)
 
 frame = tk.Frame(root, padx=20, pady=20)
 frame.pack()
 
-tk.Label(frame, text="Callsign:").grid(row=0, column=0, sticky='e')
+tk.Label(frame, text="Callsign:").grid(row=0, column=0, sticky="e")
 entry_callsign = tk.Entry(frame, width=25)
 entry_callsign.grid(row=0, column=1)
 
-tk.Label(frame, text="DMR ID:").grid(row=1, column=0, sticky='e')
+tk.Label(frame, text="DMR ID:").grid(row=1, column=0, sticky="e")
 entry_id = tk.Entry(frame, width=25)
 entry_id.grid(row=1, column=1)
 
-tk.Button(frame, text="Cargar valores", command=cargar_datos).grid(row=2, column=0, pady=20)
-tk.Button(frame, text="Guardar cambios", command=guardar_datos).grid(row=2, column=1)
+tk.Button(frame, text="Cargar", command=on_cargar).grid(row=2, column=0, pady=20)
+tk.Button(frame, text="Guardar", command=on_guardar).grid(row=2, column=1)
 
-cargar_datos()
+on_cargar()
 root.mainloop()
