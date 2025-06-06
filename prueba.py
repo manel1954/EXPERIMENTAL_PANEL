@@ -1,16 +1,16 @@
 import tkinter as tk
 import subprocess
 
-class AudioStreamApp:
+class DVSwitchMonitor:
     def __init__(self, master):
         self.master = master
-        master.title("Escuchar MMDVMHost")
+        master.title("DVSwitch RX Monitor")
 
         self.playing = False
         self.process = None
 
-        self.button = tk.Button(master, text="🔊 Escuchar", command=self.toggle_audio, width=20)
-        self.button.pack(padx=20, pady=20)
+        self.button = tk.Button(master, text="🔊 Escuchar RX", command=self.toggle_audio, width=30)
+        self.button.pack(padx=30, pady=30)
 
     def toggle_audio(self):
         if not self.playing:
@@ -20,22 +20,22 @@ class AudioStreamApp:
 
     def start_audio(self):
         try:
-            # Reemplaza la URL con tu stream real
-            stream_url = "http://localhost:8888/audio"
+            # Dirección del stream RTP/UDP generado por AnalogBridge/DVSwitch
+            stream_url = "udp://127.0.0.1:12345"  # Ajusta si es diferente
             self.process = subprocess.Popen(['ffplay', '-nodisp', '-autoexit', '-loglevel', 'quiet', stream_url])
             self.playing = True
-            self.button.config(text="⏹️ Detener")
+            self.button.config(text="⏹️ Detener RX")
         except Exception as e:
-            print("Error al reproducir el audio:", e)
+            print("Error al iniciar audio:", e)
 
     def stop_audio(self):
         if self.process:
             self.process.terminate()
             self.process = None
         self.playing = False
-        self.button.config(text="🔊 Escuchar")
+        self.button.config(text="🔊 Escuchar RX")
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = AudioStreamApp(root)
+    app = DVSwitchMonitor(root)
     root.mainloop()
