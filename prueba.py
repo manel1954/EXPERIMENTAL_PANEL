@@ -23,30 +23,29 @@ def guardar_config_si_cambia(nuevo_callsign, nuevo_id):
     cambiado = False
 
     callsign_actual = config.get('General', 'Callsign', fallback='')
-    id_actual = config.get('DMR', 'Id', fallback='')
+    id_actual = config.get('General', 'Id', fallback='')
 
     if nuevo_callsign and nuevo_callsign != callsign_actual:
         config.set('General', 'Callsign', nuevo_callsign)
         cambiado = True
 
     if nuevo_id and nuevo_id != id_actual:
-        config.set('DMR', 'Id', nuevo_id)
+        config.set('General', 'Id', nuevo_id)
         cambiado = True
 
     if cambiado:
-        # Backup
         backup_path = INI_PATH + '.bak'
         shutil.copy(INI_PATH, backup_path)
         with open(INI_PATH, 'w') as configfile:
             config.write(configfile)
-        messagebox.showinfo("Guardado", "Se han aplicado los cambios.\nSe creó una copia de seguridad.")
+        messagebox.showinfo("Guardado", "Se aplicaron los cambios.\nCopia de seguridad creada.")
     else:
         messagebox.showinfo("Sin cambios", "No se detectaron cambios para guardar.")
 
 def guardar_datos():
     nuevo_callsign = entry_callsign.get().strip().upper()
     nuevo_id = entry_id.get().strip()
-    
+
     if not nuevo_callsign and not nuevo_id:
         messagebox.showwarning("Campos vacíos", "Debes ingresar al menos un valor.")
         return
@@ -59,7 +58,7 @@ def cargar_datos():
         return
 
     callsign = config.get('General', 'Callsign', fallback='')
-    dmr_id = config.get('DMR', 'Id', fallback='')
+    dmr_id = config.get('General', 'Id', fallback='')
 
     entry_callsign.delete(0, tk.END)
     entry_callsign.insert(0, callsign)
@@ -67,7 +66,7 @@ def cargar_datos():
     entry_id.delete(0, tk.END)
     entry_id.insert(0, dmr_id)
 
-# Interfaz   
+# Interfaz
 root = tk.Tk()
 root.title("Editor MMDVM.ini")
 root.geometry("350x200")
