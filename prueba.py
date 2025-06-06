@@ -11,32 +11,47 @@ def cargar_config():
         messagebox.showerror("Error", f"No se encontró el archivo:\n{INI_PATH}")
         return None
     config = configparser.ConfigParser(strict=False)
+    config.optionxform = str  # Respeta mayúsculas/minúsculas en las claves
     config.read(INI_PATH)
     return config
 
-def guardar_config(config):
-    # Hacer backup antes de guardar
-    backup_path = INI_PATH + '.bak'
-    shutil.copy(INI_PATH, backup_path)
-    with open(INI_PATH, 'w') as configfile:
-        config.write(configfile)
-    messagebox.showinfo("Guardado", f"Archivo guardado con éxito.\nCopia de seguridad creada:\n{backup_path}")
-
-def guardar_datos():
-    nuevo_callsign = entry_callsign.get().strip().upper()
-    nuevo_id = entry_id.get().strip()
-
-    if not nuevo_callsign or not nuevo_id:
-        messagebox.showwarning("Campos incompletos", "Ambos campos son obligatorios.")
-        return
-
+def guardar_config_si_cambia(nuevo_callsign, nuevo_id):
     config = cargar_config()
     if config is None:
         return
 
-    config.set('General', 'Callsign', nuevo_callsign)
-    config.set('DMR', 'Id', nuevo_id)
-    guardar_config(config)
+    cambiado = False
+
+    callsign_actual = config.get('General', 'Callsign', fallback='')
+    id_actual = config.get('DMR', 'Id', fallback='')
+
+    if nuevo_callsign and nuevo_callsign != callsign_actual:
+        config.set('General', 'Callsign', nuevo_callsign)
+        cambiado = True
+
+    if nuevo_id and nuevo_id != id_actual:
+        config.set('DMR', 'Id', nuevo_id)
+        cambiado = True
+
+    if cambiado:
+        # Backup
+        backup_path = INI_PATH + '.bak'
+        shutil.copy(INI_PATH, backup_path)
+        with open(INI_PATH, 'w') as configfile:
+            config.write(configfile)
+        messagebox.showinfo("Guardado", "Se han aplicado los cambios.\nSe creó una copia de seguridad.")
+    else:
+        messagebox.showinfo("Sin cambios", "No se detectaron cambios para guardar.")
+
+def guardar_datos():
+    nuevo_callsign = entry_callsign.get().strip().upper()
+    nuevo_id = entry_id.get().strip()
+    
+    if not nuevo_callsign and not nuevo_id:
+        messagebox.showwarning("Campos vacíos", "Debes ingresar al menos un valor.")
+        return
+
+    guardar_config_si_cambia(nuevo_callsign, nuevo_id)
 
 def cargar_datos():
     config = cargar_config()
@@ -52,7 +67,7 @@ def cargar_datos():
     entry_id.delete(0, tk.END)
     entry_id.insert(0, dmr_id)
 
-# Crear interfaz
+# Interfaz
 root = tk.Tk()
 root.title("Editor MMDVM.ini")
 root.geometry("350x200")
@@ -72,7 +87,5 @@ entry_id.grid(row=1, column=1)
 tk.Button(frame, text="Cargar valores", command=cargar_datos).grid(row=2, column=0, pady=20)
 tk.Button(frame, text="Guardar cambios", command=guardar_datos).grid(row=2, column=1)
 
-# Iniciar con datos cargados
 cargar_datos()
-
 root.mainloop()
