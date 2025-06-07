@@ -86,12 +86,12 @@ x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry(f"50x50+{x_pos}+{y_pos}")
+root.geometry(f"25x25+{x_pos}+{y_pos}")
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
 
-btn = tk.Label(root, text="<", font=("Arial", 8), fg="white", bg="black", width=2, height=1, cursor="hand2")
+btn = tk.Label(root, text="<", font=("Arial", 20), fg="white", bg="black", width=2, height=1, cursor="hand2")
 btn.pack(expand=True, fill="both")
 
 btn.bind("<ButtonPress-1>", on_left_button_press)
