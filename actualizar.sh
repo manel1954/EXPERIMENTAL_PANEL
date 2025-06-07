@@ -1,5 +1,17 @@
 ﻿#!/bin/bash
 
+mkdir -p /home/pi/uploads
+
+ORIGEN="/home/pi/A108/uploads.php"
+DESTINO="/var/www/html/uploads.php"
+
+if [ ! -f "$DESTINO" ]; then
+    cp "$ORIGEN" "$DESTINO"
+    echo "Archivo copiado correctamente a $DESTINO."
+else
+    echo "El archivo $DESTINO ya existe. No se ha copiado."
+fi
+
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
 if [ "$dvswitch" = 'DVSWITCH=OFF' ];then
 sudo systemctl stop ysfgateway.service
