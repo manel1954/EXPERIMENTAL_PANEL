@@ -13,17 +13,6 @@ def cerrar_qt():
     except Exception as e:
         print(f"Error al cerrar qt_menu_superior: {e}")
 
-def start_move_right(event):
-    root.x = event.x
-    root.y = event.y
-
-def do_move_right(event):
-    deltax = event.x - root.x
-    deltay = event.y - root.y
-    x = root.winfo_x() + deltax
-    y = root.winfo_y() + deltay
-    root.geometry(f"+{x}+{y}")
-
 def guardar_posicion(event=None):
     try:
         x = root.winfo_x()
@@ -53,38 +42,36 @@ def toggle_minimize(event=None):
 
 # Variables para detectar drag con botón izquierdo
 dragging = False
-drag_start_x = None
-drag_start_y = None
-click_threshold = 5  # píxeles para considerar drag
+click_threshold = 5  # pixeles para considerar drag
+start_mouse_x = 0
+start_mouse_y = 0
+start_win_x = 0
+start_win_y = 0
 
 def on_left_button_press(event):
-    global dragging, drag_start_x, drag_start_y
+    global dragging, start_mouse_x, start_mouse_y, start_win_x, start_win_y
     dragging = False
-    drag_start_x = event.x_root
-    drag_start_y = event.y_root
+    start_mouse_x = event.x_root
+    start_mouse_y = event.y_root
+    start_win_x = root.winfo_x()
+    start_win_y = root.winfo_y()
 
 def on_left_button_motion(event):
     global dragging
-    dx = abs(event.x_root - drag_start_x)
-    dy = abs(event.y_root - drag_start_y)
-    if dx > click_threshold or dy > click_threshold:
+    dx = event.x_root - start_mouse_x
+    dy = event.y_root - start_mouse_y
+    if abs(dx) > click_threshold or abs(dy) > click_threshold:
         dragging = True
-        # Mover ventana mientras arrastra con botón izquierdo
-        x = root.winfo_x() + (event.x_root - drag_start_x)
-        y = root.winfo_y() + (event.y_root - drag_start_y)
-        root.geometry(f"+{x}+{y}")
-        drag_start_x = event.x_root
-        drag_start_y = event.y_root
+        new_x = start_win_x + dx
+        new_y = start_win_y + dy
+        root.geometry(f"+{new_x}+{new_y}")
 
 def on_left_button_release(event):
     if not dragging:
-        # Si no hubo drag, matar proceso
         cerrar_qt()
     else:
-        # Si hubo drag, guardar posición
         guardar_posicion()
 
-# Cargar posición guardada
 x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
@@ -98,18 +85,11 @@ image_tk = ImageTk.PhotoImage(image)
 label = tk.Label(root, image=image_tk, bg='black')
 label.pack()
 
-# Bindings para mover con botón derecho (opcional, si quieres también derecho)
-label.bind("<ButtonPress-3>", lambda e: None)  # evita interferencias, no mueve con botón derecho ya que movemos con izquierdo ahora
-
-# Bindings para mover y click kill con botón izquierdo
 label.bind("<ButtonPress-1>", on_left_button_press)
 label.bind("<B1-Motion>", on_left_button_motion)
 label.bind("<ButtonRelease-1>", on_left_button_release)
-
-# Doble click izquierdo para minimizar/restaurar
 label.bind("<Double-Button-1>", toggle_minimize)
 
-# Restaurar con clic derecho cuando minimizado
 root.bind("<Button-3>", lambda e: toggle_minimize() if root.state() == "iconic" else None)
 
 root.mainloop()
