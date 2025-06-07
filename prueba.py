@@ -13,11 +13,11 @@ def cerrar_qt():
     except Exception as e:
         print(f"Error al cerrar qt_menu_superior: {e}")
 
-def start_move(event):
+def start_move_right(event):
     root.x = event.x
     root.y = event.y
 
-def do_move(event):
+def do_move_right(event):
     deltax = event.x - root.x
     deltay = event.y - root.y
     x = root.winfo_x() + deltax
@@ -51,21 +51,40 @@ def toggle_minimize(event=None):
     else:
         root.deiconify()
 
-def on_single_click(event):
-    # Esperar un poco para detectar si es doble clic
-    def callback():
-        if not single_click_cancelled[0]:
-            cerrar_qt()
-    single_click_cancelled[0] = False
-    root.after(250, callback)
+# Variables para detectar drag con botón izquierdo
+dragging = False
+drag_start_x = None
+drag_start_y = None
+click_threshold = 5  # píxeles para considerar drag
 
-def on_double_click(event):
-    single_click_cancelled[0] = True
-    toggle_minimize()
+def on_left_button_press(event):
+    global dragging, drag_start_x, drag_start_y
+    dragging = False
+    drag_start_x = event.x_root
+    drag_start_y = event.y_root
 
-# Flag para controlar la ejecución del click simple
-single_click_cancelled = [False]
+def on_left_button_motion(event):
+    global dragging
+    dx = abs(event.x_root - drag_start_x)
+    dy = abs(event.y_root - drag_start_y)
+    if dx > click_threshold or dy > click_threshold:
+        dragging = True
+        # Mover ventana mientras arrastra con botón izquierdo
+        x = root.winfo_x() + (event.x_root - drag_start_x)
+        y = root.winfo_y() + (event.y_root - drag_start_y)
+        root.geometry(f"+{x}+{y}")
+        drag_start_x = event.x_root
+        drag_start_y = event.y_root
 
+def on_left_button_release(event):
+    if not dragging:
+        # Si no hubo drag, matar proceso
+        cerrar_qt()
+    else:
+        # Si hubo drag, guardar posición
+        guardar_posicion()
+
+# Cargar posición guardada
 x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
@@ -79,14 +98,18 @@ image_tk = ImageTk.PhotoImage(image)
 label = tk.Label(root, image=image_tk, bg='black')
 label.pack()
 
-# Bindings
-label.bind("<Button-1>", on_single_click)          # clic izquierdo simple (con delay)
-label.bind("<Double-Button-1>", on_double_click)   # doble clic izquierdo
-label.bind("<ButtonPress-3>", start_move)          # iniciar mover con botón derecho
-label.bind("<B3-Motion>", do_move)                  # mover ventana con botón derecho arrastrando
-label.bind("<ButtonRelease-3>", guardar_posicion)  # guardar posición al soltar botón derecho
+# Bindings para mover con botón derecho (opcional, si quieres también derecho)
+label.bind("<ButtonPress-3>", lambda e: None)  # evita interferencias, no mueve con botón derecho ya que movemos con izquierdo ahora
 
-# También restaurar ventana con clic derecho simple cuando está minimizada
+# Bindings para mover y click kill con botón izquierdo
+label.bind("<ButtonPress-1>", on_left_button_press)
+label.bind("<B1-Motion>", on_left_button_motion)
+label.bind("<ButtonRelease-1>", on_left_button_release)
+
+# Doble click izquierdo para minimizar/restaurar
+label.bind("<Double-Button-1>", toggle_minimize)
+
+# Restaurar con clic derecho cuando minimizado
 root.bind("<Button-3>", lambda e: toggle_minimize() if root.state() == "iconic" else None)
 
 root.mainloop()
