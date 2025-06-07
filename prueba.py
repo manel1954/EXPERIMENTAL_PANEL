@@ -10,7 +10,7 @@ def cerrar_qt():
     except Exception as e:
         print(f"Error al cerrar qt_menu_superior: {e}")
 
-# Imagen PNG en base64 (triángulo rojo apuntando a la izquierda, fondo transparente)
+# Imagen PNG en base64 (triángulo rojo con fondo transparente)
 triangle_png_base64 = """
 iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABTElEQVR4nO3ZwQmEMBAF0RYjT+9/b8t2qViN
 4tg2UbkqX6gbMcm++3cgMzMzMzMzMzMzMzMzM/PnlLXySdr8ErzVZTL3tuUOsnmpQ+S/eNdQh+fMZ7owNLLv
@@ -18,26 +18,25 @@ myiueVHPjmaZ9i3cvz5UdePHW7fdyrt1uH66uYP1nyzA+sxz+lHNeSfb19ZH8YTOsbcX/PcS/b/0bZMw
 MdcjRNqz0FvS1KehQ7mpXj/FCXmX3PzMzMzMzMzMzMzMzMz8zPYBBHFU3u9Mc+kAAAAASUVORK5CYII=
 """
 
-# Decodificar la imagen
+# Decodificar imagen
 image_data = base64.b64decode(triangle_png_base64)
 image = Image.open(io.BytesIO(image_data))
 
-# Crear ventana flotante sin bordes
+# Crear ventana principal
 root = tk.Tk()
-root.overrideredirect(True)
-root.geometry("64x64+50+50")
-root.wm_attributes("-topmost", True)
-root.configure(bg='black')
-root.wm_attributes("-transparentcolor", "black")  # En Tk 8.6.9+
+root.overrideredirect(True)  # Sin barra ni bordes
+root.geometry("64x64+50+50")  # Tamaño y posición
+root.attributes("-topmost", True)
+root.attributes("-alpha", 0.8)  # Transparencia total de la ventana
 
-# Crear imagen Tkinter
+# Cargar imagen
 image_tk = ImageTk.PhotoImage(image)
 
-# Crear etiqueta con la imagen
+# Crear y mostrar imagen
 label = tk.Label(root, image=image_tk, bg='black')
 label.pack()
 
-# Ejecutar acción al hacer clic
+# Asociar clic
 label.bind("<Button-1>", lambda e: cerrar_qt())
 
 root.mainloop()
