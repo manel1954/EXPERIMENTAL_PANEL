@@ -4,13 +4,9 @@ from PIL import Image, ImageTk
 import shutil
 import os
 
-# Carpeta para abrir el diálogo de selección por defecto
 directorio_inicial = "/home/pi/A108"
-
-# Carpeta destino donde se copiará la imagen
 directorio_destino = "/home/pi"
-
-imagen_seleccionada = None  # Guarda la ruta del archivo seleccionado
+imagen_seleccionada = None
 
 def mostrar_imagen(ruta):
     global imagen_seleccionada
@@ -30,7 +26,7 @@ def elegir_imagen():
     archivo = filedialog.askopenfilename(
         title="Selecciona un archivo JPG",
         initialdir=directorio_inicial,
-        filetypes=[("Archivos JPG", "*.jpg;*.jpeg")]
+        filetypes=[("Archivos JPG", "*.jpg;*.jpeg;*.JPG;*.JPEG")]
     )
     if archivo:
         mostrar_imagen(archivo)
