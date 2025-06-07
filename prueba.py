@@ -4,13 +4,6 @@ import os
 
 pos_file = "/home/pi/A108/posicion.txt"
 
-def cerrar_qt():
-    try:
-        subprocess.run(['killall', 'qt_menu_superior'], check=True)
-        print("qt_menu_superior cerrado")
-    except Exception as e:
-        print(f"Error al cerrar qt_menu_superior: {e}")
-
 def guardar_posicion(event=None):
     try:
         x = root.winfo_x()
@@ -37,6 +30,20 @@ def toggle_minimize(event=None):
         root.iconify()
     else:
         root.deiconify()
+
+def cerrar_qt():
+    try:
+        subprocess.run(['killall', 'qt_menu_superior'], check=True)
+        print("qt_menu_superior cerrado")
+    except Exception as e:
+        print(f"Error al cerrar qt_menu_superior: {e}")
+
+def iniciar_qt():
+    try:
+        subprocess.Popen(['/home/pi/A108/qt/./qt_menu_superior'])
+        print("qt_menu_superior iniciado")
+    except Exception as e:
+        print(f"Error al iniciar qt_menu_superior: {e}")
 
 dragging = False
 click_threshold = 5
@@ -65,7 +72,13 @@ def on_left_button_motion(event):
 
 def on_left_button_release(event):
     if not dragging:
-        cerrar_qt()
+        current_text = btn['text']
+        if current_text == '<':
+            cerrar_qt()
+            btn.config(text='>')
+        else:
+            iniciar_qt()
+            btn.config(text='<')
     else:
         guardar_posicion()
 
@@ -73,7 +86,7 @@ x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry(f"25x25+{x_pos}+{y_pos}")
+root.geometry(f"50x50+{x_pos}+{y_pos}")
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
