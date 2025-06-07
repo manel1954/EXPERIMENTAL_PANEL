@@ -4,46 +4,61 @@ from PIL import Image, ImageTk
 import shutil
 import os
 
-# Cambia esto por el nombre exacto de tu archivo JPG en /home/pi/A108/
-ruta_imagen_muestra = "/home/pi/A108/tuimagen.jpg"  
+# Carpeta para abrir el diálogo de selección por defecto
+directorio_inicial = "/home/pi/A108"
+
+# Carpeta destino donde se copiará la imagen
+directorio_destino = "/home/pi"
+
+imagen_seleccionada = None  # Guarda la ruta del archivo seleccionado
 
 def mostrar_imagen(ruta):
+    global imagen_seleccionada
     try:
         img = Image.open(ruta)
-        img = img.resize((300, 200), Image.ANTIALIAS)  # Ajusta tamaño de la imagen
+        img = img.resize((300, 200), Image.ANTIALIAS)
         foto = ImageTk.PhotoImage(img)
         etiqueta_imagen.config(image=foto, text='')
         etiqueta_imagen.image = foto
+        imagen_seleccionada = ruta
     except Exception as e:
-        print(f"No se pudo cargar la imagen: {e}")
+        messagebox.showerror("Error", f"No se pudo mostrar la imagen:\n{e}")
         etiqueta_imagen.config(image='', text="No hay imagen para mostrar")
+        imagen_seleccionada = None
 
-def subir_jpg():
+def elegir_imagen():
     archivo = filedialog.askopenfilename(
         title="Selecciona un archivo JPG",
+        initialdir=directorio_inicial,
         filetypes=[("Archivos JPG", "*.jpg;*.jpeg")]
     )
     if archivo:
-        try:
-            destino = "/home/pi/" + os.path.basename(archivo)
-            shutil.copy2(archivo, destino)
-            messagebox.showinfo("Éxito", f"Archivo copiado a:\n{destino}")
-            mostrar_imagen(destino)
-        except Exception as e:
-            messagebox.showerror("Error", f"No se pudo copiar el archivo:\n{e}")
+        mostrar_imagen(archivo)
+
+def guardar_imagen():
+    global imagen_seleccionada
+    if not imagen_seleccionada:
+        messagebox.showwarning("Atención", "No has seleccionado ninguna imagen para guardar.")
+        return
+    try:
+        nombre_archivo = os.path.basename(imagen_seleccionada)
+        destino = os.path.join(directorio_destino, nombre_archivo)
+        shutil.copy2(imagen_seleccionada, destino)
+        messagebox.showinfo("Éxito", f"Imagen guardada en:\n{destino}")
+    except Exception as e:
+        messagebox.showerror("Error", f"No se pudo guardar la imagen:\n{e}")
 
 root = tk.Tk()
-root.title("Subir y mostrar JPG")
-root.geometry("320x300")
+root.title("Seleccionar y guardar imagen JPG")
+root.geometry("350x350")
 
-btn_subir = tk.Button(root, text="Subir JPG", command=subir_jpg)
-btn_subir.pack(pady=10)
+btn_elegir = tk.Button(root, text="Elegir imagen JPG", command=elegir_imagen)
+btn_elegir.pack(pady=10)
 
-etiqueta_imagen = tk.Label(root, text="No hay imagen para mostrar")
+btn_guardar = tk.Button(root, text="Guardar imagen en /home/pi", command=guardar_imagen)
+btn_guardar.pack(pady=10)
+
+etiqueta_imagen = tk.Label(root, text="No hay imagen seleccionada")
 etiqueta_imagen.pack(pady=10)
-
-# Mostrar imagen si existe
-if os.path.exists(ruta_imagen_muestra):
-    mostrar_imagen(ruta_imagen_muestra)
 
 root.mainloop()
