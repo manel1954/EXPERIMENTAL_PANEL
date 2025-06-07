@@ -44,7 +44,7 @@ def elegir_imagen():
     )
     if archivo:
         mostrar_imagen_en_ventana_nueva(archivo)
-        root.destroy()
+        root.withdraw()  # Oculta la ventana principal sin cerrarla
 
 root = tk.Tk()
 root.title("Selector de imágenes")
