@@ -1,41 +1,34 @@
 import tkinter as tk
 import subprocess
+from tkinter import messagebox
 
-class DVSwitchMonitor:
-    def __init__(self, master):
-        self.master = master
-        master.title("DVSwitch RX Monitor")
+def cerrar_qt():
+    try:
+        subprocess.run(['killall', 'qt_menu_superior'], check=True)
+        messagebox.showinfo("Éxito", "qt_menu_superior cerrado correctamente.")
+    except subprocess.CalledProcessError:
+        messagebox.showwarning("Aviso", "No se pudo cerrar qt_menu_superior. ¿Está en ejecución?")
+    except Exception as e:
+        messagebox.showerror("Error", f"Ocurrió un error: {e}")
 
-        self.playing = False
-        self.process = None
+# Crear ventana principal
+root = tk.Tk()
+root.title("Cerrar Qt")
+root.geometry("100x100")
+root.resizable(False, False)
 
-        self.button = tk.Button(master, text="🔊 Escuchar RX", command=self.toggle_audio, width=30)
-        self.button.pack(padx=30, pady=30)
+# Dibujar triángulo apuntando a la izquierda
+canvas = tk.Canvas(root, width=60, height=60)
+canvas.pack(pady=10)
 
-    def toggle_audio(self):
-        if not self.playing:
-            self.start_audio()
-        else:
-            self.stop_audio()
+# Coordenadas del triángulo (punta hacia la izquierda)
+triangle = canvas.create_polygon(45, 10, 45, 50, 15, 30, fill="red", outline="black")
 
-    def start_audio(self):
-        try:
-            # Dirección del stream RTP/UDP generado por AnalogBridge/DVSwitch
-            stream_url = "udp://127.0.0.1:12345"  # Ajusta si es diferente
-            self.process = subprocess.Popen(['ffplay', '-nodisp', '-autoexit', '-loglevel', 'quiet', stream_url])
-            self.playing = True
-            self.button.config(text="⏹️ Detener RX")
-        except Exception as e:
-            print("Error al iniciar audio:", e)
+# Hacer que al hacer clic se ejecute el cierre
+def on_click(event):
+    cerrar_qt()
 
-    def stop_audio(self):
-        if self.process:
-            self.process.terminate()
-            self.process = None
-        self.playing = False
-        self.button.config(text="🔊 Escuchar RX")
+canvas.tag_bind(triangle, '<Button-1>', on_click)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = DVSwitchMonitor(root)
-    root.mainloop()
+# Ejecutar la interfaz
+root.mainloop()
