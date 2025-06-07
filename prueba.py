@@ -76,7 +76,7 @@ x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry(f"64x64+{x_pos}+{y_pos}")
+root.geometry(f"16x16+{x_pos}+{y_pos}")
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 
