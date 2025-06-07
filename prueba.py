@@ -6,7 +6,25 @@ import shutil
 
 pos_file = "/home/pi/A108/posicion.txt"
 
-# ... (tu clase ToolTip y otras funciones siguen igual) ...
+def cargar_posicion():
+    if os.path.exists(pos_file):
+        try:
+            with open(pos_file, "r") as f:
+                contenido = f.read()
+                x, y = map(int, contenido.strip().split(","))
+                return x, y
+        except:
+            pass
+    return 50, 50
+
+def guardar_posicion(event=None):
+    try:
+        x = root.winfo_x()
+        y = root.winfo_y()
+        with open(pos_file, "w") as f:
+            f.write(f"{x},{y}")
+    except Exception as e:
+        print(f"Error al guardar posición: {e}")
 
 def cerrar_qt():
     try:
@@ -20,38 +38,55 @@ def iniciar_qt():
     except Exception as e:
         print(f"Error al iniciar qt_menu_superior: {e}")
 
-# --- Nueva función para elegir foto y mostrarla ---
 def elegir_foto_y_mostrar():
-    # Abrimos diálogo para elegir imagen
     ruta_imagen = filedialog.askopenfilename(
         title="Elige una foto",
         filetypes=[("Archivos de imagen", "*.png;*.jpg;*.jpeg;*.gif;*.bmp")]
     )
     if ruta_imagen:
         try:
-            destino = "/home/pi/foto_guardada" + os.path.splitext(ruta_imagen)[1]  # mantener extensión
+            destino = "/home/pi/foto_guardada" + os.path.splitext(ruta_imagen)[1]
             shutil.copy2(ruta_imagen, destino)
             print(f"Foto guardada en {destino}")
 
-            # Cargar y mostrar la imagen en el botón
-            # Para jpg/jpeg o bmp necesitamos PIL (Pillow), para png/gif funciona PhotoImage de Tkinter.
             try:
                 from PIL import Image, ImageTk
                 img = Image.open(destino)
                 img = img.resize((btn.winfo_width(), btn.winfo_height()), Image.ANTIALIAS)
                 foto = ImageTk.PhotoImage(img)
             except ImportError:
-                # Solo PNG/GIF nativos con PhotoImage
                 foto = tk.PhotoImage(file=destino)
 
             btn.config(image=foto, text="")
-            btn.image = foto  # Referencia para evitar que se recoja el GC
-
-            # Cerrar ventana emergente de selección automáticamente (ya cerró al seleccionar archivo)
-            # No hay ventana extra abierta aparte de filedialog, así que no hay que destruir nada.
+            btn.image = foto
 
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo guardar la foto: {e}")
+
+dragging = False
+click_threshold = 5
+start_mouse_x = 0
+start_mouse_y = 0
+start_win_x = 0
+start_win_y = 0
+
+def on_left_button_press(event):
+    global dragging, start_mouse_x, start_mouse_y, start_win_x, start_win_y
+    dragging = False
+    start_mouse_x = event.x_root
+    start_mouse_y = event.y_root
+    start_win_x = root.winfo_x()
+    start_win_y = root.winfo_y()
+
+def on_left_button_motion(event):
+    global dragging
+    dx = event.x_root - start_mouse_x
+    dy = event.y_root - start_mouse_y
+    if abs(dx) > click_threshold or abs(dy) > click_threshold:
+        dragging = True
+        new_x = start_win_x + dx
+        new_y = start_win_y + dy
+        root.geometry(f"+{new_x}+{new_y}")
 
 def on_left_button_release(event):
     global dragging
@@ -60,17 +95,21 @@ def on_left_button_release(event):
         if current_text == '<':
             cerrar_qt()
             btn.config(text='>')
-
-            # Abrir ventana para elegir foto y mostrarla
             elegir_foto_y_mostrar()
-
         else:
             iniciar_qt()
             btn.config(text='<')
     else:
         guardar_posicion()
 
-# ... resto de código igual ...
+def toggle_minimize(event=None):
+    if root.state() == "normal":
+        root.iconify()
+    else:
+        root.deiconify()
+
+def get_tooltip_text():
+    return "CERRAR PANELES" if btn['text'] == '<' else "ABRIR PANELES"
 
 x_pos, y_pos = cargar_posicion()
 
@@ -89,6 +128,7 @@ btn.bind("<B1-Motion>", on_left_button_motion)
 btn.bind("<ButtonRelease-1>", on_left_button_release)
 btn.bind("<Double-Button-1>", toggle_minimize)
 
-ToolTip(btn, get_tooltip_text)
+# Tu clase ToolTip aquí o importada, si quieres
+# Por simplicidad la omito en este ejemplo, añádela si la necesitas.
 
 root.mainloop()
