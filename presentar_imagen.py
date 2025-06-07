@@ -13,7 +13,7 @@ def redimensionar_con_aspect_ratio(imagen, max_width, max_height):
     return imagen.resize((nuevo_ancho, nuevo_alto), Image.Resampling.LANCZOS)
 
 def mostrar_imagen_en_ventana_nueva(ruta_imagen):
-    ventana_imagen = Toplevel(root)
+    ventana_imagen = Toplevel()
     ventana_imagen.title(f"Imagen: {os.path.basename(ruta_imagen)}")
     
     try:
@@ -25,7 +25,6 @@ def mostrar_imagen_en_ventana_nueva(ruta_imagen):
         etiqueta.image = foto
         etiqueta.pack()
 
-        # Ajustamos ventana al tamaño de la imagen + un margen
         ventana_imagen.geometry(f"{img.width + 20}x{img.height + 20}")
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo mostrar la imagen:\n{e}")
@@ -42,6 +41,7 @@ def elegir_imagen():
     )
     if archivo:
         mostrar_imagen_en_ventana_nueva(archivo)
+        root.destroy()  # Cerramos la ventana principal
 
 root = tk.Tk()
 root.title("Selector de imágenes")
