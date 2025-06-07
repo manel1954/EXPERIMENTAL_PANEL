@@ -18,14 +18,17 @@ def mostrar_imagen_en_ventana_nueva(ruta_imagen):
     
     try:
         img = Image.open(ruta_imagen)
-        img = redimensionar_con_aspect_ratio(img, 600, 400)  # Mantiene proporción
+        img = redimensionar_con_aspect_ratio(img, 600, 400)
         foto = ImageTk.PhotoImage(img)
 
         etiqueta = tk.Label(ventana_imagen, image=foto)
         etiqueta.image = foto
-        etiqueta.pack()
+        etiqueta.pack(padx=10, pady=10)
 
-        ventana_imagen.geometry(f"{img.width + 20}x{img.height + 20}")
+        btn_cerrar = tk.Button(ventana_imagen, text="Cerrar", command=ventana_imagen.destroy)
+        btn_cerrar.pack(pady=(0,10))
+
+        ventana_imagen.geometry(f"{img.width + 40}x{img.height + 80}")
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo mostrar la imagen:\n{e}")
         ventana_imagen.destroy()
@@ -41,7 +44,7 @@ def elegir_imagen():
     )
     if archivo:
         mostrar_imagen_en_ventana_nueva(archivo)
-        root.destroy()  # Cerramos la ventana principal
+        root.destroy()
 
 root = tk.Tk()
 root.title("Selector de imágenes")
