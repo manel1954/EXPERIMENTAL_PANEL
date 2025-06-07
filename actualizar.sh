@@ -1,7 +1,7 @@
 ﻿#!/bin/bash
 
 mkdir -p /home/pi/uploads
-sudo chmod +x -R /home/pi/uploads
+sudo chmod 777 -R /home/pi/uploads
 
 ORIGEN="/home/pi/A108/uploads.php"
 DESTINO="/var/www/html/uploads.php"
@@ -11,7 +11,7 @@ if [ ! -f "$DESTINO" ]; then
 else
     echo "El archivo $DESTINO ya existe. No se ha copiado."
 fi
-sudo chmod +x /var/www/html/uploads.php
+sudo chmod 777 /var/www/html/uploads.php
 
 
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
