@@ -1,83 +1,12 @@
 import tkinter as tk
+from tkinter import filedialog, messagebox
 import subprocess
 import os
+import shutil
 
 pos_file = "/home/pi/A108/posicion.txt"
 
-class ToolTip:
-    def __init__(self, widget, get_text_callback):
-        self.widget = widget
-        self.get_text = get_text_callback  # Función para obtener texto dinámico
-        self.tipwindow = None
-        self.id = None
-        widget.bind("<Enter>", self.enter)
-        widget.bind("<Leave>", self.leave)
-
-    def enter(self, event=None):
-        self.schedule()
-
-    def leave(self, event=None):
-        self.unschedule()
-        self.hidetip()
-
-    def schedule(self):
-        self.unschedule()
-        self.id = self.widget.after(500, self.showtip)
-
-    def unschedule(self):
-        id_ = self.id
-        self.id = None
-        if id_:
-            self.widget.after_cancel(id_)
-
-    def showtip(self, event=None):
-        if self.tipwindow or not self.get_text:
-            return
-        text = self.get_text()
-        if not text:
-            return
-        x, y, cx, cy = self.widget.bbox("insert")
-        x = x + self.widget.winfo_rootx() + 25
-        y = y + cy + self.widget.winfo_rooty() + 25
-        self.tipwindow = tw = tk.Toplevel(self.widget)
-        tw.wm_overrideredirect(True)
-        tw.wm_geometry("+%d+%d" % (x, y))
-        label = tk.Label(tw, text=text, justify=tk.LEFT,
-                         background="#ffffe0", relief=tk.SOLID, borderwidth=1,
-                         font=("tahoma", "8", "normal"))
-        label.pack(ipadx=4, ipady=2)
-
-    def hidetip(self):
-        tw = self.tipwindow
-        self.tipwindow = None
-        if tw:
-            tw.destroy()
-
-def guardar_posicion(event=None):
-    try:
-        x = root.winfo_x()
-        y = root.winfo_y()
-        with open(pos_file, "w") as f:
-            f.write(f"{x},{y}")
-    except Exception as e:
-        print(f"Error al guardar posición: {e}")
-
-def cargar_posicion():
-    if os.path.exists(pos_file):
-        try:
-            with open(pos_file, "r") as f:
-                contenido = f.read()
-                x, y = map(int, contenido.strip().split(","))
-                return x, y
-        except:
-            pass
-    return 50, 50
-
-def toggle_minimize(event=None):
-    if root.state() == "normal":
-        root.iconify()
-    else:
-        root.deiconify()
+# ... (tu clase ToolTip y otras funciones siguen igual) ...
 
 def cerrar_qt():
     try:
@@ -91,45 +20,57 @@ def iniciar_qt():
     except Exception as e:
         print(f"Error al iniciar qt_menu_superior: {e}")
 
-dragging = False
-click_threshold = 5
-start_mouse_x = 0
-start_mouse_y = 0
-start_win_x = 0
-start_win_y = 0
+# --- Nueva función para elegir foto y mostrarla ---
+def elegir_foto_y_mostrar():
+    # Abrimos diálogo para elegir imagen
+    ruta_imagen = filedialog.askopenfilename(
+        title="Elige una foto",
+        filetypes=[("Archivos de imagen", "*.png;*.jpg;*.jpeg;*.gif;*.bmp")]
+    )
+    if ruta_imagen:
+        try:
+            destino = "/home/pi/foto_guardada" + os.path.splitext(ruta_imagen)[1]  # mantener extensión
+            shutil.copy2(ruta_imagen, destino)
+            print(f"Foto guardada en {destino}")
 
-def on_left_button_press(event):
-    global dragging, start_mouse_x, start_mouse_y, start_win_x, start_win_y
-    dragging = False
-    start_mouse_x = event.x_root
-    start_mouse_y = event.y_root
-    start_win_x = root.winfo_x()
-    start_win_y = root.winfo_y()
+            # Cargar y mostrar la imagen en el botón
+            # Para jpg/jpeg o bmp necesitamos PIL (Pillow), para png/gif funciona PhotoImage de Tkinter.
+            try:
+                from PIL import Image, ImageTk
+                img = Image.open(destino)
+                img = img.resize((btn.winfo_width(), btn.winfo_height()), Image.ANTIALIAS)
+                foto = ImageTk.PhotoImage(img)
+            except ImportError:
+                # Solo PNG/GIF nativos con PhotoImage
+                foto = tk.PhotoImage(file=destino)
 
-def on_left_button_motion(event):
-    global dragging
-    dx = event.x_root - start_mouse_x
-    dy = event.y_root - start_mouse_y
-    if abs(dx) > click_threshold or abs(dy) > click_threshold:
-        dragging = True
-        new_x = start_win_x + dx
-        new_y = start_win_y + dy
-        root.geometry(f"+{new_x}+{new_y}")
+            btn.config(image=foto, text="")
+            btn.image = foto  # Referencia para evitar que se recoja el GC
+
+            # Cerrar ventana emergente de selección automáticamente (ya cerró al seleccionar archivo)
+            # No hay ventana extra abierta aparte de filedialog, así que no hay que destruir nada.
+
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo guardar la foto: {e}")
 
 def on_left_button_release(event):
+    global dragging
     if not dragging:
         current_text = btn['text']
         if current_text == '<':
             cerrar_qt()
             btn.config(text='>')
+
+            # Abrir ventana para elegir foto y mostrarla
+            elegir_foto_y_mostrar()
+
         else:
             iniciar_qt()
             btn.config(text='<')
     else:
         guardar_posicion()
 
-def get_tooltip_text():
-    return "CERRAR PANELES" if btn['text'] == '<' else "ABRIR PANELES"
+# ... resto de código igual ...
 
 x_pos, y_pos = cargar_posicion()
 
