@@ -129,7 +129,7 @@ def on_left_button_release(event):
         guardar_posicion()
 
 def get_tooltip_text():
-    return "ABRIR PANELES" if btn['text'] == '<' else "CERRAR PANELES"
+    return "CERRAR PANELES" if btn['text'] == '<' else "ABRIR PANELES"
 
 x_pos, y_pos = cargar_posicion()
 
