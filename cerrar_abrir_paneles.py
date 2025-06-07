@@ -129,7 +129,7 @@ def on_left_button_release(event):
         guardar_posicion()
 
 def get_tooltip_text():
-    return "CERRAR PANELES" if btn['text'] == '<' else "ABRIR PANELES"
+    return "CERRAR PANELES" if btn['text'] == '-' else "ABRIR PANELES"
 
 x_pos, y_pos = cargar_posicion()
 
@@ -140,7 +140,7 @@ root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
 
-btn = tk.Label(root, text="<", font=("Arial", 12), fg="black", bg="orange", width=2, height=1, cursor="hand2")
+btn = tk.Label(root, text="-", font=("Arial", 12), fg="black", bg="orange", width=2, height=1, cursor="hand2")
 btn.pack(expand=True, fill="both")
 
 btn.bind("<ButtonPress-1>", on_left_button_press)
