@@ -4,7 +4,6 @@ from PIL import Image, ImageTk
 import shutil
 import os
 
-directorio_inicial = "/home/pi/A108"
 directorio_destino = "/home/pi"
 imagen_seleccionada = None
 
@@ -13,7 +12,6 @@ def mostrar_imagen(ruta):
     try:
         img = Image.open(ruta)
         img = img.resize((300, 200), Image.Resampling.LANCZOS)
-
         foto = ImageTk.PhotoImage(img)
         etiqueta_imagen.config(image=foto, text='')
         etiqueta_imagen.image = foto
@@ -24,12 +22,11 @@ def mostrar_imagen(ruta):
         imagen_seleccionada = None
 
 def elegir_imagen():
+    # Sin initialdir para que abra en carpeta por defecto o última usada del sistema
     archivo = filedialog.askopenfilename(
-    title="Selecciona un archivo JPG (o cualquiera para probar)",
-    initialdir=directorio_inicial,
-    filetypes=[("Todos los archivos", "*.*")]
-)
-
+        title="Selecciona un archivo JPG",
+        filetypes=[("Archivos JPG", "*.jpg;*.jpeg;*.JPG;*.JPEG")]
+    )
     if archivo:
         mostrar_imagen(archivo)
 
@@ -47,7 +44,7 @@ def guardar_imagen():
         messagebox.showerror("Error", f"No se pudo guardar la imagen:\n{e}")
 
 root = tk.Tk()
-root.title("Seleccionar y guardar imagen JPG")
+root.title("Elegir y guardar imagen JPG")
 root.geometry("350x350")
 
 btn_elegir = tk.Button(root, text="Elegir imagen JPG", command=elegir_imagen)
