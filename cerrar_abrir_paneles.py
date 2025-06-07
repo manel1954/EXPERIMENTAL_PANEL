@@ -119,12 +119,12 @@ def on_left_button_motion(event):
 def on_left_button_release(event):
     if not dragging:
         current_text = btn['text']
-        if current_text == '<':
+        if current_text == '-':
             cerrar_qt()
-            btn.config(text='>')
+            btn.config(text='+')
         else:
             iniciar_qt()
-            btn.config(text='<')
+            btn.config(text='-')
     else:
         guardar_posicion()
 
@@ -140,7 +140,7 @@ root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
 
-btn = tk.Label(root, text="<", font=("Arial", 12), fg="black", bg="white", width=2, height=1, cursor="hand2")
+btn = tk.Label(root, text="<", font=("Arial", 12), fg="black", bg="orange", width=2, height=1, cursor="hand2")
 btn.pack(expand=True, fill="both")
 
 btn.bind("<ButtonPress-1>", on_left_button_press)
