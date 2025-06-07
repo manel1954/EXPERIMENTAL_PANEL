@@ -1,9 +1,7 @@
 import tkinter as tk
 import subprocess
-from PIL import Image, ImageTk
 import os
 
-image_path = "/home/pi/A108/triangulo.png"
 pos_file = "/home/pi/A108/posicion.txt"
 
 def cerrar_qt():
@@ -40,9 +38,8 @@ def toggle_minimize(event=None):
     else:
         root.deiconify()
 
-# Variables para detectar drag con botón izquierdo
 dragging = False
-click_threshold = 5  # pixeles para considerar drag
+click_threshold = 5
 start_mouse_x = 0
 start_mouse_y = 0
 start_win_x = 0
@@ -76,19 +73,18 @@ x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry(f"16x16+{x_pos}+{y_pos}")
+root.geometry(f"50x50+{x_pos}+{y_pos}")
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
+root.configure(bg='black')
 
-image = Image.open(image_path).convert("RGBA")
-image_tk = ImageTk.PhotoImage(image)
-label = tk.Label(root, image=image_tk, bg='black')
-label.pack()
+btn = tk.Label(root, text="<", font=("Arial", 32), fg="white", bg="black", width=2, height=1, cursor="hand2")
+btn.pack(expand=True, fill="both")
 
-label.bind("<ButtonPress-1>", on_left_button_press)
-label.bind("<B1-Motion>", on_left_button_motion)
-label.bind("<ButtonRelease-1>", on_left_button_release)
-label.bind("<Double-Button-1>", toggle_minimize)
+btn.bind("<ButtonPress-1>", on_left_button_press)
+btn.bind("<B1-Motion>", on_left_button_motion)
+btn.bind("<ButtonRelease-1>", on_left_button_release)
+btn.bind("<Double-Button-1>", toggle_minimize)
 
 root.bind("<Button-3>", lambda e: toggle_minimize() if root.state() == "iconic" else None)
 
