@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo python3 rfcomm.py
+sudo python presentar_imagen.py
 
