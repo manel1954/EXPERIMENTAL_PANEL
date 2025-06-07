@@ -12,7 +12,8 @@ def mostrar_imagen(ruta):
     global imagen_seleccionada
     try:
         img = Image.open(ruta)
-        img = img.resize((300, 200), Image.ANTIALIAS)
+        img = img.resize((300, 200), Image.Resampling.LANCZOS)
+
         foto = ImageTk.PhotoImage(img)
         etiqueta_imagen.config(image=foto, text='')
         etiqueta_imagen.image = foto
