@@ -4,6 +4,54 @@ import os
 
 pos_file = "/home/pi/A108/posicion.txt"
 
+# Tooltip class
+class ToolTip:
+    def __init__(self, widget, text='widget info'):
+        self.widget = widget
+        self.text = text
+        self.tipwindow = None
+        self.id = None
+        self.x = self.y = 0
+        widget.bind("<Enter>", self.enter)
+        widget.bind("<Leave>", self.leave)
+
+    def enter(self, event=None):
+        self.schedule()
+
+    def leave(self, event=None):
+        self.unschedule()
+        self.hidetip()
+
+    def schedule(self):
+        self.unschedule()
+        self.id = self.widget.after(500, self.showtip)  # Delay en ms
+
+    def unschedule(self):
+        id_ = self.id
+        self.id = None
+        if id_:
+            self.widget.after_cancel(id_)
+
+    def showtip(self, event=None):
+        if self.tipwindow or not self.text:
+            return
+        x, y, cx, cy = self.widget.bbox("insert")
+        x = x + self.widget.winfo_rootx() + 25
+        y = y + cy + self.widget.winfo_rooty() + 25
+        self.tipwindow = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)  # Sin decoraciones de ventana
+        tw.wm_geometry("+%d+%d" % (x, y))
+        label = tk.Label(tw, text=self.text, justify=tk.LEFT,
+                         background="#ffffe0", relief=tk.SOLID, borderwidth=1,
+                         font=("tahoma", "8", "normal"))
+        label.pack(ipadx=4, ipady=2)
+
+    def hidetip(self):
+        tw = self.tipwindow
+        self.tipwindow = None
+        if tw:
+            tw.destroy()
+
 def guardar_posicion(event=None):
     try:
         x = root.winfo_x()
@@ -86,12 +134,12 @@ x_pos, y_pos = cargar_posicion()
 
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry(f"20x20+{x_pos}+{y_pos}")
+root.geometry(f"50x50+{x_pos}+{y_pos}")
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
 
-btn = tk.Label(root, text="<", font=("Arial", 20), fg="black", bg="white", width=2, height=1, cursor="hand2")
+btn = tk.Label(root, text="<", font=("Arial", 8), fg="black", bg="white", width=2, height=1, cursor="hand2")
 btn.pack(expand=True, fill="both")
 
 btn.bind("<ButtonPress-1>", on_left_button_press)
@@ -99,6 +147,6 @@ btn.bind("<B1-Motion>", on_left_button_motion)
 btn.bind("<ButtonRelease-1>", on_left_button_release)
 btn.bind("<Double-Button-1>", toggle_minimize)
 
-root.bind("<Button-3>", lambda e: toggle_minimize() if root.state() == "iconic" else None)
+ToolTip(btn, "ABRIR PANELES")
 
 root.mainloop()
