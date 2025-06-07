@@ -1,13 +1,10 @@
 import tkinter as tk
 import subprocess
-import os
-
-pos_file = "/home/pi/A108/posicion.txt"
 
 class ToolTip:
     def __init__(self, widget, get_text_callback):
         self.widget = widget
-        self.get_text = get_text_callback  # Función para obtener texto dinámico
+        self.get_text = get_text_callback
         self.tipwindow = None
         self.id = None
         widget.bind("<Enter>", self.enter)
@@ -52,26 +49,6 @@ class ToolTip:
         self.tipwindow = None
         if tw:
             tw.destroy()
-
-def guardar_posicion(event=None):
-    try:
-        x = root.winfo_x()
-        y = root.winfo_y()
-        with open(pos_file, "w") as f:
-            f.write(f"{x},{y}")
-    except Exception as e:
-        print(f"Error al guardar posición: {e}")
-
-def cargar_posicion():
-    if os.path.exists(pos_file):
-        try:
-            with open(pos_file, "r") as f:
-                contenido = f.read()
-                x, y = map(int, contenido.strip().split(","))
-                return x, y
-        except:
-            pass
-    return 50, 50
 
 def toggle_minimize(event=None):
     if root.state() == "normal":
@@ -125,17 +102,14 @@ def on_left_button_release(event):
         else:
             iniciar_qt()
             btn.config(text='-')
-    else:
-        guardar_posicion()
+    # Ya no se guarda la posición
 
 def get_tooltip_text():
     return "CERRAR PANELES" if btn['text'] == '-' else "ABRIR PANELES"
 
-x_pos, y_pos = cargar_posicion()
-
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry(f"20x20+{x_pos}+{y_pos}")
+root.geometry("20x20+0+0")  # Fijar ventana en esquina superior izquierda
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
