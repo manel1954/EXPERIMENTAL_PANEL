@@ -24,10 +24,11 @@ def mostrar_imagen(ruta):
 
 def elegir_imagen():
     archivo = filedialog.askopenfilename(
-        title="Selecciona un archivo JPG",
-        initialdir=directorio_inicial,
-        filetypes=[("Archivos JPG", "*.jpg;*.jpeg;*.JPG;*.JPEG")]
-    )
+    title="Selecciona un archivo JPG (o cualquiera para probar)",
+    initialdir=directorio_inicial,
+    filetypes=[("Todos los archivos", "*.*")]
+)
+
     if archivo:
         mostrar_imagen(archivo)
 
