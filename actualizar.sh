@@ -13,6 +13,16 @@ else
 fi
 sudo chmod 777 /var/www/html/uploads.php
 
+ORIGEN2="/home/pi/A108/boton_cerrar_abrir_paneles.desktop"
+DESTINO2="/home/pi/.config/autostart/"
+if [ ! -f "$DESTINO2" ]; then
+    cp "$ORIGEN2" "$DESTINO2"
+    echo "Archivo copiado correctamente a $DESTINO2."
+else
+    echo "El archivo $DESTINO2 ya existe. No se ha copiado."
+fi
+sudo chmod 777 /var/www/html/uploads.php
+
 
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
 if [ "$dvswitch" = 'DVSWITCH=OFF' ];then
