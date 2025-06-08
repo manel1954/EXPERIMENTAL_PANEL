@@ -21,7 +21,7 @@ if [ ! -f "$DESTINO2" ]; then
 else
     echo "El archivo $DESTINO2 ya existe. No se ha copiado."
 fi
-sudo chmod 777 /var/www/html/uploads.php
+sudo chmod 777 /home/pi/.config/autostart/boton_cerrar_abrir_paneles.desktop
 
 
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
