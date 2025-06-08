@@ -109,7 +109,7 @@ def get_tooltip_text():
 
 root = tk.Tk()
 root.overrideredirect(True)
-root.geometry("1220x20+0+50")  # Fijar ventana en esquina superior izquierda
+root.geometry("20x20+1200+50")  # Fijar ventana en esquina superior izquierda
 root.attributes("-topmost", True)
 root.attributes("-alpha", 0.8)
 root.configure(bg='black')
