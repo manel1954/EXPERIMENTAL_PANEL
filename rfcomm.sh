@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo python rfcom.py
+sudo python rfcomm.py
 
