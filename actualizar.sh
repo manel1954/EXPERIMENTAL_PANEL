@@ -42,10 +42,9 @@ fi
 # path usuario
 usuario="/home/pi"
 usuario="$usuario"
-SCRIPTS_version="EXPERI"
-actualizacion=$(awk "NR==2" /home/pi/version-fecha-actualizacion)
-version="PANEL"
-version=$version$actualizacion
+fecha_imagen=$(awk "NR==1" /home/pi/version-fecha-actualizacion)
+nombre_imagen="PANEL"
+version=$nombre_imagen$fecha_imagen
 
 
 #pone todos los datos de DMR+ , Brandameiter, svxlink etc en panel_control.ini    
