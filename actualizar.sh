@@ -1,29 +1,5 @@
 ﻿#!/bin/bash
 
-mkdir -p /home/pi/uploads
-sudo chmod 777 -R /home/pi/uploads
-
-ORIGEN="/home/pi/A108/uploads.php"
-DESTINO="/var/www/html/uploads.php"
-if [ ! -f "$DESTINO" ]; then
-    cp "$ORIGEN" "$DESTINO"
-    echo "Archivo copiado correctamente a $DESTINO."
-else
-    echo "El archivo $DESTINO ya existe. No se ha copiado."
-fi
-sudo chmod 777 /var/www/html/uploads.php
-
-ORIGEN2="/home/pi/A108/boton_cerrar_abrir_paneles.desktop"
-DESTINO2="/home/pi/.config/autostart/"
-if [ ! -f "$DESTINO2" ]; then
-    cp "$ORIGEN2" "$DESTINO2"
-    echo "Archivo copiado correctamente a $DESTINO2."
-else
-    echo "El archivo $DESTINO2 ya existe. No se ha copiado."
-fi
-sudo chmod 777 /home/pi/.config/autostart/boton_cerrar_abrir_paneles.desktop
-
-
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
 if [ "$dvswitch" = 'DVSWITCH=OFF' ];then
 sudo systemctl stop ysfgateway.service
