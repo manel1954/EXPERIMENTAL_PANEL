@@ -2,81 +2,98 @@ import tkinter as tk
 import subprocess
 import os
 import signal
-import threading
-import time
 
-# Configura tu ruta aquí
+# -------------------------------
+# Configuración: actualiza estas rutas
+# -------------------------------
 MMDVM_DIR = "/home/pi/MMDVMHost"
 EXECUTABLE = "./MMDVMHost"
 CONFIG_FILE = "MMDVM.ini"
-LOG_FILE = "/home/pi/MMDVMHost/MMDVM.log"  # Asume que tienes activado el log en el .ini
+# -------------------------------
 
-mmdvm_process = None
-stop_reading = threading.Event()
+# Variable para almacenar el proceso lanzado por este script (si lo crea)
+terminal_process = None
+
+def is_mmdvm_running():
+    """
+    Verifica si hay un proceso que incluya "MMDVMHost" en su línea de comando.
+    """
+    try:
+        output = subprocess.check_output(["pgrep", "-f", "MMDVMHost"]).decode().strip()
+        return bool(output)
+    except subprocess.CalledProcessError:
+        return False
+
+def kill_mmdvm_processes():
+    """
+    Mata todos los procesos que contengan "MMDVMHost" en su línea de comando.
+    """
+    try:
+        pids = subprocess.check_output(["pgrep", "-f", "MMDVMHost"]).decode().splitlines()
+        for pid in pids:
+            os.kill(int(pid), signal.SIGTERM)
+    except Exception as e:
+        print(f"Error al matar procesos: {e}")
 
 def toggle_mmdvm():
-    global mmdvm_process, stop_reading
-    if mmdvm_process is None:
+    global terminal_process
+    if not is_mmdvm_running():
         try:
-            log_text.delete(1.0, tk.END)
-            stop_reading.clear()
-
-            mmdvm_process = subprocess.Popen(
-                [EXECUTABLE, CONFIG_FILE],
-                cwd=MMDVM_DIR,
-                preexec_fn=os.setsid,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL
-            )
-
-            button.config(text="Detener MMDVMHost", bg="red")
+            # Comando a ejecutar: se cambia de directorio y se lanza MMDVMHost con su .ini,
+            # y al finalizar se abre bash para mantener abierta la terminal.
+            cmd = f"cd {MMDVM_DIR} && {EXECUTABLE} {CONFIG_FILE}; bash"
+            # Se lanza un terminal gráfico (ajusta el nombre si es necesario)
+            terminal_process = subprocess.Popen([
+                "x-terminal-emulator", "-e", f"bash -c '{cmd}'"
+            ])
+            button.config(text="Cerrar MMDVMHost", bg="red")
             status_label.config(text="Estado: EJECUTANDO", fg="green")
-
-            threading.Thread(target=read_log, daemon=True).start()
-
         except Exception as e:
             status_label.config(text=f"Error: {e}", fg="red")
     else:
         try:
-            os.killpg(os.getpgid(mmdvm_process.pid), signal.SIGTERM)
-            mmdvm_process = None
-            stop_reading.set()
+            kill_mmdvm_processes()
+            terminal_process = None
             button.config(text="Iniciar MMDVMHost", bg="green")
             status_label.config(text="Estado: DETENIDO", fg="black")
         except Exception as e:
-            status_label.config(text=f"Error al detener: {e}", fg="red")
+            status_label.config(text=f"Error al cerrar: {e}", fg="red")
 
-def read_log():
-    while not stop_reading.is_set():
-        try:
-            if os.path.exists(LOG_FILE):
-                with open(LOG_FILE, "r") as f:
-                    lines = f.readlines()[-20:]  # Últimas 20 líneas
-                    log_text.delete(1.0, tk.END)
-                    log_text.insert(tk.END, "".join(lines))
-            time.sleep(1)
-        except Exception as e:
-            log_text.insert(tk.END, f"\nError leyendo log: {e}")
-            break
+def update_status_at_startup():
+    """
+    Verifica al iniciar si MMDVMHost ya está en ejecución y actualiza la interfaz.
+    """
+    if is_mmdvm_running():
+        button.config(text="Cerrar MMDVMHost", bg="red")
+        status_label.config(text="Estado: EJECUTANDO", fg="green")
+    else:
+        button.config(text="Iniciar MMDVMHost", bg="green")
+        status_label.config(text="Estado: DETENIDO", fg="black")
 
-# Ventana principal
+# -------------------------------
+# Interfaz gráfica con tkinter
+# -------------------------------
 root = tk.Tk()
-root.title("Control MMDVMHost con Log")
+root.title("Control MMDVMHost (Terminal Visible)")
 
-button = tk.Button(root, text="Iniciar MMDVMHost", command=toggle_mmdvm, bg="green", font=("Arial", 14), width=25)
-button.pack(pady=10)
+button = tk.Button(root, text="Iniciar MMDVMHost", command=toggle_mmdvm,
+                   bg="green", font=("Arial", 14), width=30)
+button.pack(pady=20)
 
-status_label = tk.Label(root, text="Estado: DETENIDO", font=("Arial", 12))
+status_label = tk.Label(root, text="Estado: DESCONOCIDO", font=("Arial", 12))
 status_label.pack()
 
-log_text = tk.Text(root, height=20, width=80, font=("Courier", 10))
-log_text.pack(pady=10)
-
-# Salida limpia
-def on_closing():
-    if mmdvm_process:
-        os.killpg(os.getpgid(mmdvm_process.pid), signal.SIGTERM)
+def on_close():
+    """
+    Al cerrar la ventana, se intenta detener MMDVMHost si está en ejecución.
+    """
+    if is_mmdvm_running():
+        kill_mmdvm_processes()
     root.destroy()
 
-root.protocol("WM_DELETE_WINDOW", on_closing)
+root.protocol("WM_DELETE_WINDOW", on_close)
+
+# Actualizar estado al iniciar la aplicación
+update_status_at_startup()
+
 root.mainloop()
