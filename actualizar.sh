@@ -1,5 +1,8 @@
 ﻿#!/bin/bash
 
+cd A108
+cp esp32.py /home/pi/esp32
+
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
 if [ "$dvswitch" = 'DVSWITCH=OFF' ];then
 sudo systemctl stop ysfgateway.service
