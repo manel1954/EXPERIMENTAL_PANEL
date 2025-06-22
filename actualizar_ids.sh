@@ -27,6 +27,7 @@
                         sudo chmod 777 -R /var/lib/mmdvm
                         cp DMRIds.dat /home/pi/DMR2YSF/
                         cp DMRIds.dat /home/pi/YSF2DMR/
+                        sleep 5
                         
                         # Cambio realizado el 14-04-2025 para actualizar los IDS en MMDVMHost
                         cd /home/pi/MMDVMHost
