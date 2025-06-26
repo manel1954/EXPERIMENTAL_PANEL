@@ -58,7 +58,8 @@ def toggle_minimize(event=None):
 
 def cerrar_qt():
     try:
-        subprocess.run(['killall', 'qt_menu_superior', 'qt_menu_inferiror'], check=True)
+        subprocess.run(['killall', 'qt_menu_superior'], check=True)
+        subprocess.run(['killall', 'qt_menu_inferiror'], check=True)
     except Exception as e:
         print(f"Error al cerrar qt_menu_superior: {e}")
 
