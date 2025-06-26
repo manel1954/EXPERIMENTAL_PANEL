@@ -15,10 +15,6 @@ else
 echo "no hace nada"  
 fi
 
-cd /home/pi/A108/qt/
-./qt_menu_inferior
-
-
 # path usuario
 usuario="/home/pi"
 usuario="$usuario"
