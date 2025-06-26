@@ -1,5 +1,15 @@
 ﻿#!/bin/bash
 
+sudo systemctl disable ysfgateway.service
+sudo systemctl disable dmr2ysf.service
+sudo systemctl disable analog_bridge.service
+sudo systemctl disable ircddbgatewayd.service
+sudo systemctl disable ircddbgateway.service
+sudo systemctl disable md380-emu.service
+sudo systemctl disable mmdvm_bridge.service
+sudo systemctl disable nxdngateway.service
+sudo systemctl disable p25gateway.servdisable
+
 dvswitch=$(awk "NR==18" /home/pi/status.ini)
 if [ "$dvswitch" = 'DVSWITCH=OFF' ];then
 sudo systemctl stop ysfgateway.service
