@@ -20,4 +20,4 @@ sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
                         cp /home/pi/A108/Abrir_Paneles.desktop /home/pi/.config/autostart
 
                         
-                        
+                    
