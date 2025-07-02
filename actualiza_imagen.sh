@@ -13,7 +13,7 @@ sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
                         sleep 6                                             
                         sudo chmod 777 -R /home/pi/A108
                         
-                        sudo rm -R /home/pi/esp32/esp32_firmware 
+                        sudo rm -R /home/pi/esp32 
                         sudo cp -R /home/pi/A108/esp32 /home/pi/
                         sudo chmod +x -R /home/pi/esp32
 
