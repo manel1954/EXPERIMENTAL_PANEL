@@ -14,7 +14,7 @@ sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
                         sudo chmod 777 -R /home/pi/A108
                         
 
-                        cp subir_archivos /var/www/html/ # implementado el 07-07-2025
+                        cp subir_archivos.php /var/www/html/ # implementado el 07-07-2025
 
 
                         sudo rm /home/pi/esp32/*.*
