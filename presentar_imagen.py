@@ -50,7 +50,7 @@ root = tk.Tk()
 root.title("Selector de imágenes")
 root.geometry("300x150")
 
-btn_elegir = tk.Button(root, text="Elegir imagen de /home/pi/uploads", command=elegir_imagen)
+btn_elegir = tk.Button(root, text="Elegir imagen", command=elegir_imagen)
 btn_elegir.pack(expand=True)
 
 root.mainloop()
