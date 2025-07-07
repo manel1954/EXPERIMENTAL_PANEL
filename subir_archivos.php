@@ -65,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['imagen'])) {
 
 // Obtener lista de imágenes JPG en la carpeta upload
 $imagenes = [];
-if (is_dir("upload")) {
-    $archivos = scandir("upload");
+if (is_dir("upload/files")) {
+    $archivos = scandir("upload/files");
     foreach ($archivos as $archivo) {
         $ext = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
         if (in_array($ext, ['jpg', 'jpeg'])) {
-            $imagenes[] = "upload/" . $archivo;
+            $imagenes[] = "upload/files/" . $archivo;
         }
     }
 }
