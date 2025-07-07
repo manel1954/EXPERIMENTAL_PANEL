@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox, Toplevel
 from PIL import Image, ImageTk
 import os
 
-directorio_origen = "/home/pi/uploads"
+directorio_origen = "/var/www/html/upload/"
 
 def redimensionar_con_aspect_ratio(imagen, max_width, max_height):
     ancho_original, alto_original = imagen.size
