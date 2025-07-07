@@ -38,7 +38,7 @@ if (isset($_POST['renombrar_actual']) && isset($_POST['nuevo_nombre'])) {
 
 // Procesar carga de imagen
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['imagen'])) {
-    $directorio = "upload/";
+    $directorio = "upload/files/";
     $archivo = $directorio . basename($_FILES["imagen"]["name"]);
     $tipoArchivo = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
 
@@ -113,7 +113,7 @@ if (is_dir("upload")) {
         <?php endif; ?>
 
         <button type="submit" class="btn btn-success">Aceptar y Subir</button>
-        <a href="<?= $_SERVER['PHP_SELF'] ?>" class="btn btn-secondary">Cancelar</a>
+        <a href="/paneles_virtuales_nextion/panel_control.php" class="btn btn-danger">Cancelar</a>
     </form>
 
     <!-- Listado de imágenes guardadas como lista -->

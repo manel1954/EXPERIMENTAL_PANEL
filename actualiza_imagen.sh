@@ -15,7 +15,7 @@ sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
                         
 
                         cp subir_archivos.php /var/www/html/ # implementado el 07-07-2025
-
+                        cp panel_control.php /var/www/html/paneles_virtuales_nextion/ # implementado el 07-07-2025
 
                         sudo rm /home/pi/esp32/*.*
                         sudo rm -R /home/pi/esp32/esp32_nextion
