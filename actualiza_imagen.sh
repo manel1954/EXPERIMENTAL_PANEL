@@ -13,11 +13,17 @@ sed -i "2c $fecha_formateada" /home/pi/version-fecha-actualizacion
                         sleep 6                                             
                         sudo chmod 777 -R /home/pi/A108
                         
+
+                        cp subir_archivos /var/www/html/ # implementado el 07-07-2025
+
+
                         sudo rm /home/pi/esp32/*.*
                         sudo rm -R /home/pi/esp32/esp32_nextion
                         sudo rm -R /home/pi/esp32/esp32_openweather
                         sudo cp -R /home/pi/A108/esp32 /home/pi/
                         sudo chmod 777 -R /home/pi/esp32
+
+                 
 
 
                         
