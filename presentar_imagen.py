@@ -46,11 +46,22 @@ def elegir_imagen():
         mostrar_imagen_en_ventana_nueva(archivo)
         root.withdraw()  # Oculta la ventana principal sin cerrarla
 
+def cancelar():
+    root.destroy()  # Cierra completamente la aplicación
+
 root = tk.Tk()
 root.title("Selector de imágenes")
 root.geometry("300x150")
 
-btn_elegir = tk.Button(root, text="Elegir imagen", command=elegir_imagen)
-btn_elegir.pack(expand=True)
+# Frame horizontal para los botones
+frame_botones = tk.Frame(root)
+frame_botones.pack(expand=True)
+
+btn_elegir = tk.Button(frame_botones, text="Elegir imagen", command=elegir_imagen)
+btn_elegir.pack(side="left", padx=10, pady=20)
+
+btn_cancelar = tk.Button(frame_botones, text="Cancelar", command=cancelar, bg="red", fg="white")
+btn_cancelar.pack(side="left", padx=10, pady=20)
 
 root.mainloop()
+
