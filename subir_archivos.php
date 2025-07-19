@@ -3,7 +3,7 @@ $mensaje = '';
 $mostrarVistaPrevia = false;
 $rutaImagen = '';
 
-// Manejar eliminación de archivos
+// Manejar eliminación de archivos 
 if (isset($_GET['eliminar'])) {
     $archivo = urldecode($_GET['eliminar']);
     if (file_exists($archivo)) {
