@@ -33,7 +33,7 @@ nombre_imagen="PANEL"
 version=$nombre_imagen$fecha_imagen
 
 
-#pone todos los datos de DMR+ , Brandameiter, svxlink etc en panel_control.ini    
+#pone todos los datos de DMR+ , Brandameiter, svxlink etc en panel_control.ini     
 bm=`sed -n '2p'  $usuario/MMDVMHost/MMDVMBM.ini`
 plus=`sed -n '2p'  $usuario/MMDVMHost/MMDVMPLUS.ini`
 dstar=`sed -n '2p'  $usuario/MMDVMHost/MMDVMDSTAR.ini`
