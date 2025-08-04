@@ -14,7 +14,7 @@ MARRON="\33[38;5;138m"
 			curl https://dvref.com/downloads/YSFHosts-resolved.txt > /home/pi/YSFClients/YSFGateway/YSFHosts.txt
 			
 			sleep 3
-			sed -i '$a\\21887;ANDALUCIA;ANDALUCIA;51.68.71.60;42000;022' /home/pi/YSFClients/YSFGateway/YSFHosts.txt
+			
 			clear
 			echo "${VERDE}*********************************"
 					echo "* ACTUALIZANDO REFLECTORES YSF  *"
