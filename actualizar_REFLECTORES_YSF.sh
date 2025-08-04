@@ -20,6 +20,6 @@ MARRON="\33[38;5;138m"
 					echo "* ACTUALIZANDO REFLECTORES YSF  *"
 					echo "*********************************"
 			sleep 3
-
-
+			cd /home/pi/A108
+			cp YSFGateway.ini /home/pi/YSFClients/YSFGateway
 
