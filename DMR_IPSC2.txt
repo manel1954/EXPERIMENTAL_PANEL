@@ -1,5 +1,5 @@
 Elige_Ipsc2 x x
-TS2_1=21465    21465    StartRef=4000;RelinkTime=15;UserLink=1;TS2_1=21465
+TS2_1=21465    21465    StartRef=4370;RelinkTime=15;UserLink=1;TS2_1=21465
 IPSC2-EA4MASTER      4374     StartRef=4374;RelinkTime=15;UserLink=1;
 TS1_1=37040    37040    StartRef=4000;RelinkTime=15;UserLink=1;TS1_1=37040
 TS1_1=7480     7480     StartRef=4000;RelinkTime=15;UserLink=1;TS1_1=7480 
