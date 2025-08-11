@@ -101,7 +101,7 @@ def on_left_button_release(event):
             btn.config(text='+')
         else:
             iniciar_qt()
-            btn.config(text='-')
+            btn.config(text='*')
     # Ya no se guarda la posición
 
 def get_tooltip_text():
