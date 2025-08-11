@@ -1,2 +1,3 @@
 #!/bin/bash
-python cerrar_abrir_paneles.py
+cd /home/pi/A108/qt/
+./qt_menu_superior
