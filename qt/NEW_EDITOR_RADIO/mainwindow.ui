@@ -1,0 +1,3489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1258</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1626</width>
+    <height>1595</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>EDITOR EDITOR RADIO</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(16, 16, 16);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLineEdit" name="lineEdit_id">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>120</y>
+      <width>131</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>214317588</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_callsign">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>131</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>EAXXXX</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_callsign">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>76</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Callsign:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_id">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>100</y>
+      <width>21</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Id:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_puente">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>3000</y>
+      <width>191</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Line edit puente</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Timeout">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>120</y>
+      <width>61</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Valor óptimo: 180&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>180</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Timeout">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>100</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Timeout:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Display">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>100</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Display</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Display">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>120</y>
+      <width>81</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Nextion</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Duplex">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>120</y>
+      <width>49</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Duplex">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>100</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Duplex:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Duplex_2">
+    <property name="geometry">
+     <rect>
+      <x>562</x>
+      <y>100</y>
+      <width>101</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RFModeHang:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RFModeHang">
+    <property name="geometry">
+     <rect>
+      <x>562</x>
+      <y>120</y>
+      <width>96</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Valor óptimo: 5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>5</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>812</x>
+      <y>560</y>
+      <width>431</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #000;
+background-color: rgb(179, 179, 179);
+</string>
+    </property>
+    <property name="text">
+     <string>SALIR Y GUARDAR</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_geany">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>560</y>
+      <width>648</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #000;
+background-color: rgb(255, 170, 0);
+
+</string>
+    </property>
+    <property name="text">
+     <string>Abrir fichero MMDVM.ini para configurar cualquier otro parámetro</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_DMR">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>670</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>DMR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>670</y>
+      <width>648</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+
+color: #000;
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_DSTAR">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>670</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>DSTAR</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_FUSION">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>670</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>FUSION</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_P25">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>670</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>P25</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_NXDN">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>670</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>NXDN</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_M17">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>670</y>
+      <width>56</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>M17</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_FM">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>670</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(48, 48, 48);
+background-color: rgb(179, 179, 179);</string>
+    </property>
+    <property name="text">
+     <string>FM</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_DMR">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>1100</y>
+      <width>76</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RXF">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>131</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;9 dígitos sin punto&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>RXFrequency</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RXF">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RXFrequency:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TXF">
+    <property name="geometry">
+     <rect>
+      <x>161</x>
+      <y>180</y>
+      <width>131</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;9 dígitos sin punto&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>RXFrequency</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_TXF">
+    <property name="geometry">
+     <rect>
+      <x>161</x>
+      <y>160</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RXFrequency:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Latitude">
+    <property name="geometry">
+     <rect>
+      <x>314</x>
+      <y>160</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Latitude:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Latitude">
+    <property name="geometry">
+     <rect>
+      <x>314</x>
+      <y>180</y>
+      <width>141</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Latitude</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Longitude">
+    <property name="geometry">
+     <rect>
+      <x>477</x>
+      <y>160</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Longitude:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Longitude">
+    <property name="geometry">
+     <rect>
+      <x>477</x>
+      <y>180</y>
+      <width>181</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Longitude</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Location">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>240</y>
+      <width>281</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Location</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Location">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Location:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_URL">
+    <property name="geometry">
+     <rect>
+      <x>317</x>
+      <y>220</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>URL:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_URL">
+    <property name="geometry">
+     <rect>
+      <x>317</x>
+      <y>240</y>
+      <width>341</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>www.ea3eiz.com</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_DisplayLevel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_DisplayLevel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>DisplayLevel:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_FileLevel">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>300</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_FileLevel">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>280</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>FileLevel:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_UARTPort">
+    <property name="geometry">
+     <rect>
+      <x>507</x>
+      <y>280</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>UARTPort Modem:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_UARTPort">
+    <property name="geometry">
+     <rect>
+      <x>507</x>
+      <y>300</y>
+      <width>151</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>/dev/ttyUSB0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_CW_Id">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>280</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>CW Id:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_CW_Id">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>300</y>
+      <width>81</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_TXInvert">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>64</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>TXInvert:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TXInvert">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>360</y>
+      <width>64</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RXInvert">
+    <property name="geometry">
+     <rect>
+      <x>87</x>
+      <y>340</y>
+      <width>64</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RXInvert:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RXInvert">
+    <property name="geometry">
+     <rect>
+      <x>87</x>
+      <y>360</y>
+      <width>64</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RXOffset">
+    <property name="geometry">
+     <rect>
+      <x>164</x>
+      <y>340</y>
+      <width>64</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RXOffset:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RXOffset">
+    <property name="geometry">
+     <rect>
+      <x>164</x>
+      <y>360</y>
+      <width>64</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>600</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_TXOffset">
+    <property name="geometry">
+     <rect>
+      <x>241</x>
+      <y>340</y>
+      <width>64</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>TXOffset:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TXOffset">
+    <property name="geometry">
+     <rect>
+      <x>241</x>
+      <y>360</y>
+      <width>64</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>600</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RXLevel">
+    <property name="geometry">
+     <rect>
+      <x>317</x>
+      <y>340</y>
+      <width>64</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RXLevel:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RXLevel">
+    <property name="geometry">
+     <rect>
+      <x>317</x>
+      <y>360</y>
+      <width>64</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_TXLevel">
+    <property name="geometry">
+     <rect>
+      <x>394</x>
+      <y>340</y>
+      <width>64</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>TXLevel:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TXLevel">
+    <property name="geometry">
+     <rect>
+      <x>394</x>
+      <y>360</y>
+      <width>64</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RXDCOffset">
+    <property name="geometry">
+     <rect>
+      <x>471</x>
+      <y>340</y>
+      <width>87</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RXDCOffset:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RXDCOffset">
+    <property name="geometry">
+     <rect>
+      <x>471</x>
+      <y>360</y>
+      <width>87</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>300</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TXDCOffset">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>360</y>
+      <width>88</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>300</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_TXDCOffset">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>340</y>
+      <width>88</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>TXDCOffset:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_TXInvert_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Module Dstar:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TXInvert_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>420</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>B</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RemoteAddress">
+    <property name="geometry">
+     <rect>
+      <x>317</x>
+      <y>420</y>
+      <width>341</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Brandmeister= master.spain-dmr.es&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;DMR+ 4370 = 212.237.3.141&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;DMR+ 4374 = eamaster04.xreflector.es&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>RemoteAddress</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RemoteAddress">
+    <property name="geometry">
+     <rect>
+      <x>317</x>
+      <y>400</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RemoteAddress:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Type">
+    <property name="geometry">
+     <rect>
+      <x>114</x>
+      <y>400</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Valor correcto: Direct&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Type:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Type">
+    <property name="geometry">
+     <rect>
+      <x>114</x>
+      <y>420</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Valor correcto: Direct&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Gateway</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_RemotePort">
+    <property name="geometry">
+     <rect>
+      <x>215</x>
+      <y>420</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Valor correcto: 55555&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>55555</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_RemotePort">
+    <property name="geometry">
+     <rect>
+      <x>215</x>
+      <y>400</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>RemotePort:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Options">
+    <property name="geometry">
+     <rect>
+      <x>201</x>
+      <y>480</y>
+      <width>457</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>#Options</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Options">
+    <property name="geometry">
+     <rect>
+      <x>201</x>
+      <y>460</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Options:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Jitter">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>300</y>
+      <width>55</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffff00;&quot;&gt;Valor optimo: 360&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>360</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Jitter">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>280</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Jitter:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Slot2">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>300</y>
+      <width>41</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_JSlot2">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>280</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Slot2:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Slot1">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>300</y>
+      <width>41</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Slot1">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>280</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Slot1:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Password">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>480</y>
+      <width>175</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Password</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Password">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>Password:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_by_EA3EIZ">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>568</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(144, 144, 144);</string>
+    </property>
+    <property name="text">
+     <string>by EA3EIZ</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_NombreMemoria">
+    <property name="geometry">
+     <rect>
+      <x>226</x>
+      <y>680</y>
+      <width>432</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TipoDisplay">
+    <property name="geometry">
+     <rect>
+      <x>1032</x>
+      <y>92</y>
+      <width>221</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>Nextion-OLED</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_PorNextion">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>190</y>
+      <width>141</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>modem</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_editorDmrplus_2">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>20</y>
+      <width>573</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(51, 51, 51);
+</string>
+    </property>
+    <property name="text">
+     <string>CONFIGURAR DISPLAY</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>190</y>
+      <width>209</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elige Port Nextion</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>modem</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>/dev/ttyUSB0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>/dev/ttyUSB1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>rfcomm1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>rfcomm2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>virtual1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>virtual2</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_Display">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>92</y>
+      <width>351</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elige tipo Display</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Nextion</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>OLED</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>667</x>
+      <y>0</y>
+      <width>5</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border:0px
+</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>420</y>
+      <width>573</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_hosts">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>720</y>
+      <width>551</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_hosts_2">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>680</y>
+      <width>541</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_3">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>470</y>
+      <width>573</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>520</y>
+      <width>573</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_MenuNextion">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>167</y>
+      <width>131</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Menu Nextion:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_MenuOLED">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>167</y>
+      <width>131</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Menu OLED:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_4">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>190</y>
+      <width>161</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elige Type Oled</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Type 3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Type 6</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_TypeOled">
+    <property name="geometry">
+     <rect>
+      <x>1202</x>
+      <y>190</y>
+      <width>51</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>6</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>290</y>
+      <width>590</width>
+      <height>5</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border:0px
+</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_Layout">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>230</y>
+      <width>209</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elige tipo ScreenLayout</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Layout">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>230</y>
+      <width>141</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>modem</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_editorDmrplus_3">
+    <property name="geometry">
+     <rect>
+      <x>4</x>
+      <y>20</y>
+      <width>660</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>MENU CONFIGURACION PARAMETROS MAS RELEVANTES</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_editorDmrplus_4">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>310</y>
+      <width>573</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(51, 51, 51);
+</string>
+    </property>
+    <property name="text">
+     <string>OTRAS CONFIGURACIONES</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_Reflector">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>370</y>
+      <width>573</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Elige RemoteAddress</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>IPSC2-EA-Hotspot</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>IPSC2-EA4Master</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Rotate">
+    <property name="geometry">
+     <rect>
+      <x>1202</x>
+      <y>230</y>
+      <width>51</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(185, 185, 185);
+border:1px solid rgb(185,185,185);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_5">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>230</y>
+      <width>161</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);
+color:#000;
+selection-color: rgb(0, 0, 0);
+selection-background-color: rgb(170, 85, 255);</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Rotate</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>649</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>17</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(51, 51, 51);</string>
+    </property>
+    <property name="text">
+     <string>EDITOR RADIO</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_P25Enable">
+    <property name="geometry">
+     <rect>
+      <x>293</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>547</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>AX.25</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>421</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>M17</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>483</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>FM</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_FusionEnable">
+    <property name="geometry">
+     <rect>
+      <x>223</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_FmEnable">
+    <property name="geometry">
+     <rect>
+      <x>496</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_CwEnable">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_NxdnEnable">
+    <property name="geometry">
+     <rect>
+      <x>363</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_CwDisable">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #fff;
+background-color: rgb(0, 85, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>ON</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Ax25Enable">
+    <property name="geometry">
+     <rect>
+      <x>559</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>351</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>NXDN</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>611</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>POCSAG</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_DstarEnable">
+    <property name="geometry">
+     <rect>
+      <x>83</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>211</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>FUSION</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_FusionDisable">
+    <property name="geometry">
+     <rect>
+      <x>223</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #fff;
+background-color: rgb(0, 85, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>ON</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_DmrDisable">
+    <property name="geometry">
+     <rect>
+      <x>153</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #fff;
+background-color: rgb(0, 85, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>ON</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_PocsagEnable">
+    <property name="geometry">
+     <rect>
+      <x>623</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_DmrEnable">
+    <property name="geometry">
+     <rect>
+      <x>153</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>141</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>DMR</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_M17Enable">
+    <property name="geometry">
+     <rect>
+      <x>433</x>
+      <y>514</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>6</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#fff;
+background-color: rgb(170, 0, 0);
+border-radius:12px;</string>
+    </property>
+    <property name="text">
+     <string>OFF</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>D-STAR</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>281</x>
+      <y>540</y>
+      <width>51</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>P25</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>540</y>
+      <width>31</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>CW</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>lineEdit_NombreMemoria</zorder>
+   <zorder>label</zorder>
+   <zorder>label_DMR</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>label_JSlot2</zorder>
+   <zorder>label_Jitter</zorder>
+   <zorder>lineEdit_Password</zorder>
+   <zorder>label_Slot1</zorder>
+   <zorder>radioButton_NXDN</zorder>
+   <zorder>lineEdit_Slot1</zorder>
+   <zorder>radioButton_M17</zorder>
+   <zorder>radioButton_DSTAR</zorder>
+   <zorder>radioButton_DMR</zorder>
+   <zorder>lineEdit_Jitter</zorder>
+   <zorder>radioButton_FM</zorder>
+   <zorder>radioButton_FUSION</zorder>
+   <zorder>label_by_EA3EIZ</zorder>
+   <zorder>lineEdit_Options</zorder>
+   <zorder>label_Password</zorder>
+   <zorder>radioButton_P25</zorder>
+   <zorder>pushButton_geany</zorder>
+   <zorder>lineEdit_Slot2</zorder>
+   <zorder>label_Options</zorder>
+   <zorder>label_RXDCOffset</zorder>
+   <zorder>lineEdit_Type</zorder>
+   <zorder>lineEdit_RXInvert</zorder>
+   <zorder>label_RXInvert</zorder>
+   <zorder>label_TXDCOffset</zorder>
+   <zorder>lineEdit_TXInvert</zorder>
+   <zorder>label_TXInvert_2</zorder>
+   <zorder>lineEdit_TXInvert_2</zorder>
+   <zorder>lineEdit_RXDCOffset</zorder>
+   <zorder>label_RemoteAddress</zorder>
+   <zorder>lineEdit_TXDCOffset</zorder>
+   <zorder>label_RXOffset</zorder>
+   <zorder>lineEdit_TXOffset</zorder>
+   <zorder>lineEdit_RemotePort</zorder>
+   <zorder>label_TXOffset</zorder>
+   <zorder>label_TXInvert</zorder>
+   <zorder>lineEdit_RXOffset</zorder>
+   <zorder>label_Type</zorder>
+   <zorder>lineEdit_RXLevel</zorder>
+   <zorder>lineEdit_RemoteAddress</zorder>
+   <zorder>label_TXLevel</zorder>
+   <zorder>label_RXLevel</zorder>
+   <zorder>label_RemotePort</zorder>
+   <zorder>lineEdit_TXLevel</zorder>
+   <zorder>label_Duplex_2</zorder>
+   <zorder>lineEdit_URL</zorder>
+   <zorder>label_Longitude</zorder>
+   <zorder>lineEdit_RFModeHang</zorder>
+   <zorder>lineEdit_Longitude</zorder>
+   <zorder>lineEdit_Duplex</zorder>
+   <zorder>label_Duplex</zorder>
+   <zorder>lineEdit_UARTPort</zorder>
+   <zorder>label_Location</zorder>
+   <zorder>label_CW_Id</zorder>
+   <zorder>label_Timeout</zorder>
+   <zorder>lineEdit_RXF</zorder>
+   <zorder>label_callsign</zorder>
+   <zorder>label_RXF</zorder>
+   <zorder>lineEdit_callsign</zorder>
+   <zorder>lineEdit_id</zorder>
+   <zorder>label_TXF</zorder>
+   <zorder>lineEdit_Latitude</zorder>
+   <zorder>lineEdit_Timeout</zorder>
+   <zorder>lineEdit_Location</zorder>
+   <zorder>label_Latitude</zorder>
+   <zorder>label_URL</zorder>
+   <zorder>lineEdit_TXF</zorder>
+   <zorder>label_DisplayLevel</zorder>
+   <zorder>lineEdit_FileLevel</zorder>
+   <zorder>label_UARTPort</zorder>
+   <zorder>label_Display</zorder>
+   <zorder>label_FileLevel</zorder>
+   <zorder>lineEdit_CW_Id</zorder>
+   <zorder>lineEdit_Display</zorder>
+   <zorder>label_id</zorder>
+   <zorder>lineEdit_DisplayLevel</zorder>
+   <zorder>lineEdit_puente</zorder>
+   <zorder>lineEdit_TipoDisplay</zorder>
+   <zorder>lineEdit_PorNextion</zorder>
+   <zorder>label_editorDmrplus_2</zorder>
+   <zorder>comboBox</zorder>
+   <zorder>comboBox_Display</zorder>
+   <zorder>line</zorder>
+   <zorder>comboBox_2</zorder>
+   <zorder>label_hosts</zorder>
+   <zorder>label_hosts_2</zorder>
+   <zorder>comboBox_3</zorder>
+   <zorder>progressBar</zorder>
+   <zorder>label_MenuNextion</zorder>
+   <zorder>label_MenuOLED</zorder>
+   <zorder>comboBox_4</zorder>
+   <zorder>lineEdit_TypeOled</zorder>
+   <zorder>line_2</zorder>
+   <zorder>comboBox_Layout</zorder>
+   <zorder>lineEdit_Layout</zorder>
+   <zorder>label_editorDmrplus_3</zorder>
+   <zorder>label_editorDmrplus_4</zorder>
+   <zorder>comboBox_Reflector</zorder>
+   <zorder>lineEdit_Rotate</zorder>
+   <zorder>comboBox_5</zorder>
+   <zorder>label_2</zorder>
+   <zorder>pushButton_P25Enable</zorder>
+   <zorder>label_7</zorder>
+   <zorder>label_9</zorder>
+   <zorder>label_8</zorder>
+   <zorder>pushButton_FusionEnable</zorder>
+   <zorder>pushButton_FmEnable</zorder>
+   <zorder>pushButton_CwEnable</zorder>
+   <zorder>pushButton_NxdnEnable</zorder>
+   <zorder>pushButton_CwDisable</zorder>
+   <zorder>pushButton_Ax25Enable</zorder>
+   <zorder>label_10</zorder>
+   <zorder>label_6</zorder>
+   <zorder>pushButton_DstarEnable</zorder>
+   <zorder>label_12</zorder>
+   <zorder>pushButton_FusionDisable</zorder>
+   <zorder>pushButton_DmrDisable</zorder>
+   <zorder>pushButton_PocsagEnable</zorder>
+   <zorder>pushButton_DmrEnable</zorder>
+   <zorder>label_5</zorder>
+   <zorder>pushButton_M17Enable</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_11</zorder>
+   <zorder>label_3</zorder>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>comboBox_Display</tabstop>
+  <tabstop>lineEdit_callsign</tabstop>
+  <tabstop>lineEdit_id</tabstop>
+  <tabstop>lineEdit_Timeout</tabstop>
+  <tabstop>lineEdit_Display</tabstop>
+  <tabstop>lineEdit_Duplex</tabstop>
+  <tabstop>lineEdit_RFModeHang</tabstop>
+  <tabstop>lineEdit_RXF</tabstop>
+  <tabstop>lineEdit_TXF</tabstop>
+  <tabstop>lineEdit_Latitude</tabstop>
+  <tabstop>lineEdit_Longitude</tabstop>
+  <tabstop>lineEdit_Location</tabstop>
+  <tabstop>lineEdit_URL</tabstop>
+  <tabstop>lineEdit_DisplayLevel</tabstop>
+  <tabstop>lineEdit_FileLevel</tabstop>
+  <tabstop>lineEdit_CW_Id</tabstop>
+  <tabstop>lineEdit_Slot1</tabstop>
+  <tabstop>lineEdit_Slot2</tabstop>
+  <tabstop>lineEdit_Jitter</tabstop>
+  <tabstop>lineEdit_UARTPort</tabstop>
+  <tabstop>lineEdit_TXInvert</tabstop>
+  <tabstop>lineEdit_RXInvert</tabstop>
+  <tabstop>lineEdit_RXOffset</tabstop>
+  <tabstop>lineEdit_TXOffset</tabstop>
+  <tabstop>lineEdit_RXLevel</tabstop>
+  <tabstop>lineEdit_TXLevel</tabstop>
+  <tabstop>lineEdit_RXDCOffset</tabstop>
+  <tabstop>lineEdit_TXDCOffset</tabstop>
+  <tabstop>lineEdit_TXInvert_2</tabstop>
+  <tabstop>lineEdit_Type</tabstop>
+  <tabstop>lineEdit_RemotePort</tabstop>
+  <tabstop>lineEdit_RemoteAddress</tabstop>
+  <tabstop>lineEdit_Password</tabstop>
+  <tabstop>lineEdit_Options</tabstop>
+  <tabstop>lineEdit_TipoDisplay</tabstop>
+  <tabstop>lineEdit_PorNextion</tabstop>
+  <tabstop>lineEdit_TypeOled</tabstop>
+  <tabstop>lineEdit_Layout</tabstop>
+  <tabstop>lineEdit_Rotate</tabstop>
+  <tabstop>comboBox_Reflector</tabstop>
+  <tabstop>radioButton_DMR</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>comboBox_4</tabstop>
+  <tabstop>radioButton_P25</tabstop>
+  <tabstop>comboBox_Layout</tabstop>
+  <tabstop>radioButton_NXDN</tabstop>
+  <tabstop>comboBox_5</tabstop>
+  <tabstop>radioButton_M17</tabstop>
+  <tabstop>radioButton_FUSION</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>radioButton_FM</tabstop>
+  <tabstop>lineEdit_NombreMemoria</tabstop>
+  <tabstop>lineEdit_puente</tabstop>
+  <tabstop>radioButton_DSTAR</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
