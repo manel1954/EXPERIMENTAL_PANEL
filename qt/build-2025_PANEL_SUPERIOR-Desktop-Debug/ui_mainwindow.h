@@ -200,7 +200,6 @@ public:
     QPushButton *pushButton_editar_dmrgateway;
     QPushButton *pushButton_cerrar_dv4mini;
     QPushButton *pushButton_actualizar_dv4mini;
-    QPushButton *pushButton_abrir_dv4mini;
     QPushButton *pushButton_dv4mini_on;
     QPushButton *pushButton_abrir_dmrgateway;
     QPushButton *pushButton_abrir_ysf2dmr;
@@ -232,6 +231,8 @@ public:
     QPushButton *pushButton_dump1090_off_4;
     QPushButton *pushButton_utilidades;
     QLabel *label_abrir_qtel_7;
+    QLabel *label_dv4mini_encendido;
+    QPushButton *pushButton_abrir_dv4mini;
     QPushButton *pushButton_bm_off;
     QPushButton *pushButton_bm_on;
     QLabel *label_bm_off;
@@ -1866,18 +1867,6 @@ public:
 "border-radius:26px;\n"
 "background-color: rgb(38, 38, 38);\n"
 "color: rgb(255, 255, 255);"));
-        pushButton_abrir_dv4mini = new QPushButton(groupBox);
-        pushButton_abrir_dv4mini->setObjectName(QString::fromUtf8("pushButton_abrir_dv4mini"));
-        pushButton_abrir_dv4mini->setGeometry(QRect(660, 22, 53, 53));
-        pushButton_abrir_dv4mini->setFont(font2);
-        pushButton_abrir_dv4mini->setCursor(QCursor(Qt::PointingHandCursor));
-        pushButton_abrir_dv4mini->setFocusPolicy(Qt::NoFocus);
-        pushButton_abrir_dv4mini->setStyleSheet(QString::fromUtf8("border:4px solid rgb(0, 58, 175);;\n"
-"border-radius:26px;\n"
-"background-color: rgb(0, 0, 0);\n"
-"color: rgb(255, 255, 255);"));
-        pushButton_abrir_dv4mini->setIcon(icon14);
-        pushButton_abrir_dv4mini->setIconSize(QSize(60, 60));
         pushButton_dv4mini_on = new QPushButton(groupBox);
         pushButton_dv4mini_on->setObjectName(QString::fromUtf8("pushButton_dv4mini_on"));
         pushButton_dv4mini_on->setGeometry(QRect(628, 110, 113, 22));
@@ -2131,6 +2120,23 @@ public:
         label_abrir_qtel_7->setStyleSheet(QString::fromUtf8("background-color: transparent;\n"
 "color:#fff;"));
         label_abrir_qtel_7->setAlignment(Qt::AlignCenter);
+        label_dv4mini_encendido = new QLabel(groupBox);
+        label_dv4mini_encendido->setObjectName(QString::fromUtf8("label_dv4mini_encendido"));
+        label_dv4mini_encendido->setGeometry(QRect(695, 57, 21, 21));
+        label_dv4mini_encendido->setStyleSheet(QString::fromUtf8("background-color: rgb(0, 255, 0);\n"
+"border-radius:10px;"));
+        pushButton_abrir_dv4mini = new QPushButton(groupBox);
+        pushButton_abrir_dv4mini->setObjectName(QString::fromUtf8("pushButton_abrir_dv4mini"));
+        pushButton_abrir_dv4mini->setGeometry(QRect(660, 22, 53, 53));
+        pushButton_abrir_dv4mini->setFont(font2);
+        pushButton_abrir_dv4mini->setCursor(QCursor(Qt::PointingHandCursor));
+        pushButton_abrir_dv4mini->setFocusPolicy(Qt::NoFocus);
+        pushButton_abrir_dv4mini->setStyleSheet(QString::fromUtf8("border:4px solid rgb(0, 58, 175);;\n"
+"border-radius:26px;\n"
+"background-color: rgb(0, 0, 0);\n"
+"color: rgb(255, 255, 255);"));
+        pushButton_abrir_dv4mini->setIcon(icon14);
+        pushButton_abrir_dv4mini->setIconSize(QSize(60, 60));
         label_frecuencia_dmr2ysf->raise();
         label_puerto_dmr2ysf->raise();
         label_fondoSalir_17->raise();
@@ -2186,7 +2192,6 @@ public:
         pushButton_editar_dmrgateway->raise();
         pushButton_cerrar_dv4mini->raise();
         pushButton_actualizar_dv4mini->raise();
-        pushButton_abrir_dv4mini->raise();
         pushButton_dv4mini_on->raise();
         pushButton_dv4mini_off->raise();
         pushButton_abrir_dmrgateway->raise();
@@ -2223,6 +2228,8 @@ public:
         pushButton_dump1090_off_4->raise();
         pushButton_utilidades->raise();
         label_abrir_qtel_7->raise();
+        label_dv4mini_encendido->raise();
+        pushButton_abrir_dv4mini->raise();
         pushButton_bm_off = new QPushButton(centralWidget);
         pushButton_bm_off->setObjectName(QString::fromUtf8("pushButton_bm_off"));
         pushButton_bm_off->setGeometry(QRect(7, 120, 114, 22));
@@ -3308,7 +3315,6 @@ public:
         pushButton_editar_dmrgateway->setText(QCoreApplication::translate("MainWindow", "Editar", nullptr));
         pushButton_cerrar_dv4mini->setText(QCoreApplication::translate("MainWindow", "Cerrar", nullptr));
         pushButton_actualizar_dv4mini->setText(QCoreApplication::translate("MainWindow", "Editar", nullptr));
-        pushButton_abrir_dv4mini->setText(QCoreApplication::translate("MainWindow", "Abrir", nullptr));
         pushButton_dv4mini_on->setText(QCoreApplication::translate("MainWindow", "AUTOARRANQUE", nullptr));
         pushButton_abrir_dmrgateway->setText(QCoreApplication::translate("MainWindow", "Abrir", nullptr));
         pushButton_abrir_ysf2dmr->setText(QCoreApplication::translate("MainWindow", "Abrir", nullptr));
@@ -3331,6 +3337,8 @@ public:
         pushButton_dump1090_off_4->setText(QString());
         pushButton_utilidades->setText(QCoreApplication::translate("MainWindow", "Tools", nullptr));
         label_abrir_qtel_7->setText(QCoreApplication::translate("MainWindow", "UTILIDADES", nullptr));
+        label_dv4mini_encendido->setText(QString());
+        pushButton_abrir_dv4mini->setText(QCoreApplication::translate("MainWindow", "Abrir", nullptr));
         pushButton_bm_off->setText(QCoreApplication::translate("MainWindow", "AUTOARRANQUE", nullptr));
         pushButton_bm_on->setText(QCoreApplication::translate("MainWindow", "AUTOARRANQUE", nullptr));
         label_bm_off->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
